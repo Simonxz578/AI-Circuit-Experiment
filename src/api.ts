@@ -1,4 +1,6 @@
 import {CircuitSchema,type CircuitDocument} from './circuit/schema';
+import {RecognitionCache,recognitionKey} from './circuit/recognitionCache';
+const recognitionCache=new RecognitionCache();
 const base=import.meta.env.VITE_API_URL??'';
 export type ApiProgress={stage:string;attempt:number};
 export class ApiError extends Error{
@@ -42,10 +44,12 @@ export async function requestApi(path:string,body:unknown,signal?:AbortSignal,on
   throw new ApiError('网页暂时未能连上实验服务。原图和当前电路已保留，请稍后重试。','BROWSER_NETWORK');
  }
 }
-export async function parseCircuit(text:string,image:string|undefined,signal:AbortSignal,onProgress?:(p:ApiProgress)=>void){
+export async function parseCircuit(text:string,image:string|undefined,signal:AbortSignal,onProgress?:(p:ApiProgress)=>void,options?:{force?:boolean}){
+ const key=await recognitionKey(text,image);if(signal.aborted)throw new DOMException('Cancelled','AbortError');
+ if(!options?.force){const cached=recognitionCache.get(key);if(cached){onProgress?.({stage:'复用本次已核验的识别结果，正在规整电路',attempt:0});return cached;}}
  const r=await requestApi('parse',{text,image},signal,onProgress),parsed=CircuitSchema.safeParse(r.document);
  if(!parsed.success)throw new ApiError('识别结果未通过本地连接核验，当前实验已保留，请重试。','INVALID_GRAPH',422);
- return {document:parsed.data,durationMs:r.durationMs as number,model:r.model as string};
+ const result={document:parsed.data,durationMs:r.durationMs as number,model:r.model as string,cached:false};recognitionCache.put(key,result);return result;
 }
 export async function askCoach(text:string,document:CircuitDocument,signal:AbortSignal){const r=await requestApi('chat',{text,document},signal);return {reply:r.reply as string,document:r.document?CircuitSchema.parse(r.document):null};}
 export async function health(){try{const r=await fetch(`${base}/api/health`,{signal:AbortSignal.timeout(5000)});return r.ok&&((await r.json()) as {ai:boolean}).ai;}catch{return false;}}

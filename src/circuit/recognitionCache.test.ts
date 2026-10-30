@@ -1,0 +1,7 @@
+import {afterEach,it,expect,vi} from 'vitest';import {RecognitionCache,recognitionKey} from './recognitionCache';import {examples} from './examples';
+afterEach(()=>vi.restoreAllMocks());
+const value=(i=0)=>({document:structuredClone(examples[i]),durationMs:1000,model:'test'});
+it('cache is detached from edited documents and explicitly labels a reuse',()=>{const c=new RecognitionCache();c.put('one',value());const hit=c.get('one')!;hit.document.components[0].value=99;expect(c.get('one')?.document.components[0].value).toBe(10);expect(hit.cached).toBe(true);});
+it('expired or uncertain recognition is not silently reused',()=>{const c=new RecognitionCache(),start=Date.now();vi.spyOn(Date,'now').mockReturnValue(start);const uncertain=value();uncertain.document.uncertainties=['节点待确认'];c.put('uncertain',uncertain);expect(c.get('uncertain')).toBeNull();c.put('one',value());vi.mocked(Date.now).mockReturnValue(start+600001);expect(c.get('one')).toBeNull();});
+it('only three recent results remain in page memory',()=>{const c=new RecognitionCache();for(let i=0;i<4;i++)c.put(String(i),value());expect(c.get('0')).toBeNull();expect(c.get('3')).not.toBeNull();});
+it('the complete image and text determine the key',async()=>{expect(await recognitionKey('相同文字','image-a')).not.toBe(await recognitionKey('相同文字','image-b'));expect(await recognitionKey('文字一','image-a')).not.toBe(await recognitionKey('文字二','image-a'));});

@@ -4,7 +4,7 @@ export const ComponentSchema=z.object({
  id:z.string().regex(/^[A-Za-z][A-Za-z0-9_-]{0,23}$/),type:z.enum(componentTypes),name:z.string().max(80),
  a:z.string().min(1).max(24),b:z.string().min(1).max(24),value:z.number().finite().nullable(),
  valueSource:z.enum(['given','user','unknown','suggested']).default('unknown'),
- closed:z.boolean().default(true),position:z.object({x:z.number().min(60).max(940),y:z.number().min(60).max(540)}).optional(),
+ closed:z.boolean().default(true),position:z.object({x:z.number().min(60).max(10000),y:z.number().min(60).max(10000)}).optional(),positionSource:z.enum(['recognition','manual']).optional(),
  confidence:z.number().min(0).max(1).default(1),evidence:z.string().max(500).default('')
 });
 export const CircuitSchema=z.object({
