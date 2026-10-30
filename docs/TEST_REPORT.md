@@ -36,4 +36,12 @@ Playwright 对 1440px 桌面与 390px 手机运行相同 10 类测试：初始�
 
 ## 公开发布验证
 
-发布后追加 Pages 的真实 HTTP、资源、CORS、桌面/手机及真实文字/图片/Agent 流程结果。此前不以本地成功宣称已上线。
+2026-10-30 20:41 CST，在真正的 `https://simonxz578.github.io/AI-Circuit-Experiment/` 上完成 Playwright 公网验收，2 / 2 通过：
+
+- 桌面 1440×1000：真实文字生成（17.307秒）、混联图片识别（43.899秒）、AI 新增串联电阻（1.665秒），均 HTTP 200、提供者模型 `deepseek-flash`；确认前保留原读数，确认后 0.625A，再将电压改为20V得到1.25A。
+- 手机 390×844：公开页面、服务连接、参数、真实本地求解和曲线均通过，无水平溢出。手机不重复付费 AI 请求；真实 AI 流程在公开桌面浏览器中完成。
+- 导航至首屏可用约桌面4.089秒、手机4.374秒；参数修改至读数更新约桌面11ms、手机49ms。这是当前设备与网络下的一次测量，不是通用性能保证。
+- JS / CSS 均 HTTP 200；公开脚本不含凭据格式；真实 CORS 预检204，允许来源精确为 `https://simonxz578.github.io`；脚本错误与站内失败资源均为0。
+- GitHub Actions 验证/构建/Pages 发布成功，仓库为 public，HTTPS 开启。正式页面已在应用旁边打开。
+
+证据：`public-desktop.json`、`public-mobile.json`，及 `docs/screenshots/public-desktop.png`、`public-mobile.png`。

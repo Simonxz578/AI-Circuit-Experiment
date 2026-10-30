@@ -79,9 +79,9 @@ npm run test:live
 
 详见 [测试报告](docs/TEST_REPORT.md)、[真实 API 证据](docs/evidence/live-report.json) 与 [复用及许可说明](docs/REUSE.md)。界面测试中模拟的 API 仅用于可重复验证错误态/缺值/确认流程，真实 API 证据单独保存。
 
-![桌面工作台](docs/screenshots/workspace-desktop.png)
+![GitHub Pages 公网实测工作台](docs/screenshots/public-desktop.png)
 
-![手机工作台](docs/screenshots/workspace-mobile.png)
+![GitHub Pages 手机工作台](docs/screenshots/public-mobile.png)
 
 ## 发布
 

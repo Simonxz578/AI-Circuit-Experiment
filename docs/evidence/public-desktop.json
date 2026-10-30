@@ -1,0 +1,33 @@
+{
+  "checkedAt": "2026-10-30T12:41:22.701Z",
+  "url": "https://simonxz578.github.io/AI-Circuit-Experiment/",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "initialLoadMs": 4089,
+  "parameterFeedbackMs": 11,
+  "api": [
+    {
+      "kind": "text",
+      "status": 200,
+      "model": "deepseek-flash",
+      "durationMs": 17307
+    },
+    {
+      "kind": "image",
+      "status": 200,
+      "model": "deepseek-flash",
+      "durationMs": 43899
+    },
+    {
+      "kind": "agent",
+      "status": 200,
+      "model": "deepseek-flash",
+      "durationMs": 1665
+    }
+  ],
+  "errors": [],
+  "missing": [],
+  "passed": true
+}
