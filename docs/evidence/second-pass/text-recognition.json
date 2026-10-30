@@ -1,0 +1,167 @@
+{
+  "document": {
+    "title": "串联电阻与电流表电路",
+    "problemText": "用 10 V 直流电源，把 4 Ω 和 6 Ω 电阻串联，并串接理想电流表。",
+    "nodes": [
+      {
+        "id": "n1",
+        "x": 100,
+        "y": 300
+      },
+      {
+        "id": "n2",
+        "x": 350,
+        "y": 300
+      },
+      {
+        "id": "n3",
+        "x": 600,
+        "y": 300
+      },
+      {
+        "id": "n4",
+        "x": 800,
+        "y": 300
+      },
+      {
+        "id": "n5",
+        "x": 800,
+        "y": 500
+      },
+      {
+        "id": "n6",
+        "x": 100,
+        "y": 500
+      }
+    ],
+    "components": [
+      {
+        "id": "V1",
+        "type": "source",
+        "name": "直流电源",
+        "a": "n1",
+        "b": "n6",
+        "value": 10,
+        "valueSource": "given",
+        "closed": true,
+        "confidence": 1,
+        "evidence": "题干明确给定 10 V 直流电源；a 为正极，b 为负极。"
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "name": "R1",
+        "a": "n2",
+        "b": "n3",
+        "value": 4,
+        "valueSource": "given",
+        "closed": true,
+        "confidence": 1,
+        "evidence": "题干明确给定 4 Ω 电阻，与 R2 串联。"
+      },
+      {
+        "id": "R2",
+        "type": "resistor",
+        "name": "R2",
+        "a": "n4",
+        "b": "n5",
+        "value": 6,
+        "valueSource": "given",
+        "closed": true,
+        "confidence": 1,
+        "evidence": "题干明确给定 6 Ω 电阻，与 R1 串联。"
+      },
+      {
+        "id": "A1",
+        "type": "ammeter",
+        "name": "A1",
+        "a": "n2",
+        "b": "n1",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "confidence": 1,
+        "evidence": "题干要求串接理想电流表，电流表串联在电源正极与 R1 之间，value 未给出为 null。"
+      },
+      {
+        "id": "W1",
+        "type": "wire",
+        "name": "导线 W1",
+        "a": "n3",
+        "b": "n4",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "confidence": 1,
+        "evidence": "连接 R1 与 R2 的导线。"
+      },
+      {
+        "id": "W2",
+        "type": "wire",
+        "name": "导线 W2",
+        "a": "n5",
+        "b": "n6",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "confidence": 1,
+        "evidence": "连接 R2 与电源负极的回线，保证串联电路闭环。"
+      }
+    ],
+    "warnings": [],
+    "uncertainties": [],
+    "confidence": 1,
+    "source": "text"
+  },
+  "model": "deepseek-flash",
+  "durationMs": 2660,
+  "solution": {
+    "ok": true,
+    "readings": {
+      "V1": {
+        "voltage": 10,
+        "current": -0.9999999999999999,
+        "power": -9.999999999999998
+      },
+      "R1": {
+        "voltage": 4,
+        "current": 1,
+        "power": 4
+      },
+      "R2": {
+        "voltage": 6,
+        "current": 1,
+        "power": 6
+      },
+      "A1": {
+        "voltage": 0,
+        "current": -1,
+        "power": 0
+      },
+      "W1": {
+        "voltage": 0,
+        "current": null,
+        "power": null
+      },
+      "W2": {
+        "voltage": 0,
+        "current": null,
+        "power": null
+      }
+    },
+    "nodeVoltages": {
+      "n1": 0,
+      "n2": 0,
+      "n3": -4,
+      "n4": -4,
+      "n5": -10,
+      "n6": -10
+    },
+    "totalCurrent": 0.9999999999999999,
+    "equivalentResistance": 10.000000000000002,
+    "sourcePower": 9.999999999999998,
+    "notes": [
+      "理想导线与闭合开关的单独电流不报告；可串接电流表测量。"
+    ]
+  }
+}

@@ -1,0 +1,207 @@
+{
+  "input": "public/examples/parallel.png",
+  "document": {
+    "title": "Parallel circuit",
+    "problemText": "Find the source current. Ideal wires and DC source.",
+    "nodes": [
+      {
+        "id": "N1",
+        "x": 300,
+        "y": 210
+      },
+      {
+        "id": "N2",
+        "x": 300,
+        "y": 410
+      },
+      {
+        "id": "N3",
+        "x": 700,
+        "y": 210
+      },
+      {
+        "id": "N4",
+        "x": 700,
+        "y": 410
+      }
+    ],
+    "components": [
+      {
+        "id": "V1",
+        "type": "source",
+        "name": "V1",
+        "a": "N1",
+        "b": "N2",
+        "value": 12,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 300,
+          "y": 310
+        },
+        "confidence": 0.99,
+        "evidence": "圆圈内标有+/-，左侧标注V1 = 12 V；上端为+（节点N1），下端为-（节点N2）"
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "name": "R1",
+        "a": "N3",
+        "b": "N4",
+        "value": 6,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 700,
+          "y": 310
+        },
+        "confidence": 0.99,
+        "evidence": "电阻符号旁标注R1 = 6 ohm"
+      },
+      {
+        "id": "R2",
+        "type": "resistor",
+        "name": "R2",
+        "a": "N3",
+        "b": "N4",
+        "value": 3,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 800,
+          "y": 310
+        },
+        "confidence": 0.99,
+        "evidence": "电阻符号旁标注R2 = 3 ohm"
+      },
+      {
+        "id": "W1",
+        "type": "wire",
+        "name": "上导线",
+        "a": "N1",
+        "b": "N3",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "position": {
+          "x": 500,
+          "y": 210
+        },
+        "confidence": 0.99,
+        "evidence": "从电源正极端子经实心点到R1上端，再延伸到R2上端"
+      },
+      {
+        "id": "W2",
+        "type": "wire",
+        "name": "下导线",
+        "a": "N2",
+        "b": "N4",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "position": {
+          "x": 500,
+          "y": 410
+        },
+        "confidence": 0.99,
+        "evidence": "从电源负极端子经实心点到R1下端，再延伸到R2下端"
+      },
+      {
+        "id": "W3",
+        "type": "wire",
+        "name": "R1上支路导线",
+        "a": "N3",
+        "b": "N3",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "position": {
+          "x": 700,
+          "y": 210
+        },
+        "confidence": 0.8,
+        "evidence": "R1上端连接到上导线的实心节点"
+      },
+      {
+        "id": "W4",
+        "type": "wire",
+        "name": "R1下支路导线",
+        "a": "N4",
+        "b": "N4",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "position": {
+          "x": 700,
+          "y": 410
+        },
+        "confidence": 0.8,
+        "evidence": "R1下端连接到下导线的实心节点"
+      }
+    ],
+    "warnings": [
+      "未发现交叉而不相连的导线，因为图中没有画交叉导线。"
+    ],
+    "uncertainties": [
+      "R1和R2直接并联在电源两端，图中无其他串联元件或开关。",
+      "W3和W4是R1两端到公共节点的短导线，未单独编号为独立节点；为避免增加冗余节点，将其省略。",
+      "上、下公共导线各合并为一个节点（N3和N4），并保留实心点连接语义。"
+    ],
+    "confidence": 0.99,
+    "source": "image"
+  },
+  "model": "deepseek-flash",
+  "durationMs": 4318,
+  "solution": {
+    "ok": true,
+    "readings": {
+      "V1": {
+        "voltage": 12,
+        "current": -6,
+        "power": -72
+      },
+      "R1": {
+        "voltage": 12,
+        "current": 2,
+        "power": 24
+      },
+      "R2": {
+        "voltage": 12,
+        "current": 4,
+        "power": 48
+      },
+      "W1": {
+        "voltage": 0,
+        "current": null,
+        "power": null
+      },
+      "W2": {
+        "voltage": 0,
+        "current": null,
+        "power": null
+      },
+      "W3": {
+        "voltage": 0,
+        "current": null,
+        "power": null
+      },
+      "W4": {
+        "voltage": 0,
+        "current": null,
+        "power": null
+      }
+    },
+    "nodeVoltages": {
+      "N1": 0,
+      "N2": -12,
+      "N3": 0,
+      "N4": -12
+    },
+    "totalCurrent": 6,
+    "equivalentResistance": 2,
+    "sourcePower": 72,
+    "notes": [
+      "理想导线与闭合开关的单独电流不报告；可串接电流表测量。"
+    ]
+  }
+}

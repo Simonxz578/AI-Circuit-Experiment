@@ -1,0 +1,140 @@
+{
+  "document": {
+    "title": "直流串联电路识别",
+    "problemText": "用 10 V 直流电源，把 4 Ω 和 6 Ω 电阻串联，并串接理想电流表。",
+    "nodes": [
+      {
+        "id": "n1",
+        "x": 200,
+        "y": 150
+      },
+      {
+        "id": "n2",
+        "x": 800,
+        "y": 150
+      },
+      {
+        "id": "n3",
+        "x": 800,
+        "y": 450
+      },
+      {
+        "id": "n4",
+        "x": 200,
+        "y": 450
+      }
+    ],
+    "components": [
+      {
+        "id": "V1",
+        "type": "source",
+        "name": "直流电源 10 V",
+        "a": "n1",
+        "b": "n4",
+        "value": 10,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 200,
+          "y": 300
+        },
+        "confidence": 0.98,
+        "evidence": "题目给出 10 V 直流电源，a 端设为正极并连接 n1，b 端设为负极并连接 n4。"
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "name": "R1 4 Ω",
+        "a": "n1",
+        "b": "n2",
+        "value": 4,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 500,
+          "y": 150
+        },
+        "confidence": 0.98,
+        "evidence": "题目给出 4 Ω 电阻，串联在电源正极之后，连接 n1 与 n2。"
+      },
+      {
+        "id": "R2",
+        "type": "resistor",
+        "name": "R2 6 Ω",
+        "a": "n2",
+        "b": "n3",
+        "value": 6,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 800,
+          "y": 300
+        },
+        "confidence": 0.98,
+        "evidence": "题目给出 6 Ω 电阻，与 4 Ω 电阻串联，连接 n2 与 n3。"
+      },
+      {
+        "id": "A1",
+        "type": "ammeter",
+        "name": "理想电流表",
+        "a": "n3",
+        "b": "n4",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "position": {
+          "x": 500,
+          "y": 450
+        },
+        "confidence": 0.95,
+        "evidence": "题目要求串接理想电流表，串联在 6 Ω 电阻之后并连接 n3 与 n4。"
+      }
+    ],
+    "warnings": [
+      "理想电流表按内阻为零的串联元件表示，未给出电流读数。",
+      "图中仅用四个节点表示闭合串联回路，未额外添加导线。"
+    ],
+    "uncertainties": [
+      "题目未指定电源、两个电阻与电流表的具体排列顺序，当前为满足串联关系的示意布局。"
+    ],
+    "confidence": 0.97,
+    "source": "text"
+  },
+  "model": "deepseek-flash",
+  "durationMs": 9296,
+  "solution": {
+    "ok": true,
+    "readings": {
+      "V1": {
+        "voltage": 10,
+        "current": -0.9999999999999999,
+        "power": -9.999999999999998
+      },
+      "R1": {
+        "voltage": 4,
+        "current": 1,
+        "power": 4
+      },
+      "R2": {
+        "voltage": 6,
+        "current": 1,
+        "power": 6
+      },
+      "A1": {
+        "voltage": 0,
+        "current": 0.9999999999999999,
+        "power": 0
+      }
+    },
+    "nodeVoltages": {
+      "n1": 0,
+      "n2": -4,
+      "n3": -10,
+      "n4": -10
+    },
+    "totalCurrent": 0.9999999999999999,
+    "equivalentResistance": 10.000000000000002,
+    "sourcePower": 9.999999999999998,
+    "notes": []
+  }
+}

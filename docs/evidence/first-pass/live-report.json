@@ -1,0 +1,65 @@
+{
+  "checkedAt": "2026-10-30T12:21:35.823Z",
+  "endpoint": "https://ai-circuit-lab-api.simonxz578.workers.dev",
+  "kind": "REAL API, no mocks",
+  "report": [
+    {
+      "name": "series",
+      "status": 200,
+      "model": "deepseek-flash",
+      "durationMs": 3663,
+      "expected": 1,
+      "actual": 0,
+      "passed": false,
+      "components": 3,
+      "uncertainties": []
+    },
+    {
+      "name": "parallel",
+      "status": 200,
+      "model": "deepseek-flash",
+      "durationMs": 4857,
+      "expected": 6,
+      "actual": 6,
+      "passed": true,
+      "components": 7,
+      "uncertainties": [
+        "R1和R2直接并联在电源两端，图中无其他串联元件或开关。",
+        "W3和W4是R1两端到公共节点的短导线，未单独编号为独立节点；为避免增加冗余节点，将其省略。",
+        "上、下公共导线各合并为一个节点（N3和N4），并保留实心点连接语义。"
+      ]
+    },
+    {
+      "name": "mixed",
+      "status": 200,
+      "model": "deepseek-flash",
+      "durationMs": 3704,
+      "expected": 3,
+      "actual": null,
+      "passed": false,
+      "components": 4,
+      "uncertainties": [
+        "图中顶部节点和底部节点有实心连接点，R2 与 R3 并联关系明确；但 R2 上方与 R1 右端的连接点位于 N2，R3 上方直接连接到 N3，而 N2 与 N3 之间为理想导线。",
+        "V1 符号为圆形直流电源，但 type 字段按允许枚举使用 ac_source；若严格区分直流/交流，应将其视为 dc_source（枚举中无 dc_source）。"
+      ]
+    },
+    {
+      "name": "real-text",
+      "status": 200,
+      "model": "deepseek-flash",
+      "durationMs": 3528,
+      "expected": 1,
+      "actual": null,
+      "passed": false
+    },
+    {
+      "name": "real-agent-rewire",
+      "status": 200,
+      "model": "deepseek-flash",
+      "durationMs": 3031,
+      "expected": 0.625,
+      "actual": null,
+      "passed": false
+    }
+  ]
+}

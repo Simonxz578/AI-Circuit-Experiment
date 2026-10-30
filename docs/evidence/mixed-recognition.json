@@ -1,0 +1,215 @@
+{
+  "input": "public/examples/mixed.png",
+  "document": {
+    "title": "含并联电阻的混合电路",
+    "problemText": "An unfamiliar mixed circuit. R1 = 2 ohm, R2 = 6 ohm, R3 = 3 ohm, V1 = 12 V. Find the source current. Ideal wires and DC source.",
+    "nodes": [
+      {
+        "id": "N1",
+        "x": 130,
+        "y": 170
+      },
+      {
+        "id": "N2",
+        "x": 520,
+        "y": 170
+      },
+      {
+        "id": "N3",
+        "x": 780,
+        "y": 170
+      },
+      {
+        "id": "N4",
+        "x": 780,
+        "y": 500
+      },
+      {
+        "id": "N5",
+        "x": 520,
+        "y": 500
+      },
+      {
+        "id": "N6",
+        "x": 130,
+        "y": 500
+      }
+    ],
+    "components": [
+      {
+        "id": "V1",
+        "type": "source",
+        "name": "V1",
+        "a": "N1",
+        "b": "N6",
+        "value": 12,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 130,
+          "y": 335
+        },
+        "confidence": 0.99,
+        "evidence": "圆形直流电源符号标注 + 在上、− 在下，且标注 V1 = 12 V；正极连接 R1 左端，负极经底部回线 W3 连接到底部节点。"
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "name": "R1",
+        "a": "N1",
+        "b": "N2",
+        "value": 2,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 325,
+          "y": 170
+        },
+        "confidence": 0.99,
+        "evidence": "R1 = 2 ohm，位于电源正极与顶部节点 N2 之间，并与后级并联支路串联。"
+      },
+      {
+        "id": "R2",
+        "type": "resistor",
+        "name": "R2",
+        "a": "N2",
+        "b": "N5",
+        "value": 6,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 520,
+          "y": 335
+        },
+        "confidence": 0.99,
+        "evidence": "R2 = 6 ohm，上端接顶部节点 N2，下端接底部节点 N5，构成并联支路之一。"
+      },
+      {
+        "id": "R3",
+        "type": "resistor",
+        "name": "R3",
+        "a": "N3",
+        "b": "N4",
+        "value": 3,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 780,
+          "y": 335
+        },
+        "confidence": 0.99,
+        "evidence": "R3 = 3 ohm，上端接顶部节点 N3，下端接底部节点 N4；顶部 N2 与 N3 由 W1 相连，底部 N5 与 N4 由 W2 相连，因此 R2 与 R3 并联。"
+      },
+      {
+        "id": "W1",
+        "type": "wire",
+        "name": "W1",
+        "a": "N2",
+        "b": "N3",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "position": {
+          "x": 650,
+          "y": 170
+        },
+        "confidence": 0.99,
+        "evidence": "顶部导线 W1 连接 R2 上端节点 N2 与 R3 上端节点 N3。"
+      },
+      {
+        "id": "W2",
+        "type": "wire",
+        "name": "W2",
+        "a": "N5",
+        "b": "N4",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "position": {
+          "x": 650,
+          "y": 500
+        },
+        "confidence": 0.99,
+        "evidence": "底部导线 W2 连接 R2 下端节点 N5 与 R3 下端节点 N4。"
+      },
+      {
+        "id": "W3",
+        "type": "wire",
+        "name": "W3",
+        "a": "N6",
+        "b": "N5",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "position": {
+          "x": 325,
+          "y": 500
+        },
+        "confidence": 0.99,
+        "evidence": "底部回线导线 W3 连接电源负极节点 N6 与底部公共节点 N5。"
+      }
+    ],
+    "warnings": [
+      "题目要求求电源电流，但本识别仅提取电路拓扑与元件参数，未加入计算答案。"
+    ],
+    "uncertainties": [],
+    "confidence": 0.98,
+    "source": "image"
+  },
+  "model": "deepseek-flash",
+  "durationMs": 22460,
+  "solution": {
+    "ok": true,
+    "readings": {
+      "V1": {
+        "voltage": 12,
+        "current": -3,
+        "power": -36
+      },
+      "R1": {
+        "voltage": 6,
+        "current": 3,
+        "power": 18
+      },
+      "R2": {
+        "voltage": 6,
+        "current": 1,
+        "power": 6
+      },
+      "R3": {
+        "voltage": 6,
+        "current": 2,
+        "power": 12
+      },
+      "W1": {
+        "voltage": 0,
+        "current": null,
+        "power": null
+      },
+      "W2": {
+        "voltage": 0,
+        "current": null,
+        "power": null
+      },
+      "W3": {
+        "voltage": 0,
+        "current": null,
+        "power": null
+      }
+    },
+    "nodeVoltages": {
+      "N1": 0,
+      "N2": -6,
+      "N3": -6,
+      "N4": -12,
+      "N5": -12,
+      "N6": -12
+    },
+    "totalCurrent": 3,
+    "equivalentResistance": 4,
+    "sourcePower": 36,
+    "notes": [
+      "理想导线与闭合开关的单独电流不报告；可串接电流表测量。"
+    ]
+  }
+}

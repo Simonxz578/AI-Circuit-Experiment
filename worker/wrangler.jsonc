@@ -1,0 +1,13 @@
+{
+  "name": "ai-circuit-lab-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-30",
+  "workers_dev": true,
+  "vars": {
+    "ALLOWED_ORIGINS": "https://simonxz578.github.io,http://localhost:5173,http://127.0.0.1:5173",
+    "AI_ENABLED": "true",
+    "DAILY_REQUEST_LIMIT": "150"
+  },
+  "durable_objects": {"bindings": [{"name": "BUDGET", "class_name": "Budget"}]},
+  "migrations": [{"tag": "v1", "new_sqlite_classes": ["Budget"]}]
+}

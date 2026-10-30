@@ -1,0 +1,4 @@
+import {it,expect} from 'vitest';import {examples} from './examples';import {applyOperations} from './operations';import {solve} from './solver';
+it('compiles serial insertion without losing meter wiring',()=>{const d=applyOperations(examples[0],[{action:'insert_series',afterId:'R1',value:6}]);const s=solve(d);expect(d.components).toHaveLength(7);expect(s.totalCurrent).toBeCloseTo(.625,10);expect(s.readings.VM1.voltage).toBeCloseTo(3.75,10);expect(examples[0].components).toHaveLength(6);});
+it('compiles parallel addition by sharing target terminals',()=>{const d=applyOperations(examples[0],[{action:'add_parallel',targetId:'R1',value:4}]);expect(solve(d).totalCurrent).toBeCloseTo(1.25,10);});
+it('rejects unknown node and unknown command type',()=>{expect(()=>applyOperations(examples[0],[{action:'reconnect',id:'R1',a:'missing',b:'g'}])).toThrow();expect(()=>applyOperations(examples[0],[{action:'run_code',value:'hi'}])).toThrow();});

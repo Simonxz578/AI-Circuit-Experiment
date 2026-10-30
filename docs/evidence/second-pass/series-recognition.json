@@ -1,0 +1,243 @@
+{
+  "input": "public/examples/series.png",
+  "document": {
+    "title": "串联电路求电源电流",
+    "problemText": "Find the source current. Ideal wires and DC source.",
+    "nodes": [
+      {
+        "id": "n1",
+        "x": 150,
+        "y": 260
+      },
+      {
+        "id": "n2",
+        "x": 100,
+        "y": 150
+      },
+      {
+        "id": "n3",
+        "x": 620,
+        "y": 150
+      },
+      {
+        "id": "n4",
+        "x": 800,
+        "y": 240
+      },
+      {
+        "id": "n5",
+        "x": 800,
+        "y": 400
+      },
+      {
+        "id": "n6",
+        "x": 100,
+        "y": 460
+      },
+      {
+        "id": "n7",
+        "x": 100,
+        "y": 350
+      }
+    ],
+    "components": [
+      {
+        "id": "V1",
+        "type": "source",
+        "name": "V1",
+        "a": "n2",
+        "b": "n7",
+        "value": 10,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 100,
+          "y": 260
+        },
+        "confidence": 0.99,
+        "evidence": "圆形电源符号，标有 +、− 和 V1 = 10 V；a 为正极 b 为负极"
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "name": "R1",
+        "a": "n2",
+        "b": "n3",
+        "value": 4,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 380,
+          "y": 150
+        },
+        "confidence": 0.99,
+        "evidence": "矩形电阻符号，标注 R1 = 4 ohm"
+      },
+      {
+        "id": "R2",
+        "type": "resistor",
+        "name": "R2",
+        "a": "n4",
+        "b": "n5",
+        "value": 6,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 800,
+          "y": 320
+        },
+        "confidence": 0.99,
+        "evidence": "矩形电阻符号，标注 R2 = 6 ohm"
+      },
+      {
+        "id": "W1",
+        "type": "wire",
+        "name": "R2上端导线",
+        "a": "n3",
+        "b": "n4",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "position": {
+          "x": 800,
+          "y": 150
+        },
+        "confidence": 0.98,
+        "evidence": "R1 右端经顶部拐角连到 R2 上端"
+      },
+      {
+        "id": "W2",
+        "type": "wire",
+        "name": "底部回线",
+        "a": "n5",
+        "b": "n6",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "position": {
+          "x": 450,
+          "y": 460
+        },
+        "confidence": 0.98,
+        "evidence": "R2 下端经右侧拐角、底部连回电源负极一侧"
+      },
+      {
+        "id": "W3",
+        "type": "wire",
+        "name": "电源下端导线",
+        "a": "n6",
+        "b": "n7",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "position": {
+          "x": 100,
+          "y": 405
+        },
+        "confidence": 0.95,
+        "evidence": "电源下方导线接到底部回线"
+      },
+      {
+        "id": "W4",
+        "type": "wire",
+        "name": "电源上端导线",
+        "a": "n1",
+        "b": "n2",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "position": {
+          "x": 100,
+          "y": 205
+        },
+        "confidence": 0.95,
+        "evidence": "电源正极上方导线连到顶部回线"
+      },
+      {
+        "id": "W5",
+        "type": "wire",
+        "name": "顶部左侧导线",
+        "a": "n1",
+        "b": "n3",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "position": {
+          "x": 350,
+          "y": 150
+        },
+        "confidence": 0.95,
+        "evidence": "电源上方导线经左上拐角连到 R1 左端"
+      }
+    ],
+    "warnings": [
+      "导线采用分段节点独立编码，W1-W5 明确表示回线与连接关系。",
+      "V1 的方向按图上 +/− 标记：a 接正极，b 接负极。"
+    ],
+    "uncertainties": [],
+    "confidence": 0.97,
+    "source": "image"
+  },
+  "model": "deepseek-flash",
+  "durationMs": 4041,
+  "solution": {
+    "ok": true,
+    "readings": {
+      "V1": {
+        "voltage": 10,
+        "current": -1.6666666666666665,
+        "power": -16.666666666666664
+      },
+      "R1": {
+        "voltage": 0,
+        "current": 0,
+        "power": 0
+      },
+      "R2": {
+        "voltage": 10,
+        "current": 1.6666666666666667,
+        "power": 16.666666666666668
+      },
+      "W1": {
+        "voltage": 0,
+        "current": null,
+        "power": null
+      },
+      "W2": {
+        "voltage": 0,
+        "current": null,
+        "power": null
+      },
+      "W3": {
+        "voltage": 0,
+        "current": null,
+        "power": null
+      },
+      "W4": {
+        "voltage": 0,
+        "current": null,
+        "power": null
+      },
+      "W5": {
+        "voltage": 0,
+        "current": null,
+        "power": null
+      }
+    },
+    "nodeVoltages": {
+      "n1": 0,
+      "n2": 0,
+      "n3": 0,
+      "n4": 0,
+      "n5": -10,
+      "n6": -10,
+      "n7": -10
+    },
+    "totalCurrent": 1.6666666666666665,
+    "equivalentResistance": 6.000000000000001,
+    "sourcePower": 16.666666666666664,
+    "notes": [
+      "理想导线与闭合开关的单独电流不报告；可串接电流表测量。"
+    ]
+  }
+}

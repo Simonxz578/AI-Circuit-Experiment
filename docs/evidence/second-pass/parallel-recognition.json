@@ -1,0 +1,207 @@
+{
+  "input": "public/examples/parallel.png",
+  "document": {
+    "title": "并联电路求电源电流",
+    "problemText": "Find the source current. Ideal wires and DC source.",
+    "nodes": [
+      {
+        "id": "nTOP",
+        "x": 500,
+        "y": 120
+      },
+      {
+        "id": "nBOT",
+        "x": 500,
+        "y": 480
+      },
+      {
+        "id": "nA",
+        "x": 100,
+        "y": 120
+      },
+      {
+        "id": "nB",
+        "x": 100,
+        "y": 300
+      },
+      {
+        "id": "nC",
+        "x": 100,
+        "y": 480
+      },
+      {
+        "id": "nD",
+        "x": 700,
+        "y": 120
+      },
+      {
+        "id": "nE",
+        "x": 700,
+        "y": 480
+      }
+    ],
+    "components": [
+      {
+        "id": "V1",
+        "type": "source",
+        "name": "V1",
+        "a": "nB",
+        "b": "nA",
+        "value": 12,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 100,
+          "y": 300
+        },
+        "confidence": 0.98,
+        "evidence": "左侧圆形直流电源，标注 V1 = 12 V，+ 在上方，- 在下方"
+      },
+      {
+        "id": "W1",
+        "type": "wire",
+        "name": "顶部导线",
+        "a": "nA",
+        "b": "nTOP",
+        "value": null,
+        "valueSource": "given",
+        "closed": true,
+        "confidence": 0.98,
+        "evidence": "电源正极经顶部水平导线连接到顶部节点 nTOP"
+      },
+      {
+        "id": "W2",
+        "type": "wire",
+        "name": "顶部导线",
+        "a": "nTOP",
+        "b": "nD",
+        "value": null,
+        "valueSource": "given",
+        "closed": true,
+        "confidence": 0.98,
+        "evidence": "nTOP 与右侧垂直支路顶部 nD 相连"
+      },
+      {
+        "id": "W3",
+        "type": "wire",
+        "name": "底部导线",
+        "a": "nC",
+        "b": "nBOT",
+        "value": null,
+        "valueSource": "given",
+        "closed": true,
+        "confidence": 0.98,
+        "evidence": "电源负极经底部水平导线连接到底部节点 nBOT"
+      },
+      {
+        "id": "W4",
+        "type": "wire",
+        "name": "底部导线",
+        "a": "nBOT",
+        "b": "nE",
+        "value": null,
+        "valueSource": "given",
+        "closed": true,
+        "confidence": 0.98,
+        "evidence": "nBOT 与右侧垂直支路底部 nE 相连"
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "name": "R1",
+        "a": "nTOP",
+        "b": "nBOT",
+        "value": 6,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 500,
+          "y": 300
+        },
+        "confidence": 0.98,
+        "evidence": "中间竖直电阻，标注 R1 = 6 ohm，上端接 nTOP，下端接 nBOT"
+      },
+      {
+        "id": "R2",
+        "type": "resistor",
+        "name": "R2",
+        "a": "nD",
+        "b": "nE",
+        "value": 3,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 700,
+          "y": 300
+        },
+        "confidence": 0.98,
+        "evidence": "右侧竖直电阻，标注 R2 = 3 ohm，上端接 nD，下端接 nE"
+      }
+    ],
+    "warnings": [
+      "R1 与 R2 并联，均跨接在电源两端；图中未给电流表或开关。"
+    ],
+    "uncertainties": [
+      "当前识别未形成导通回路，请对照原图核验电源回线与节点。"
+    ],
+    "confidence": 0.98,
+    "source": "image"
+  },
+  "model": "deepseek-flash",
+  "durationMs": 2972,
+  "solution": {
+    "ok": true,
+    "readings": {
+      "V1": {
+        "voltage": 12,
+        "current": 0,
+        "power": 0
+      },
+      "W1": {
+        "voltage": 0,
+        "current": null,
+        "power": null
+      },
+      "W2": {
+        "voltage": 0,
+        "current": null,
+        "power": null
+      },
+      "W3": {
+        "voltage": 0,
+        "current": null,
+        "power": null
+      },
+      "W4": {
+        "voltage": 0,
+        "current": null,
+        "power": null
+      },
+      "R1": {
+        "voltage": 0,
+        "current": 0,
+        "power": 0
+      },
+      "R2": {
+        "voltage": 0,
+        "current": 0,
+        "power": 0
+      }
+    },
+    "nodeVoltages": {
+      "nTOP": 0,
+      "nBOT": 0,
+      "nA": 0,
+      "nB": 12,
+      "nC": 0,
+      "nD": 0,
+      "nE": 0
+    },
+    "totalCurrent": 0,
+    "equivalentResistance": null,
+    "sourcePower": 0,
+    "notes": [
+      "理想导线与闭合开关的单独电流不报告；可串接电流表测量。"
+    ]
+  }
+}

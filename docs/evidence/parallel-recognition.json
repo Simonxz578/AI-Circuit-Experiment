@@ -1,0 +1,103 @@
+{
+  "input": "public/examples/parallel.png",
+  "document": {
+    "title": "并联直流电路",
+    "problemText": "并联电路：V1 = 12 V，R1 = 6 Ω，R2 = 3 Ω；求电源电流，导线和直流电源视为理想。",
+    "nodes": [
+      {
+        "id": "N1",
+        "x": 450,
+        "y": 120
+      },
+      {
+        "id": "N2",
+        "x": 450,
+        "y": 460
+      }
+    ],
+    "components": [
+      {
+        "id": "V1",
+        "type": "source",
+        "name": "V1",
+        "a": "N1",
+        "b": "N2",
+        "value": 12,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 160,
+          "y": 290
+        },
+        "confidence": 1,
+        "evidence": "圆形电源标注 + 在上、- 在下，并标注 V1 = 12 V；上端接上方公共导线，下端接下方回线。"
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "name": "R1",
+        "a": "N1",
+        "b": "N2",
+        "value": 6,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 450,
+          "y": 290
+        },
+        "confidence": 1,
+        "evidence": "矩形电阻旁标注 R1 = 6 ohm，垂直跨接在上下两条公共导线之间。"
+      },
+      {
+        "id": "R2",
+        "type": "resistor",
+        "name": "R2",
+        "a": "N1",
+        "b": "N2",
+        "value": 3,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 760,
+          "y": 290
+        },
+        "confidence": 1,
+        "evidence": "矩形电阻旁标注 R2 = 3 ohm，垂直跨接在上下两条公共导线之间。"
+      }
+    ],
+    "warnings": [],
+    "uncertainties": [],
+    "confidence": 1,
+    "source": "image"
+  },
+  "model": "deepseek-flash",
+  "durationMs": 12986,
+  "solution": {
+    "ok": true,
+    "readings": {
+      "V1": {
+        "voltage": 12,
+        "current": -6,
+        "power": -72
+      },
+      "R1": {
+        "voltage": 12,
+        "current": 2,
+        "power": 24
+      },
+      "R2": {
+        "voltage": 12,
+        "current": 4,
+        "power": 48
+      }
+    },
+    "nodeVoltages": {
+      "N1": 0,
+      "N2": -12
+    },
+    "totalCurrent": 6,
+    "equivalentResistance": 2,
+    "sourcePower": 72,
+    "notes": []
+  }
+}

@@ -1,0 +1,189 @@
+{
+  "input": "public/examples/mixed.png",
+  "document": {
+    "title": "混合电路求电源电流",
+    "problemText": "An unfamiliar mixed circuit. R1 = 2 ohm，R2 = 6 ohm，R3 = 3 ohm，V1 = 12 V。Find the source current. Ideal wires and DC source.",
+    "nodes": [
+      {
+        "id": "n1",
+        "x": 160,
+        "y": 180
+      },
+      {
+        "id": "n2",
+        "x": 510,
+        "y": 180
+      },
+      {
+        "id": "n3",
+        "x": 510,
+        "y": 470
+      },
+      {
+        "id": "n4",
+        "x": 790,
+        "y": 180
+      },
+      {
+        "id": "n5",
+        "x": 790,
+        "y": 470
+      },
+      {
+        "id": "n6",
+        "x": 160,
+        "y": 470
+      }
+    ],
+    "components": [
+      {
+        "id": "V1",
+        "type": "source",
+        "name": "V1",
+        "a": "n1",
+        "b": "n6",
+        "value": 12,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 160,
+          "y": 310
+        },
+        "confidence": 0.99,
+        "evidence": "图中左侧圆形电源标有 +、− 和 V1 = 12 V；上端为正极接到 n1，下端为负极接到 n6。"
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "name": "R1",
+        "a": "n1",
+        "b": "n2",
+        "value": 2,
+        "valueSource": "given",
+        "closed": true,
+        "confidence": 0.99,
+        "evidence": "顶部电阻标有 R1 = 2 ohm，左端接 n1，右端接 n2。"
+      },
+      {
+        "id": "R2",
+        "type": "resistor",
+        "name": "R2",
+        "a": "n2",
+        "b": "n3",
+        "value": 6,
+        "valueSource": "given",
+        "closed": true,
+        "confidence": 0.99,
+        "evidence": "中间竖直电阻标有 R2 = 6 ohm，上端接 n2，下端接 n3。"
+      },
+      {
+        "id": "R3",
+        "type": "resistor",
+        "name": "R3",
+        "a": "n4",
+        "b": "n5",
+        "value": 3,
+        "valueSource": "given",
+        "closed": true,
+        "confidence": 0.99,
+        "evidence": "右侧竖直电阻标有 R3 = 3 ohm，上端接 n4，下端接 n5。"
+      },
+      {
+        "id": "W1",
+        "type": "wire",
+        "name": "顶部导线",
+        "a": "n2",
+        "b": "n4",
+        "value": null,
+        "valueSource": "given",
+        "closed": true,
+        "confidence": 0.98,
+        "evidence": "顶部实线从 R1 右端 n2 延续到右侧 n4；图中 n2 处有实心连接点，R2 上端接在同一节点。"
+      },
+      {
+        "id": "W2",
+        "type": "wire",
+        "name": "底部导线",
+        "a": "n3",
+        "b": "n6",
+        "value": null,
+        "valueSource": "given",
+        "closed": true,
+        "confidence": 0.98,
+        "evidence": "底部实线从电源负极 n6 向右到 n3，再继续到右侧 n5；图中 n3 处有实心连接点，R2 下端接在同一节点。"
+      },
+      {
+        "id": "W3",
+        "type": "wire",
+        "name": "右侧底部导线",
+        "a": "n5",
+        "b": "n3",
+        "value": null,
+        "valueSource": "given",
+        "closed": true,
+        "confidence": 0.98,
+        "evidence": "右侧底部的水平导线把 R3 下端 n5 连接到下方回线上的 n3。"
+      }
+    ],
+    "warnings": [],
+    "uncertainties": [],
+    "confidence": 0.98,
+    "source": "image"
+  },
+  "model": "deepseek-flash",
+  "durationMs": 3476,
+  "solution": {
+    "ok": true,
+    "readings": {
+      "V1": {
+        "voltage": 12,
+        "current": -3,
+        "power": -36
+      },
+      "R1": {
+        "voltage": 6,
+        "current": 3,
+        "power": 18
+      },
+      "R2": {
+        "voltage": 6,
+        "current": 1,
+        "power": 6
+      },
+      "R3": {
+        "voltage": 6,
+        "current": 2,
+        "power": 12
+      },
+      "W1": {
+        "voltage": 0,
+        "current": null,
+        "power": null
+      },
+      "W2": {
+        "voltage": 0,
+        "current": null,
+        "power": null
+      },
+      "W3": {
+        "voltage": 0,
+        "current": null,
+        "power": null
+      }
+    },
+    "nodeVoltages": {
+      "n1": 0,
+      "n2": -6,
+      "n3": -12,
+      "n4": -6,
+      "n5": -12,
+      "n6": -12
+    },
+    "totalCurrent": 3,
+    "equivalentResistance": 4,
+    "sourcePower": 36,
+    "notes": [
+      "理想导线与闭合开关的单独电流不报告；可串接电流表测量。"
+    ]
+  }
+}

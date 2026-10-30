@@ -1,0 +1,2 @@
+import {defineConfig,devices} from '@playwright/test';
+export default defineConfig({testDir:'./tests',fullyParallel:true,workers:2,timeout:30000,retries:0,reporter:[['list'],['json',{outputFile:'test-results/results.json'}]],use:{baseURL:process.env.E2E_BASE??'http://127.0.0.1:5173/AI-Circuit-Experiment/',trace:'retain-on-failure',launchOptions:{executablePath:process.env.PLAYWRIGHT_EXECUTABLE}},projects:[{name:'desktop',use:{viewport:{width:1440,height:1000}}},{name:'mobile',use:{...devices['iPhone 13'],defaultBrowserType:'chromium',viewport:{width:390,height:844}}}]});

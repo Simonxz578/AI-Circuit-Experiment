@@ -1,0 +1,35 @@
+{
+  "name": "ai-circuit-experiment",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "dev:api": "wrangler dev --config worker/wrangler.jsonc --port 8787",
+    "deploy:api": "wrangler deploy --config worker/wrangler.jsonc",
+    "test:live": "tsx scripts/live-check.ts"
+  },
+  "dependencies": {
+    "lucide-react": "^0.468.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "latest",
+    "@playwright/test": "^1.56.0",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^4.6.0",
+    "tsx": "^4.20.0",
+    "typescript": "~5.8.3",
+    "vite": "^7.0.4",
+    "vitest": "^5.0.5",
+    "wrangler": "^4.149.0"
+  }
+}

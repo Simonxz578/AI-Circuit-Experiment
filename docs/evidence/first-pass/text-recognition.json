@@ -1,0 +1,189 @@
+{
+  "document": {
+    "title": "串联电路电流表测量",
+    "problemText": "用 10 V 直流电源，把 4 Ω 和 6 Ω 电阻串联，并串接理想电流表。",
+    "nodes": [
+      {
+        "id": "N1",
+        "x": 200,
+        "y": 180
+      },
+      {
+        "id": "N2",
+        "x": 450,
+        "y": 180
+      },
+      {
+        "id": "N3",
+        "x": 700,
+        "y": 180
+      },
+      {
+        "id": "N4",
+        "x": 700,
+        "y": 420
+      },
+      {
+        "id": "N5",
+        "x": 450,
+        "y": 420
+      },
+      {
+        "id": "N6",
+        "x": 200,
+        "y": 420
+      }
+    ],
+    "components": [
+      {
+        "id": "V1",
+        "type": "source",
+        "name": "直流电源",
+        "a": "N1",
+        "b": "N6",
+        "value": 10,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 200,
+          "y": 300
+        },
+        "confidence": 0.95,
+        "evidence": "10 V 直流电源"
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "name": "4 Ω 电阻",
+        "a": "N2",
+        "b": "N1",
+        "value": 4,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 325,
+          "y": 180
+        },
+        "confidence": 0.95,
+        "evidence": "4 Ω 电阻"
+      },
+      {
+        "id": "R2",
+        "type": "resistor",
+        "name": "6 Ω 电阻",
+        "a": "N3",
+        "b": "N2",
+        "value": 6,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 575,
+          "y": 180
+        },
+        "confidence": 0.95,
+        "evidence": "6 Ω 电阻"
+      },
+      {
+        "id": "A1",
+        "type": "ammeter",
+        "name": "理想电流表",
+        "a": "N4",
+        "b": "N3",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "position": {
+          "x": 700,
+          "y": 300
+        },
+        "confidence": 0.9,
+        "evidence": "串接理想电流表"
+      },
+      {
+        "id": "W1",
+        "type": "wire",
+        "name": "导线",
+        "a": "N4",
+        "b": "N5",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "position": {
+          "x": 575,
+          "y": 420
+        },
+        "confidence": 0.9,
+        "evidence": "串联回路导线"
+      },
+      {
+        "id": "W2",
+        "type": "wire",
+        "name": "导线",
+        "a": "N5",
+        "b": "N6",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "position": {
+          "x": 325,
+          "y": 420
+        },
+        "confidence": 0.9,
+        "evidence": "串联回路导线"
+      },
+      {
+        "id": "W3",
+        "type": "wire",
+        "name": "导线",
+        "a": "N3",
+        "b": "N4",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "position": {
+          "x": 800,
+          "y": 300
+        },
+        "confidence": 0.8,
+        "evidence": "电流表串接在回路中；虚拟连接节点用于布置元件"
+      },
+      {
+        "id": "W4",
+        "type": "wire",
+        "name": "导线",
+        "a": "N2",
+        "b": "N3",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "position": {
+          "x": 500,
+          "y": 180
+        },
+        "confidence": 0.8,
+        "evidence": "两电阻串联；虚拟连接节点用于布置元件"
+      }
+    ],
+    "warnings": [
+      "图中未明确给出电流表读数，保持为 null。",
+      "W3 与 A1 并联，仅为绘图布置，实际串联连接见 evidence。"
+    ],
+    "uncertainties": [
+      "题目仅描述串联关系，未给出物理布局；节点坐标为示意布局。"
+    ],
+    "confidence": 0.9,
+    "source": "text"
+  },
+  "model": "deepseek-flash",
+  "durationMs": 3210,
+  "solution": {
+    "ok": false,
+    "reason": "A1 两端被导线或闭合开关短接。",
+    "readings": {},
+    "nodeVoltages": {},
+    "totalCurrent": null,
+    "equivalentResistance": null,
+    "sourcePower": null,
+    "notes": []
+  }
+}

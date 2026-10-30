@@ -1,0 +1,119 @@
+{
+  "input": "public/examples/mixed.png",
+  "document": {
+    "title": "An unfamiliar mixed circuit",
+    "problemText": "An unfamiliar mixed circuit。R1 = 2 ohm，R2 = 6 ohm，R3 = 3 ohm，V1 = 12 V。Find the source current. Ideal wires and DC source.",
+    "nodes": [
+      {
+        "id": "N1",
+        "x": 140,
+        "y": 220
+      },
+      {
+        "id": "N2",
+        "x": 420,
+        "y": 220
+      },
+      {
+        "id": "N3",
+        "x": 700,
+        "y": 220
+      },
+      {
+        "id": "N4",
+        "x": 140,
+        "y": 460
+      },
+      {
+        "id": "N5",
+        "x": 700,
+        "y": 460
+      }
+    ],
+    "components": [
+      {
+        "id": "V1",
+        "type": "ac_source",
+        "name": "V1",
+        "a": "N1",
+        "b": "N4",
+        "value": 12,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 140,
+          "y": 340
+        },
+        "confidence": 0.98,
+        "evidence": "图中左侧圆形电源符号，标注 + 在上、- 在下，并写有 V1 = 12 V。"
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "name": "R1",
+        "a": "N1",
+        "b": "N2",
+        "value": 2,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 280,
+          "y": 220
+        },
+        "confidence": 0.98,
+        "evidence": "顶部水平电阻符号，标注 R1 = 2 ohm。"
+      },
+      {
+        "id": "R2",
+        "type": "resistor",
+        "name": "R2",
+        "a": "N2",
+        "b": "N5",
+        "value": 6,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 700,
+          "y": 340
+        },
+        "confidence": 0.98,
+        "evidence": "中间竖直电阻符号，标注 R2 = 6 ohm。"
+      },
+      {
+        "id": "R3",
+        "type": "resistor",
+        "name": "R3",
+        "a": "N3",
+        "b": "N5",
+        "value": 3,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 860,
+          "y": 340
+        },
+        "confidence": 0.98,
+        "evidence": "右侧竖直电阻符号，标注 R3 = 3 ohm。"
+      }
+    ],
+    "warnings": [],
+    "uncertainties": [
+      "图中顶部节点和底部节点有实心连接点，R2 与 R3 并联关系明确；但 R2 上方与 R1 右端的连接点位于 N2，R3 上方直接连接到 N3，而 N2 与 N3 之间为理想导线。",
+      "V1 符号为圆形直流电源，但 type 字段按允许枚举使用 ac_source；若严格区分直流/交流，应将其视为 dc_source（枚举中无 dc_source）。"
+    ],
+    "confidence": 0.97,
+    "source": "image"
+  },
+  "model": "deepseek-flash",
+  "durationMs": 3108,
+  "solution": {
+    "ok": false,
+    "reason": "V1 交流电源（暂不求解）：保留图形，当前只支持线性直流电路。",
+    "readings": {},
+    "nodeVoltages": {},
+    "totalCurrent": null,
+    "equivalentResistance": null,
+    "sourcePower": null,
+    "notes": []
+  }
+}

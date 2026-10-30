@@ -1,0 +1,60 @@
+{
+  "checkedAt": "2026-10-30T12:24:53.721Z",
+  "endpoint": "https://ai-circuit-lab-api.simonxz578.workers.dev",
+  "kind": "REAL API, no mocks",
+  "report": [
+    {
+      "name": "series",
+      "status": 200,
+      "model": "deepseek-flash",
+      "durationMs": 5562,
+      "expected": 1,
+      "actual": 1.6666666666666665,
+      "passed": false,
+      "components": 8,
+      "uncertainties": []
+    },
+    {
+      "name": "parallel",
+      "status": 200,
+      "model": "deepseek-flash",
+      "durationMs": 3656,
+      "expected": 6,
+      "actual": 0,
+      "passed": false,
+      "components": 7,
+      "uncertainties": [
+        "当前识别未形成导通回路，请对照原图核验电源回线与节点。"
+      ]
+    },
+    {
+      "name": "mixed",
+      "status": 200,
+      "model": "deepseek-flash",
+      "durationMs": 3779,
+      "expected": 3,
+      "actual": 3,
+      "passed": true,
+      "components": 7,
+      "uncertainties": []
+    },
+    {
+      "name": "real-text",
+      "status": 200,
+      "model": "deepseek-flash",
+      "durationMs": 3899,
+      "expected": 1,
+      "actual": 0.9999999999999999,
+      "passed": true
+    },
+    {
+      "name": "real-agent-rewire",
+      "status": 200,
+      "model": "deepseek-flash",
+      "durationMs": 3047,
+      "expected": 0.625,
+      "actual": null,
+      "passed": false
+    }
+  ]
+}
