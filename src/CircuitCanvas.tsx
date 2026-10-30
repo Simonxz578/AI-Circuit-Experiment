@@ -37,8 +37,8 @@ export function CircuitCanvas({doc,solution,selected,onSelect,onMove,assembling,
       <g transform={`translate(${g.x} ${g.y})`} role="button" tabIndex={0} aria-label={`${c.id} ${registry[c.type].label}，${c.value===null?'待填写':format(c.value,registry[c.type].unit)}`} onKeyDown={e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();onSelect(c.id);}}} onPointerDown={e=>{if(assembling)return;e.currentTarget.setPointerCapture(e.pointerId);onSelect(c.id);const p=point(e);drag.current={id:c.id,startX:p.x,startY:p.y,originX:g.x,originY:g.y};e.preventDefault();}}>
        <rect className="component-hit" x={g.vertical?-52:-76} y={g.vertical?-76:-48} width={g.vertical?104:152} height={g.vertical?152:96} rx="18" fill={selectedC?'#ffffff0d':'transparent'} stroke={selectedC?'#ffffff75':'transparent'} strokeWidth="1"/>
        <g transform={`rotate(${g.angle})`} stroke="#d1e6ff" strokeWidth="3"><Symbol c={c} reading={r?.[c.type==='ammeter'?'current':'voltage']} selected={selectedC} vertical={g.vertical}/></g>
-       <text className="component-label" x={g.vertical?-52:0} y={g.vertical?-8:-48} textAnchor={g.vertical?'end':'middle'}>{c.id}</text>
-       <text className="component-value" x={g.vertical?-52:0} y={g.vertical?14:55} textAnchor={g.vertical?'end':'middle'}>{['source','resistor','rheostat'].includes(c.type)?c.value===null?'待填写':format(c.value,registry[c.type].unit):c.type==='switch'?(c.closed?'闭合':'断开'):c.type==='ammeter'?format(r?.current,'A'):c.type==='voltmeter'?format(r?.voltage,'V'):''}</text>
+       <text className="component-label" x={g.vertical?-65:0} y={g.vertical?-24:-48} textAnchor={g.vertical?'end':'middle'}>{c.id}</text>
+       <text className="component-value" x={g.vertical?-65:0} y={g.vertical?24:55} textAnchor={g.vertical?'end':'middle'}>{['source','resistor','rheostat'].includes(c.type)?c.value===null?'待填写':format(c.value,registry[c.type].unit):c.type==='switch'?(c.closed?'闭合':'断开'):c.type==='ammeter'?format(r?.current,'A'):c.type==='voltmeter'?format(r?.voltage,'V'):''}</text>
       </g>
     </g>;
    })}
