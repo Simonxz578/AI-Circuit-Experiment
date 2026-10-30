@@ -1,0 +1,58 @@
+{
+  "checkedAt": "2026-10-30T15:21:56.135Z",
+  "endpoint": "https://ai-circuit-lab-api.simonxz578.workers.dev",
+  "kind": "REAL API, no mocks",
+  "report": [
+    {
+      "name": "series",
+      "status": 200,
+      "model": "deepseek-flash",
+      "durationMs": 9249,
+      "expected": 1,
+      "actual": 0.9999999999999999,
+      "passed": true,
+      "components": 3,
+      "uncertainties": []
+    },
+    {
+      "name": "parallel",
+      "status": 200,
+      "model": "deepseek-flash",
+      "durationMs": 3037,
+      "expected": 6,
+      "actual": 6,
+      "passed": true,
+      "components": 3,
+      "uncertainties": []
+    },
+    {
+      "name": "mixed",
+      "status": 200,
+      "model": "deepseek-flash",
+      "durationMs": 4127,
+      "expected": 3,
+      "actual": 3,
+      "passed": true,
+      "components": 4,
+      "uncertainties": []
+    },
+    {
+      "name": "real-text",
+      "status": 200,
+      "model": "deepseek-flash",
+      "durationMs": 3009,
+      "expected": 1,
+      "actual": 0.9999999999999999,
+      "passed": true
+    },
+    {
+      "name": "real-agent-rewire",
+      "status": 200,
+      "model": "deepseek-flash",
+      "durationMs": 1991,
+      "expected": 0.625,
+      "actual": 0.625,
+      "passed": true
+    }
+  ]
+}

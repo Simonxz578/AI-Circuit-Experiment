@@ -1,0 +1,120 @@
+{
+  "mode": "fixed",
+  "input": "public/examples/switch-unknown.png",
+  "status": 200,
+  "model": "deepseek-flash",
+  "finishReason": "stop",
+  "bodyChars": 559,
+  "reasoningChars": 6344,
+  "usage": {
+    "prompt_tokens": 1285,
+    "completion_tokens": 1973,
+    "total_tokens": 3258,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1738
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 773
+  },
+  "durationMs": 13356,
+  "oldDeadlineExceeded": false,
+  "validGraph": true,
+  "errorCode": null,
+  "graph": {
+    "title": "含两个断开开关的直流电阻电路",
+    "problemText": "",
+    "nodes": [
+      {
+        "id": "n1",
+        "x": 120,
+        "y": 260
+      },
+      {
+        "id": "n2",
+        "x": 500,
+        "y": 120
+      },
+      {
+        "id": "n3",
+        "x": 860,
+        "y": 120
+      },
+      {
+        "id": "n4",
+        "x": 430,
+        "y": 520
+      }
+    ],
+    "components": [
+      {
+        "id": "V1",
+        "type": "source",
+        "name": "V1 (DC)",
+        "a": "n1",
+        "b": "n4",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "confidence": 0.98,
+        "evidence": ""
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "name": "电阻",
+        "a": "n1",
+        "b": "n2",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "confidence": 0.98,
+        "evidence": ""
+      },
+      {
+        "id": "R2",
+        "type": "resistor",
+        "name": "电阻",
+        "a": "n2",
+        "b": "n3",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "confidence": 0.98,
+        "evidence": ""
+      },
+      {
+        "id": "S2",
+        "type": "switch",
+        "name": "开关",
+        "a": "n2",
+        "b": "n3",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": false,
+        "confidence": 0.98,
+        "evidence": ""
+      },
+      {
+        "id": "S1",
+        "type": "switch",
+        "name": "开关",
+        "a": "n4",
+        "b": "n3",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": false,
+        "confidence": 0.98,
+        "evidence": ""
+      }
+    ],
+    "warnings": [],
+    "uncertainties": [
+      "R1与R2各自阻值未知，仅知R1+R2=30Ω"
+    ],
+    "confidence": 0.98,
+    "source": "image"
+  }
+}

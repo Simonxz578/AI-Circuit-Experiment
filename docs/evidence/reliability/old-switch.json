@@ -1,0 +1,141 @@
+{
+  "mode": "old",
+  "input": "public/examples/switch-bypass.png",
+  "status": 200,
+  "model": "deepseek-flash",
+  "finishReason": "stop",
+  "bodyChars": 1443,
+  "reasoningChars": 11332,
+  "usage": {
+    "prompt_tokens": 1579,
+    "completion_tokens": 7329,
+    "total_tokens": 8908,
+    "prompt_tokens_details": {
+      "cached_tokens": 896
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 6699
+    },
+    "prompt_cache_hit_tokens": 896,
+    "prompt_cache_miss_tokens": 683
+  },
+  "durationMs": 47273,
+  "oldDeadlineExceeded": false,
+  "validGraph": true,
+  "errorCode": null,
+  "graph": {
+    "title": "双开关旁路电阻电路",
+    "problemText": "图中 V1=12 V DC，R1=10 Ω，R2=20 Ω；S1 为主开关，S2 旁路 R2，二者初始均断开。",
+    "nodes": [
+      {
+        "id": "nVp",
+        "x": 120,
+        "y": 150
+      },
+      {
+        "id": "n1",
+        "x": 500,
+        "y": 150
+      },
+      {
+        "id": "n2",
+        "x": 850,
+        "y": 310
+      },
+      {
+        "id": "nVn",
+        "x": 300,
+        "y": 470
+      }
+    ],
+    "components": [
+      {
+        "id": "V1",
+        "type": "source",
+        "name": "V1",
+        "a": "nVp",
+        "b": "nVn",
+        "value": 12,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 300,
+          "y": 450
+        },
+        "confidence": 0.99,
+        "evidence": "图中电池符号标注 V1=12 V DC，左侧标+、右侧标-；按 a 为正极、b 为负极连接到对应导线节点。"
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "name": "R1",
+        "a": "nVp",
+        "b": "n1",
+        "value": 10,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 320,
+          "y": 150
+        },
+        "confidence": 0.99,
+        "evidence": "R1=10 Ω，位于顶部左侧，连接电源正极所在节点 nVp 与中间节点 n1。"
+      },
+      {
+        "id": "R2",
+        "type": "resistor",
+        "name": "R2",
+        "a": "n1",
+        "b": "n2",
+        "value": 20,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 700,
+          "y": 150
+        },
+        "confidence": 0.99,
+        "evidence": "R2=20 Ω，接在 n1 与右侧节点 n2 之间；题目说明 S2 用于旁路 R2。"
+      },
+      {
+        "id": "S2",
+        "type": "switch",
+        "name": "S2",
+        "a": "n1",
+        "b": "n2",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": false,
+        "position": {
+          "x": 680,
+          "y": 310
+        },
+        "confidence": 0.99,
+        "evidence": "S2 跨接在 R2 的两端，即 n1 与 n2 之间；题目明确 S2 旁路 R2 且初始断开。"
+      },
+      {
+        "id": "S1",
+        "type": "switch",
+        "name": "S1",
+        "a": "nVn",
+        "b": "n2",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": false,
+        "position": {
+          "x": 620,
+          "y": 470
+        },
+        "confidence": 0.99,
+        "evidence": "S1 位于底部回线，连接电源负极所在节点 nVn 与右侧节点 n2；题目说明 S1 为主开关且初始断开。"
+      }
+    ],
+    "warnings": [
+      "S1 断开使主回路不闭合；S2 断开使 R2 的旁路未接通，R2 未被短路。",
+      "当前两开关均断开，电路无闭合导通路径。"
+    ],
+    "uncertainties": [],
+    "confidence": 0.99,
+    "source": "image"
+  }
+}

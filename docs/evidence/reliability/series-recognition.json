@@ -1,0 +1,111 @@
+{
+  "input": "public/examples/series.png",
+  "document": {
+    "title": "串联电路拓扑",
+    "problemText": "",
+    "nodes": [
+      {
+        "id": "n1",
+        "x": 180,
+        "y": 130
+      },
+      {
+        "id": "n2",
+        "x": 480,
+        "y": 130
+      },
+      {
+        "id": "n3",
+        "x": 780,
+        "y": 130
+      }
+    ],
+    "components": [
+      {
+        "id": "V1",
+        "type": "source",
+        "name": "直流电源",
+        "a": "n1",
+        "b": "n3",
+        "value": 10,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 150,
+          "y": 350
+        },
+        "confidence": 0.99,
+        "evidence": ""
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "name": "电阻",
+        "a": "n1",
+        "b": "n2",
+        "value": 4,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 500,
+          "y": 150
+        },
+        "confidence": 0.99,
+        "evidence": ""
+      },
+      {
+        "id": "R2",
+        "type": "resistor",
+        "name": "电阻",
+        "a": "n2",
+        "b": "n3",
+        "value": 6,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 850,
+          "y": 350
+        },
+        "confidence": 0.99,
+        "evidence": ""
+      }
+    ],
+    "warnings": [],
+    "uncertainties": [],
+    "confidence": 0.99,
+    "source": "image"
+  },
+  "model": "deepseek-flash",
+  "durationMs": 7344,
+  "requestId": "abdc707b-5bfe-4127-ad09-fa657b6c2702",
+  "attempts": 1,
+  "solution": {
+    "ok": true,
+    "readings": {
+      "V1": {
+        "voltage": 10,
+        "current": -0.9999999999999999,
+        "power": -9.999999999999998
+      },
+      "R1": {
+        "voltage": 4,
+        "current": 1,
+        "power": 4
+      },
+      "R2": {
+        "voltage": 6,
+        "current": 1,
+        "power": 6
+      }
+    },
+    "nodeVoltages": {
+      "n1": 0,
+      "n2": -4,
+      "n3": -10
+    },
+    "totalCurrent": 0.9999999999999999,
+    "equivalentResistance": 10.000000000000002,
+    "sourcePower": 9.999999999999998,
+    "notes": []
+  }
+}

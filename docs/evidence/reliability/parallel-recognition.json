@@ -1,0 +1,105 @@
+{
+  "input": "public/examples/parallel.png",
+  "document": {
+    "title": "并联直流电路",
+    "problemText": "",
+    "nodes": [
+      {
+        "id": "n_top",
+        "x": 180,
+        "y": 130
+      },
+      {
+        "id": "n_bot",
+        "x": 480,
+        "y": 130
+      }
+    ],
+    "components": [
+      {
+        "id": "V1",
+        "type": "source",
+        "name": "直流电源",
+        "a": "n_top",
+        "b": "n_bot",
+        "value": 12,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 150,
+          "y": 300
+        },
+        "confidence": 0.99,
+        "evidence": ""
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "name": "R1",
+        "a": "n_top",
+        "b": "n_bot",
+        "value": 6,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 500,
+          "y": 300
+        },
+        "confidence": 0.99,
+        "evidence": ""
+      },
+      {
+        "id": "R2",
+        "type": "resistor",
+        "name": "R2",
+        "a": "n_top",
+        "b": "n_bot",
+        "value": 3,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 850,
+          "y": 300
+        },
+        "confidence": 0.99,
+        "evidence": ""
+      }
+    ],
+    "warnings": [],
+    "uncertainties": [],
+    "confidence": 0.99,
+    "source": "image"
+  },
+  "model": "deepseek-flash",
+  "durationMs": 2686,
+  "requestId": "0231a6da-a80b-4c1f-a209-e8f99a539dad",
+  "attempts": 1,
+  "solution": {
+    "ok": true,
+    "readings": {
+      "V1": {
+        "voltage": 12,
+        "current": -6,
+        "power": -72
+      },
+      "R1": {
+        "voltage": 12,
+        "current": 2,
+        "power": 24
+      },
+      "R2": {
+        "voltage": 12,
+        "current": 4,
+        "power": 48
+      }
+    },
+    "nodeVoltages": {
+      "n_top": 0,
+      "n_bot": -12
+    },
+    "totalCurrent": 6,
+    "equivalentResistance": 2,
+    "sourcePower": 72,
+    "notes": []
+  }
+}

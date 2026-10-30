@@ -2,7 +2,7 @@ import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {CircuitSchema} from '../src/circuit/schema';import {solve} from '../src/circuit/solver';import {examples} from '../src/circuit/examples';
 const base=process.env.API_BASE??'https://ai-circuit-lab-api.simonxz578.workers.dev';
 const headers={'Content-Type':'application/json',Origin:'https://simonxz578.github.io'};
-const evidence=new URL('../docs/evidence/',import.meta.url);await mkdir(evidence,{recursive:true});
+const evidence=new URL(process.env.RELIABILITY_CHECK==='1'?'../docs/evidence/reliability/':'../docs/evidence/',import.meta.url);await mkdir(evidence,{recursive:true});
 const report:{name:string;status:number;model?:string;durationMs:number;expected?:number;actual?:number|null;passed:boolean;components?:number;uncertainties?:string[]}[]=[];
 for(const [name,expected] of [['series',1],['parallel',6],['mixed',3]] as const){
  const image='data:image/png;base64,'+(await readFile(new URL(`../public/examples/${name}.png`,import.meta.url))).toString('base64');const started=performance.now();

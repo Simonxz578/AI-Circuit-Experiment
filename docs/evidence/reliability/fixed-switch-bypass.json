@@ -1,0 +1,140 @@
+{
+  "mode": "fixed",
+  "input": "public/examples/switch-bypass.png",
+  "status": 200,
+  "model": "deepseek-flash",
+  "finishReason": "stop",
+  "bodyChars": 646,
+  "reasoningChars": 3087,
+  "usage": {
+    "prompt_tokens": 1285,
+    "completion_tokens": 1044,
+    "total_tokens": 2329,
+    "prompt_tokens_details": {
+      "cached_tokens": 1151
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 785
+    },
+    "prompt_cache_hit_tokens": 1151,
+    "prompt_cache_miss_tokens": 134
+  },
+  "durationMs": 7772,
+  "oldDeadlineExceeded": false,
+  "validGraph": true,
+  "errorCode": null,
+  "graph": {
+    "title": "双开关直流电阻电路",
+    "problemText": "",
+    "nodes": [
+      {
+        "id": "n1",
+        "x": 180,
+        "y": 130
+      },
+      {
+        "id": "n2",
+        "x": 480,
+        "y": 130
+      },
+      {
+        "id": "n3",
+        "x": 780,
+        "y": 130
+      },
+      {
+        "id": "n4",
+        "x": 180,
+        "y": 250
+      }
+    ],
+    "components": [
+      {
+        "id": "V1",
+        "type": "source",
+        "name": "12V直流电源",
+        "a": "n1",
+        "b": "n4",
+        "value": 12,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 220,
+          "y": 470
+        },
+        "confidence": 0.98,
+        "evidence": ""
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "name": "R1",
+        "a": "n1",
+        "b": "n2",
+        "value": 10,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 300,
+          "y": 180
+        },
+        "confidence": 0.98,
+        "evidence": ""
+      },
+      {
+        "id": "R2",
+        "type": "resistor",
+        "name": "R2",
+        "a": "n2",
+        "b": "n3",
+        "value": 20,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 700,
+          "y": 180
+        },
+        "confidence": 0.98,
+        "evidence": ""
+      },
+      {
+        "id": "S2",
+        "type": "switch",
+        "name": "S2",
+        "a": "n2",
+        "b": "n3",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": false,
+        "position": {
+          "x": 650,
+          "y": 350
+        },
+        "confidence": 0.98,
+        "evidence": ""
+      },
+      {
+        "id": "S1",
+        "type": "switch",
+        "name": "S1",
+        "a": "n4",
+        "b": "n3",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": false,
+        "position": {
+          "x": 650,
+          "y": 520
+        },
+        "confidence": 0.98,
+        "evidence": ""
+      }
+    ],
+    "warnings": [
+      "S1和S2均为断开状态，电路没有闭合回路"
+    ],
+    "uncertainties": [],
+    "confidence": 0.98,
+    "source": "image"
+  }
+}

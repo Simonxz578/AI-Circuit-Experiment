@@ -1,0 +1,116 @@
+{
+  "input": "public/examples/mixed.png",
+  "document": {
+    "title": "混合电路拓扑",
+    "problemText": "",
+    "nodes": [
+      {
+        "id": "n_pos",
+        "x": 180,
+        "y": 130
+      },
+      {
+        "id": "n_top",
+        "x": 480,
+        "y": 130
+      },
+      {
+        "id": "n0",
+        "x": 780,
+        "y": 130
+      }
+    ],
+    "components": [
+      {
+        "id": "V1",
+        "type": "source",
+        "name": "V1",
+        "a": "n_pos",
+        "b": "n0",
+        "value": 12,
+        "valueSource": "given",
+        "closed": true,
+        "confidence": 0.99,
+        "evidence": ""
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "name": "R1",
+        "a": "n_pos",
+        "b": "n_top",
+        "value": 2,
+        "valueSource": "given",
+        "closed": true,
+        "confidence": 0.99,
+        "evidence": ""
+      },
+      {
+        "id": "R2",
+        "type": "resistor",
+        "name": "R2",
+        "a": "n_top",
+        "b": "n0",
+        "value": 6,
+        "valueSource": "given",
+        "closed": true,
+        "confidence": 0.99,
+        "evidence": ""
+      },
+      {
+        "id": "R3",
+        "type": "resistor",
+        "name": "R3",
+        "a": "n_top",
+        "b": "n0",
+        "value": 3,
+        "valueSource": "given",
+        "closed": true,
+        "confidence": 0.99,
+        "evidence": ""
+      }
+    ],
+    "warnings": [],
+    "uncertainties": [],
+    "confidence": 0.99,
+    "source": "image"
+  },
+  "model": "deepseek-flash",
+  "durationMs": 3583,
+  "requestId": "1b4516a6-9786-406a-874a-df1d9546651a",
+  "attempts": 1,
+  "solution": {
+    "ok": true,
+    "readings": {
+      "V1": {
+        "voltage": 12,
+        "current": -3,
+        "power": -36
+      },
+      "R1": {
+        "voltage": 6,
+        "current": 3,
+        "power": 18
+      },
+      "R2": {
+        "voltage": 6,
+        "current": 1,
+        "power": 6
+      },
+      "R3": {
+        "voltage": 6,
+        "current": 2,
+        "power": 12
+      }
+    },
+    "nodeVoltages": {
+      "n_pos": 0,
+      "n_top": -6,
+      "n0": -12
+    },
+    "totalCurrent": 3,
+    "equivalentResistance": 4,
+    "sourcePower": 36,
+    "notes": []
+  }
+}

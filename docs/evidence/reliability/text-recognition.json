@@ -1,0 +1,121 @@
+{
+  "document": {
+    "title": "10V直流电源串联4Ω和6Ω电阻及电流表",
+    "problemText": "",
+    "nodes": [
+      {
+        "id": "n1",
+        "x": 180,
+        "y": 130
+      },
+      {
+        "id": "n2",
+        "x": 480,
+        "y": 130
+      },
+      {
+        "id": "n3",
+        "x": 780,
+        "y": 130
+      },
+      {
+        "id": "n4",
+        "x": 180,
+        "y": 250
+      }
+    ],
+    "components": [
+      {
+        "id": "V1",
+        "type": "source",
+        "name": "直流电源",
+        "a": "n1",
+        "b": "n4",
+        "value": 10,
+        "valueSource": "given",
+        "closed": true,
+        "confidence": 0.98,
+        "evidence": ""
+      },
+      {
+        "id": "A1",
+        "type": "ammeter",
+        "name": "理想电流表",
+        "a": "n1",
+        "b": "n2",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "confidence": 0.98,
+        "evidence": ""
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "name": "电阻",
+        "a": "n2",
+        "b": "n3",
+        "value": 4,
+        "valueSource": "given",
+        "closed": true,
+        "confidence": 0.98,
+        "evidence": ""
+      },
+      {
+        "id": "R2",
+        "type": "resistor",
+        "name": "电阻",
+        "a": "n3",
+        "b": "n4",
+        "value": 6,
+        "valueSource": "given",
+        "closed": true,
+        "confidence": 0.98,
+        "evidence": ""
+      }
+    ],
+    "warnings": [],
+    "uncertainties": [],
+    "confidence": 0.98,
+    "source": "text"
+  },
+  "model": "deepseek-flash",
+  "durationMs": 2667,
+  "requestId": "ce123ab5-5ded-436b-9f87-379aaecaf1f2",
+  "attempts": 1,
+  "solution": {
+    "ok": true,
+    "readings": {
+      "V1": {
+        "voltage": 10,
+        "current": -0.9999999999999999,
+        "power": -9.999999999999998
+      },
+      "A1": {
+        "voltage": 0,
+        "current": 1,
+        "power": 0
+      },
+      "R1": {
+        "voltage": 4,
+        "current": 1,
+        "power": 4
+      },
+      "R2": {
+        "voltage": 6,
+        "current": 1,
+        "power": 6
+      }
+    },
+    "nodeVoltages": {
+      "n1": 0,
+      "n2": 0,
+      "n3": -4,
+      "n4": -10
+    },
+    "totalCurrent": 0.9999999999999999,
+    "equivalentResistance": 10.000000000000002,
+    "sourcePower": 9.999999999999998,
+    "notes": []
+  }
+}
