@@ -1,0 +1,261 @@
+{
+  "checkedAt": "2026-10-30T16:13:59.879Z",
+  "url": "https://simonxz578.github.io/AI-Circuit-Experiment/?v=layout-v3",
+  "requestId": "ebec756c-0b2a-4eaa-9c5e-f59d4ba79e09",
+  "transport": "application/x-ndjson; charset=utf-8",
+  "durationMs": 9200,
+  "endToEndMs": 11874,
+  "document": {
+    "title": "双开关电阻电路",
+    "problemText": "",
+    "nodes": [
+      {
+        "id": "p",
+        "x": 180,
+        "y": 130
+      },
+      {
+        "id": "m",
+        "x": 480,
+        "y": 130
+      },
+      {
+        "id": "q",
+        "x": 780,
+        "y": 130
+      },
+      {
+        "id": "g",
+        "x": 180,
+        "y": 250
+      }
+    ],
+    "components": [
+      {
+        "id": "V1",
+        "type": "source",
+        "name": "直流电源",
+        "a": "p",
+        "b": "g",
+        "value": 12,
+        "valueSource": "given",
+        "closed": true,
+        "confidence": 0.98,
+        "evidence": ""
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "name": "电阻",
+        "a": "p",
+        "b": "m",
+        "value": 10,
+        "valueSource": "given",
+        "closed": true,
+        "confidence": 0.98,
+        "evidence": ""
+      },
+      {
+        "id": "R2",
+        "type": "resistor",
+        "name": "电阻",
+        "a": "m",
+        "b": "q",
+        "value": 20,
+        "valueSource": "given",
+        "closed": true,
+        "confidence": 0.98,
+        "evidence": ""
+      },
+      {
+        "id": "S2",
+        "type": "switch",
+        "name": "开关",
+        "a": "m",
+        "b": "q",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": false,
+        "confidence": 0.98,
+        "evidence": ""
+      },
+      {
+        "id": "S1",
+        "type": "switch",
+        "name": "开关",
+        "a": "g",
+        "b": "q",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": false,
+        "confidence": 0.98,
+        "evidence": ""
+      }
+    ],
+    "warnings": [],
+    "uncertainties": [],
+    "confidence": 0.98,
+    "source": "image"
+  },
+  "states": [
+    {
+      "s1": false,
+      "s2": false,
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "s1": true,
+      "s2": false,
+      "expected": 0.4,
+      "actual": 0.4000000000000001
+    },
+    {
+      "s1": true,
+      "s2": true,
+      "expected": 1.2,
+      "actual": 1.2000000000000002
+    },
+    {
+      "s1": false,
+      "s2": true,
+      "expected": 0,
+      "actual": 0
+    }
+  ],
+  "layout": {
+    "mode": "series-parallel",
+    "routingMs": 13.680374999999913,
+    "placements": {
+      "R1": {
+        "id": "R1",
+        "x": 280,
+        "y": 190,
+        "vertical": false,
+        "reversed": false,
+        "terminalA": {
+          "x": 215,
+          "y": 190
+        },
+        "terminalB": {
+          "x": 345,
+          "y": 190
+        },
+        "escapeA": {
+          "x": 170,
+          "y": 190
+        },
+        "escapeB": {
+          "x": 390,
+          "y": 190
+        }
+      },
+      "R2": {
+        "id": "R2",
+        "x": 660,
+        "y": 190,
+        "vertical": false,
+        "reversed": false,
+        "terminalA": {
+          "x": 595,
+          "y": 190
+        },
+        "terminalB": {
+          "x": 725,
+          "y": 190
+        },
+        "escapeA": {
+          "x": 550,
+          "y": 190
+        },
+        "escapeB": {
+          "x": 770,
+          "y": 190
+        }
+      },
+      "S2": {
+        "id": "S2",
+        "x": 660,
+        "y": 410,
+        "vertical": false,
+        "reversed": false,
+        "terminalA": {
+          "x": 595,
+          "y": 410
+        },
+        "terminalB": {
+          "x": 725,
+          "y": 410
+        },
+        "escapeA": {
+          "x": 550,
+          "y": 410
+        },
+        "escapeB": {
+          "x": 770,
+          "y": 410
+        }
+      },
+      "V1": {
+        "id": "V1",
+        "x": 300,
+        "y": 630,
+        "vertical": false,
+        "reversed": false,
+        "terminalA": {
+          "x": 235,
+          "y": 630
+        },
+        "terminalB": {
+          "x": 365,
+          "y": 630
+        },
+        "escapeA": {
+          "x": 190,
+          "y": 630
+        },
+        "escapeB": {
+          "x": 410,
+          "y": 630
+        }
+      },
+      "S1": {
+        "id": "S1",
+        "x": 720,
+        "y": 630,
+        "vertical": false,
+        "reversed": false,
+        "terminalA": {
+          "x": 655,
+          "y": 630
+        },
+        "terminalB": {
+          "x": 785,
+          "y": 630
+        },
+        "escapeA": {
+          "x": 610,
+          "y": 630
+        },
+        "escapeB": {
+          "x": 830,
+          "y": 630
+        }
+      }
+    },
+    "junctions": [
+      {
+        "x": 550,
+        "y": 190,
+        "net": "m"
+      },
+      {
+        "x": 770,
+        "y": 410,
+        "net": "q"
+      }
+    ],
+    "wireObstructions": 0
+  },
+  "passed": true
+}

@@ -28,6 +28,8 @@
 - 86 项单元测试：求解、识别规范化、恢复传输、缓存隔离/失效，以及布局、真实模型结果的物理值和导线分离。
 - 32 项桌面/手机浏览器检查，包括坏坐标输入、拖动不改端子、开关调参图形稳定、充电双臂与白色闪电眼睛、减少动画、重复输入只调用一次、强制重新识别。
 - 当前布局截图：[桌面](screenshots/layout-v3-desktop.png)、[手机](screenshots/layout-v3-mobile.png)；充电截图：[桌面](screenshots/charging-v3-desktop.png)。这些可重复 UI 检查使用 mock 接口，真实识别证据单独保存。
-- GitHub Pages 发布后再使用真实图片测试端到端识别、四种开关状态、版式与曲线。结果由 `tests/switch-public.spec.ts` 写入 `evidence/layout-v3/public-switch.json` 与 `screenshots/published-layout-v3.png`。
+- GitHub Pages 正式版桌面真实上传通过：供应商识别 9.2 秒，四态读数全部正确，本地排版 13.7ms，导线穿入其他元件数量 0；加载机器人与曲线正常。[实际记录](evidence/layout-v3/public-switch.json)、[正式版截图](screenshots/published-layout-v3.png)。
+- 正式版手机验收通过：导入上述公网真实识别结果，切换 S1 得 0.4A，将 R1 改为 20Ω 得 0.3A，支路分行、无横向溢出、无脚本错误。没有 mock 响应，不重复付费调用。[手机记录](evidence/layout-v3/public-mobile.json)、[手机截图](screenshots/published-layout-v3-mobile.png)。
+- 前端运行版本 `383a4da`，GitHub Pages [发布工作流通过](https://github.com/Simonxz578/AI-Circuit-Experiment/actions/runs/41087746048)；Worker 版本 `4ab4d2ec-1268-4653-ac5a-19fb2fa067de`。后续证据提交不改变前后端运行代码。
 
 用户截图用于定位重叠问题；本轮真实 API 回归使用仓库内同类拓扑的自制公开图片，不冒称重新读取了截图中的原始试题。
