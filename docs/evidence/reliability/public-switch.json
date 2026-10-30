@@ -1,0 +1,148 @@
+{
+  "checkedAt": "2026-10-30T15:30:49.158Z",
+  "url": "https://simonxz578.github.io/AI-Circuit-Experiment/",
+  "requestId": "500ba37f-be0b-447a-8c4b-688b282dbe4e",
+  "transport": "application/x-ndjson; charset=utf-8",
+  "durationMs": 4300,
+  "document": {
+    "title": "双开关电阻电路",
+    "problemText": "",
+    "nodes": [
+      {
+        "id": "n1",
+        "x": 150,
+        "y": 160
+      },
+      {
+        "id": "n2",
+        "x": 500,
+        "y": 160
+      },
+      {
+        "id": "n3",
+        "x": 850,
+        "y": 160
+      },
+      {
+        "id": "n4",
+        "x": 400,
+        "y": 520
+      }
+    ],
+    "components": [
+      {
+        "id": "V1",
+        "type": "source",
+        "name": "12V直流电源",
+        "a": "n1",
+        "b": "n4",
+        "value": 12,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 220,
+          "y": 480
+        },
+        "confidence": 0.97,
+        "evidence": ""
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "name": "R1",
+        "a": "n1",
+        "b": "n2",
+        "value": 10,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 300,
+          "y": 160
+        },
+        "confidence": 0.97,
+        "evidence": ""
+      },
+      {
+        "id": "R2",
+        "type": "resistor",
+        "name": "R2",
+        "a": "n2",
+        "b": "n3",
+        "value": 20,
+        "valueSource": "given",
+        "closed": true,
+        "position": {
+          "x": 700,
+          "y": 160
+        },
+        "confidence": 0.97,
+        "evidence": ""
+      },
+      {
+        "id": "S2",
+        "type": "switch",
+        "name": "S2旁路R2",
+        "a": "n2",
+        "b": "n3",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": false,
+        "position": {
+          "x": 620,
+          "y": 300
+        },
+        "confidence": 0.97,
+        "evidence": ""
+      },
+      {
+        "id": "S1",
+        "type": "switch",
+        "name": "S1主开关",
+        "a": "n4",
+        "b": "n3",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": false,
+        "position": {
+          "x": 620,
+          "y": 520
+        },
+        "confidence": 0.97,
+        "evidence": ""
+      }
+    ],
+    "warnings": [
+      "S1和S2初始均断开，没有闭合回路"
+    ],
+    "uncertainties": [],
+    "confidence": 0.97,
+    "source": "image"
+  },
+  "states": [
+    {
+      "s1": false,
+      "s2": false,
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "s1": true,
+      "s2": false,
+      "expected": 0.4,
+      "actual": 0.4000000000000001
+    },
+    {
+      "s1": true,
+      "s2": true,
+      "expected": 1.2,
+      "actual": 1.2000000000000002
+    },
+    {
+      "s1": false,
+      "s2": true,
+      "expected": 0,
+      "actual": 0
+    }
+  ],
+  "passed": true
+}

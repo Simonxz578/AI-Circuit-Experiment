@@ -30,7 +30,7 @@ export async function runInference(options:Options):Promise<Outcome>{
   if(image)content.push({type:'image_url',image_url:{url:image,detail:'high'}});
   if(repair)content.push({type:'text',text:`上一次返回需要修正：${repair}。请简洁返回完整JSON，先追踪真实节点；不要计算实验答案。`});
   const timerAbort=new AbortController(),remaining=120000-(Date.now()-start),attemptTimeout=Math.min(attempt===1?75000:45000,remaining);
-  const timer=setTimeout(()=>timerAbort.abort(),attemptTimeout);
+  const timer=setTimeout(()=>timerAbort.abort(),attemptTimeout);let phase='connect';
   try{
    const upstream=await fetch('https://api.deepseek.com/chat/completions',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${key}`},body:JSON.stringify({model:'deepseek-flash',messages:[{role:'system',content:chat?coachPrompt:parsePrompt},{role:'user',content}],response_format:{type:'json_object'},thinking:{type:'enabled'},reasoning_effort:'low',max_tokens:attempt===1?6000:9000}),signal:signal?AbortSignal.any([signal,timerAbort.signal]):timerAbort.signal});
    if(!upstream.ok){
@@ -40,14 +40,18 @@ export async function runInference(options:Options):Promise<Outcome>{
     if(status===429||status>=500){code='UPSTREAM_INTERRUPTED';repair='推理服务暂时繁忙，请重新返回完整结果';continue;}
     return failure('UPSTREAM_REQUEST','AI服务未接受此次请求，请换一张清晰的电路截图后重试。',502,requestId);
    }
+   phase='decode';
    let data:{model?:string;choices?:{finish_reason?:string;message?:{content?:string}}[];usage?:{prompt_tokens?:number;completion_tokens?:number}};
    try{data=await upstream.json();}catch{code='INVALID_OUTPUT';repair='返回的响应不完整';continue;}
+   if(!data||typeof data!=='object'||Array.isArray(data)){code='INVALID_OUTPUT';repair='响应结构不是有效对象';continue;}
    const choice=data.choices?.[0],finishReason=choice?.finish_reason;
    console.info(JSON.stringify({event:'ai_attempt',requestId,attempt,finishReason:finishReason??'missing',durationMs:Date.now()-start,promptTokens:data.usage?.prompt_tokens,completionTokens:data.usage?.completion_tokens}));
    if(finishReason==='length'){code='OUTPUT_TRUNCATED';repair='输出被截断，只保留最简完整节点与元件JSON';continue;}
    if(['aborted','insufficient_system_resource'].includes(finishReason??'')){code='UPSTREAM_INTERRUPTED';repair='上次生成在模型端中断';continue;}
    if(finishReason==='content_filter')return failure('CONTENT_FILTER','AI服务没有处理这张图片。请只截取电路题区域后重试。',422,requestId);
-   const raw=choice?.message?.content?.trim();
+   const body=choice?.message?.content;
+   if(body!==null&&body!==undefined&&typeof body!=='string'){code='INVALID_OUTPUT';repair='正文必须是JSON字符串';continue;}
+   const raw=body?.trim();
    if(!raw){code='EMPTY_OUTPUT';repair='没有返回JSON正文，请输出完整电路JSON而非空白';continue;}
    let result:unknown;try{result=JSON.parse(raw.replace(/^```(?:json)?\s*/i,'').replace(/\s*```$/,''));}catch{code='INVALID_OUTPUT';repair='JSON格式不完整';continue;}
    onProgress?.({stage:'已收到识别结果，正在核验端子连接与参数',attempt});
@@ -68,7 +72,7 @@ export async function runInference(options:Options):Promise<Outcome>{
   }catch(e){
    if(signal?.aborted)return failure('CANCELLED','已取消本次识别。',499,requestId);
    const name=e instanceof Error?e.name:'';
-   code=timerAbort.signal.aborted||name==='TimeoutError'||name==='AbortError'?'TIMEOUT':'NETWORK';repair=code==='TIMEOUT'?'上一次识别等待超时，请简洁输出拓扑JSON':'上一次服务连接中断';
+   code=timerAbort.signal.aborted||name==='TimeoutError'||name==='AbortError'?'TIMEOUT':phase==='connect'?'NETWORK':'INVALID_OUTPUT';repair=code==='TIMEOUT'?'上一次识别等待超时，请简洁输出拓扑JSON':code==='NETWORK'?'上一次服务连接中断':'上一次响应结构不完整';
    console.info(JSON.stringify({event:'ai_attempt_error',requestId,attempt,code,durationMs:Date.now()-start}));
   }finally{clearTimeout(timer);}
  }
