@@ -3,6 +3,7 @@ import {Maximize2,Minus,Plus,RotateCcw} from 'lucide-react';
 import {registry,type CircuitDocument,type Component} from './circuit/schema';
 import type {Solution} from './circuit/solver';
 import {displayQuantity} from './circuit/units';
+import {studentText} from './circuit/studentText';
 import {Robot} from './Robot';
 import {layoutCircuit,pathData,topologyKey} from './circuit/layout';
 export const format=(n:number|null|undefined,unit='')=>n===null||n===undefined?'—':!Number.isFinite(n)?`∞ ${unit}`:unit?displayQuantity(Math.abs(n)<1e-12?0:n,unit):`${Number((Math.abs(n)<1e-10?0:n).toPrecision(4))}`;
@@ -63,7 +64,7 @@ export function CircuitCanvas({doc,solution,selected,onSelect,onToggle,onMove,as
    </g>
   </svg>
   <div className="canvas-bottom"><span>● 实心点相连 · 跨线留白不相连</span><span>点击开关切换 · 拖动空白处平移</span></div>
-  {!solution.ok&&!review&&<div className="canvas-warning" role="status">{solution.reason}</div>}
+  {!solution.ok&&!review&&<div className="canvas-warning" role="status">{studentText(solution.reason)}</div>}
   {review&&<div className="canvas-warning">识别草图 · 暂不计算，确认后继续</div>}
   <button className="reset-layout" aria-label="重新居中电路" onClick={reset}><RotateCcw size={14}/></button>
  </div>;
