@@ -24,12 +24,13 @@ export function answerCircuit(doc:CircuitDocument):{document?:CircuitDocument;re
     for(const rate of [1,.5,.25,.1,.03]){const next=x.map((v,i)=>v+delta[i]*rate);try{if(residual(next).reduce((s,v)=>s+v*v,0)<score){x=next;accepted=true;break;}}catch{/* Out-of-range candidates are not applied. */}}
     if(!accepted)break;
    }
-   if(!converged)continue;const candidate=build(x);candidate.components=candidate.components.map(c=>unknown.some(u=>u.id===c.id)&&c.value!==null?{...c,value:Number(c.value.toPrecision(10))}:c);
+   if(!converged)continue;const candidate=build(x);candidate.components=candidate.components.map(c=>unknown.some(u=>u.id===c.id)&&c.value!==null?{...c,value:Number(c.value.toPrecision(8))}:c);
    if(answer&&unknown.some(c=>Math.abs(candidate.components.find(v=>v.id===c.id)!.value!-answer!.components.find(v=>v.id===c.id)!.value!)>1e-4*Math.max(1,Math.abs(answer!.components.find(v=>v.id===c.id)!.value!))))return {reply:'已知条件可能对应不止一组答案，我不会自动填写。请补充题目限制。'};
    answer=candidate;
   }
  }catch{return {reply:'现有条件无法得到可核验的唯一结果，请补充原题条件。'};}
  if(!answer)return {reply:'暂未从这些条件得到可核验的答案，请检查示数、单位及开关条件。'};
+ for(const m of known){const state={...answer,components:answer.components.map(c=>Object.hasOwn(m.conditions,c.id)?{...c,closed:m.conditions[c.id]}:c)};const check=solve(state),value=check.readings[m.targetId]?.[m.quantity];if(!check.ok||value==null||Math.abs((m.value!>=0?Math.abs(value):value)-m.value!)>1e-6*Math.max(.001,Math.abs(m.value!)))return {reply:'结果取整后未能通过题目条件核验，未自动填写。'};}
  // Record calculated meter results separately; preserve every initial switch state.
  const s=solve(answer);if(s.ok)for(const c of answer.components.filter(c=>['ammeter','voltmeter'].includes(c.type))){const quantity=c.type==='ammeter'?'current':'voltage',value=s.readings[c.id]?.[quantity];if(value==null)continue;const existing=answer.measurements.find(m=>m.targetId===c.id&&m.source==='user'&&!Object.keys(m.conditions).length);let i=1;while(answer.measurements.some(m=>m.id==='M'+i))i++;answer.measurements=answer.measurements.filter(m=>m.id!==existing?.id);answer.measurements.push({id:existing?.id??'M'+i,targetId:c.id,quantity,value:Math.abs(value),conditions:{},source:'user',confidence:1,evidence:'电路求解器计算的结果'});}
  const results=unknown.map(c=>{const n=answer!.components.find(v=>v.id===c.id)!.value!;return `${c.id}=${Number(n.toPrecision(8))}${c.type==='source'?'V':'Ω'}`;});
