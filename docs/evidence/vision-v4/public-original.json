@@ -1,0 +1,159 @@
+{
+  "checkedAt": "2026-10-31T02:18:14.983Z",
+  "url": "https://simonxz578.github.io/AI-Circuit-Experiment/?v=vision-v4",
+  "requestId": "2e2540b1-ef15-4a2b-b5b8-dc33d944c392",
+  "input": "User original; image not published",
+  "initialElapsedMs": 17007,
+  "recognitionFooter": "5 个元件 · 4 个连接节点 · 识别用时 13.9 秒 · 原图初态已核对\n恢复图示初态\n重新识别\n编辑接线",
+  "document": {
+    "title": "电路原理图",
+    "problemText": "",
+    "nodes": [
+      {
+        "id": "p",
+        "x": 180,
+        "y": 130
+      },
+      {
+        "id": "m",
+        "x": 480,
+        "y": 130
+      },
+      {
+        "id": "q",
+        "x": 780,
+        "y": 130
+      },
+      {
+        "id": "n",
+        "x": 180,
+        "y": 250
+      }
+    ],
+    "components": [
+      {
+        "id": "V1",
+        "type": "source",
+        "name": "直流电源",
+        "a": "p",
+        "b": "n",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "confidence": 0.98,
+        "evidence": "",
+        "labelVisible": false
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "name": "电阻",
+        "a": "p",
+        "b": "m",
+        "value": 30,
+        "valueSource": "given",
+        "closed": true,
+        "confidence": 0.98,
+        "evidence": "",
+        "labelVisible": true
+      },
+      {
+        "id": "R2",
+        "type": "resistor",
+        "name": "电阻",
+        "a": "m",
+        "b": "q",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": true,
+        "confidence": 0.98,
+        "evidence": "",
+        "labelVisible": true
+      },
+      {
+        "id": "S2",
+        "type": "switch",
+        "name": "开关",
+        "a": "m",
+        "b": "q",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": false,
+        "confidence": 0.98,
+        "evidence": "",
+        "stateObservation": {
+          "contact": "gap",
+          "basis": "diagram",
+          "confidence": 0.99
+        },
+        "stateSource": "diagram",
+        "initialClosed": false,
+        "labelVisible": true,
+        "candidateIndex": 0
+      },
+      {
+        "id": "S1",
+        "type": "switch",
+        "name": "开关",
+        "a": "n",
+        "b": "q",
+        "value": null,
+        "valueSource": "unknown",
+        "closed": false,
+        "confidence": 0.98,
+        "evidence": "",
+        "stateObservation": {
+          "contact": "gap",
+          "basis": "diagram",
+          "confidence": 0.99
+        },
+        "stateSource": "diagram",
+        "initialClosed": false,
+        "labelVisible": true,
+        "candidateIndex": 1
+      }
+    ],
+    "warnings": [],
+    "uncertainties": [],
+    "confidence": 0.95,
+    "source": "image",
+    "verification": {
+      "mode": "visual-inventory",
+      "status": "matched",
+      "topologyMatched": false,
+      "inventoryMatched": true,
+      "topologyGuard": "passed",
+      "checkedSwitches": 2,
+      "pixelCheckedSwitches": 2
+    }
+  },
+  "statesWithUserSupplied15V20Ohm": [
+    {
+      "s1": false,
+      "s2": false,
+      "current": 0
+    },
+    {
+      "s1": true,
+      "s2": false,
+      "current": 0.3
+    },
+    {
+      "s1": true,
+      "s2": true,
+      "current": 0.5
+    },
+    {
+      "s1": false,
+      "s2": true,
+      "current": 0
+    }
+  ],
+  "errors": [],
+  "passed": true,
+  "inputSha256": "88346f02facefbd571b8c712683da43a7292db5c93e29a7b7e9db961969853e0",
+  "backendHealth": {
+    "version": "vision-v4",
+    "appRateLimit": false
+  }
+}

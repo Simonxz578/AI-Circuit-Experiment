@@ -64,4 +64,9 @@ node --import tsx scripts/vision-regression.ts
 node --import tsx scripts/replay-vision-acceptance.ts
 ```
 
-首次真实接口记录与确定性重放分别保存，不混淆mock、缓存、重放和新模型请求。公网发布后的验收记录会单独补充。
+首次真实接口记录与确定性重放分别保存，不混淆mock、缓存、重放和新模型请求。公网发布已验收：GitHub Pages 与 Worker 均已更新到 vision-v4。2026-10-31 10:18（北京时间）对用户原图执行实际浏览器识别，S1/S2 均断开、R1=30Ω、电源/R2保持未知；补入测试参数15V/20Ω后，点击得到0/0.3/0.5/0A，恢复初态通过。本次接口显示13.9秒，完整页面从点击至可操作17.0秒，仅代表这次测量，不能保证每次延迟。
+
+- [公网原图实际识别及操作记录](evidence/vision-v4/public-original.json)：不包含原始图片。
+- [公网手机端验收](evidence/vision-v4/public-mobile.json)：导入上述实际识别配置，开关操作、恢复、曲线和无横向溢出通过；未调用AI。
+- [手机端截图](screenshots/published-vision-v4-mobile.png)：仅结构化电路，无用户上传原图。
+- 正式健康检查返回 `version: vision-v4`、`appRateLimit: false`。顶部、底部及浏览器标题统一为“AI电学实验室”；指定帮助文案已删除。
