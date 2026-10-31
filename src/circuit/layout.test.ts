@@ -7,6 +7,7 @@ import unknownRecord from '../../docs/evidence/reliability/fixed-switch-unknown.
 
 const cases=[...examples,CircuitSchema.parse(switchRecord.document),CircuitSchema.parse(unknownRecord.graph)];
 describe('deterministic circuit layout and wire routing',()=>{
+ it.each(['g','p','n1','n2','n'])('manual reconnect to %s reserves terminal corridors before routing',node=>{const d=structuredClone(examples[0]);d.components.find(c=>c.id==='R1')!.b=node;const out=layoutCircuit(d);expect(Object.keys(out.placements)).toHaveLength(d.components.filter(c=>c.type!=='wire').length);expect(out.wires.every(w=>!wireEntersOtherSymbol(w,out.placements))).toBe(true);});
  it.each(cases.map((doc,i)=>({doc,i})))('case $i: symbols and labels do not overlap; wires avoid other components',({doc})=>{
   const before=JSON.stringify(doc),layout=layoutCircuit(doc),poses=Object.values(layout.placements);
   expect(poses.length).toBe(doc.components.filter(c=>c.type!=='wire').length);

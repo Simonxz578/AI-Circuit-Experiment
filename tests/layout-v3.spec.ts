@@ -2,6 +2,7 @@ import {test,expect} from '@playwright/test';
 import {readFileSync} from 'node:fs';
 import {readFile} from 'node:fs/promises';
 const record=JSON.parse(readFileSync('docs/evidence/reliability/public-switch.json','utf8'));
+record.document.verification={mode:'independent-vision',status:'matched',topologyMatched:true,checkedSwitches:2,pixelCheckedSwitches:2};
 
 test.beforeEach(async({page})=>{await page.route('**/api/health',r=>r.fulfill({json:{ai:true}}));});
 test('bad recognition coordinates become a readable two-switch circuit and stay fixed while adjusting',async({page},info)=>{

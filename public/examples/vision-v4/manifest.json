@@ -1,0 +1,949 @@
+{
+  "cases": [
+    {
+      "id": "question-initial-open",
+      "file": "public/examples/vision-v4/question-initial-open.png",
+      "source": "Original textbook-style fixture",
+      "expected": {
+        "title": "人工标注电路",
+        "nodes": [
+          {
+            "id": "g",
+            "x": 100,
+            "y": 100
+          },
+          {
+            "id": "m",
+            "x": 350,
+            "y": 100
+          },
+          {
+            "id": "n",
+            "x": 600,
+            "y": 100
+          },
+          {
+            "id": "p",
+            "x": 100,
+            "y": 200
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "name": "V1",
+            "type": "source",
+            "a": "p",
+            "b": "g",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "name": "R1",
+            "type": "resistor",
+            "a": "p",
+            "b": "m",
+            "value": 30,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "R2",
+            "name": "R2",
+            "type": "resistor",
+            "a": "m",
+            "b": "n",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true
+          },
+          {
+            "id": "S2",
+            "name": "S2",
+            "type": "switch",
+            "a": "m",
+            "b": "n",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false
+          },
+          {
+            "id": "S1",
+            "name": "S1",
+            "type": "switch",
+            "a": "g",
+            "b": "n",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false
+          }
+        ],
+        "source": "image"
+      },
+      "expectedCurrent": null,
+      "states": null
+    },
+    {
+      "id": "main-closed-bypass-open",
+      "file": "public/examples/vision-v4/main-closed-bypass-open.png",
+      "source": "Original textbook-style fixture",
+      "expected": {
+        "title": "人工标注电路",
+        "nodes": [
+          {
+            "id": "g",
+            "x": 100,
+            "y": 100
+          },
+          {
+            "id": "m",
+            "x": 350,
+            "y": 100
+          },
+          {
+            "id": "n",
+            "x": 600,
+            "y": 100
+          },
+          {
+            "id": "p",
+            "x": 100,
+            "y": 200
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "name": "V1",
+            "type": "source",
+            "a": "p",
+            "b": "g",
+            "value": 15,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "name": "R1",
+            "type": "resistor",
+            "a": "p",
+            "b": "m",
+            "value": 30,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "R2",
+            "name": "R2",
+            "type": "resistor",
+            "a": "m",
+            "b": "n",
+            "value": 20,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "S2",
+            "name": "S2",
+            "type": "switch",
+            "a": "m",
+            "b": "n",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false
+          },
+          {
+            "id": "S1",
+            "name": "S1",
+            "type": "switch",
+            "a": "g",
+            "b": "n",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true
+          }
+        ],
+        "source": "image"
+      },
+      "expectedCurrent": 0.3,
+      "states": null
+    },
+    {
+      "id": "main-open-bypass-closed",
+      "file": "public/examples/vision-v4/main-open-bypass-closed.png",
+      "source": "Original textbook-style fixture",
+      "expected": {
+        "title": "人工标注电路",
+        "nodes": [
+          {
+            "id": "g",
+            "x": 100,
+            "y": 100
+          },
+          {
+            "id": "m",
+            "x": 350,
+            "y": 100
+          },
+          {
+            "id": "n",
+            "x": 600,
+            "y": 100
+          },
+          {
+            "id": "p",
+            "x": 100,
+            "y": 200
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "name": "V1",
+            "type": "source",
+            "a": "p",
+            "b": "g",
+            "value": 15,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "name": "R1",
+            "type": "resistor",
+            "a": "p",
+            "b": "m",
+            "value": 30,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "R2",
+            "name": "R2",
+            "type": "resistor",
+            "a": "m",
+            "b": "n",
+            "value": 20,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "S2",
+            "name": "S2",
+            "type": "switch",
+            "a": "m",
+            "b": "n",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true
+          },
+          {
+            "id": "S1",
+            "name": "S1",
+            "type": "switch",
+            "a": "g",
+            "b": "n",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false
+          }
+        ],
+        "source": "image"
+      },
+      "expectedCurrent": 0,
+      "states": null
+    },
+    {
+      "id": "both-closed",
+      "file": "public/examples/vision-v4/both-closed.png",
+      "source": "Original textbook-style fixture",
+      "expected": {
+        "title": "人工标注电路",
+        "nodes": [
+          {
+            "id": "g",
+            "x": 100,
+            "y": 100
+          },
+          {
+            "id": "m",
+            "x": 350,
+            "y": 100
+          },
+          {
+            "id": "n",
+            "x": 600,
+            "y": 100
+          },
+          {
+            "id": "p",
+            "x": 100,
+            "y": 200
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "name": "V1",
+            "type": "source",
+            "a": "p",
+            "b": "g",
+            "value": 15,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "name": "R1",
+            "type": "resistor",
+            "a": "p",
+            "b": "m",
+            "value": 30,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "R2",
+            "name": "R2",
+            "type": "resistor",
+            "a": "m",
+            "b": "n",
+            "value": 20,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "S2",
+            "name": "S2",
+            "type": "switch",
+            "a": "m",
+            "b": "n",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true
+          },
+          {
+            "id": "S1",
+            "name": "S1",
+            "type": "switch",
+            "a": "g",
+            "b": "n",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true
+          }
+        ],
+        "source": "image"
+      },
+      "expectedCurrent": 0.5,
+      "states": null
+    },
+    {
+      "id": "vertical-open",
+      "file": "public/examples/vision-v4/vertical-open.png",
+      "source": "Original textbook-style fixture",
+      "expected": {
+        "title": "人工标注电路",
+        "nodes": [
+          {
+            "id": "a",
+            "x": 100,
+            "y": 100
+          },
+          {
+            "id": "g",
+            "x": 350,
+            "y": 100
+          },
+          {
+            "id": "p",
+            "x": 600,
+            "y": 100
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "name": "V1",
+            "type": "source",
+            "a": "p",
+            "b": "g",
+            "value": 6,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "name": "R1",
+            "type": "resistor",
+            "a": "p",
+            "b": "a",
+            "value": 10,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "S1",
+            "name": "S1",
+            "type": "switch",
+            "a": "a",
+            "b": "g",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false
+          }
+        ],
+        "source": "image"
+      },
+      "expectedCurrent": 0,
+      "states": null
+    },
+    {
+      "id": "vertical-closed",
+      "file": "public/examples/vision-v4/vertical-closed.png",
+      "source": "Original textbook-style fixture",
+      "expected": {
+        "title": "人工标注电路",
+        "nodes": [
+          {
+            "id": "a",
+            "x": 100,
+            "y": 100
+          },
+          {
+            "id": "g",
+            "x": 350,
+            "y": 100
+          },
+          {
+            "id": "p",
+            "x": 600,
+            "y": 100
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "name": "V1",
+            "type": "source",
+            "a": "p",
+            "b": "g",
+            "value": 6,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "name": "R1",
+            "type": "resistor",
+            "a": "p",
+            "b": "a",
+            "value": 10,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "S1",
+            "name": "S1",
+            "type": "switch",
+            "a": "a",
+            "b": "g",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true
+          }
+        ],
+        "source": "image"
+      },
+      "expectedCurrent": 0.6,
+      "states": null
+    },
+    {
+      "id": "parallel-branch-control",
+      "file": "public/examples/vision-v4/parallel-branch-control.png",
+      "source": "Original textbook-style fixture",
+      "expected": {
+        "title": "人工标注电路",
+        "nodes": [
+          {
+            "id": "g",
+            "x": 100,
+            "y": 100
+          },
+          {
+            "id": "m",
+            "x": 350,
+            "y": 100
+          },
+          {
+            "id": "n",
+            "x": 600,
+            "y": 100
+          },
+          {
+            "id": "p",
+            "x": 100,
+            "y": 200
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "name": "V1",
+            "type": "source",
+            "a": "p",
+            "b": "g",
+            "value": 9,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "name": "R1",
+            "type": "resistor",
+            "a": "p",
+            "b": "n",
+            "value": 6,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "R2",
+            "name": "R2",
+            "type": "resistor",
+            "a": "p",
+            "b": "m",
+            "value": 3,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "S2",
+            "name": "S2",
+            "type": "switch",
+            "a": "m",
+            "b": "n",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false
+          },
+          {
+            "id": "S1",
+            "name": "S1",
+            "type": "switch",
+            "a": "g",
+            "b": "n",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true
+          }
+        ],
+        "source": "image"
+      },
+      "expectedCurrent": 1.5,
+      "states": null
+    },
+    {
+      "id": "ammeter-voltmeter",
+      "file": "public/examples/vision-v4/ammeter-voltmeter.png",
+      "source": "Original textbook-style fixture",
+      "expected": {
+        "title": "人工标注电路",
+        "nodes": [
+          {
+            "id": "a",
+            "x": 100,
+            "y": 100
+          },
+          {
+            "id": "b",
+            "x": 350,
+            "y": 100
+          },
+          {
+            "id": "g",
+            "x": 600,
+            "y": 100
+          },
+          {
+            "id": "n",
+            "x": 100,
+            "y": 200
+          },
+          {
+            "id": "p",
+            "x": 350,
+            "y": 200
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "name": "V1",
+            "type": "source",
+            "a": "p",
+            "b": "g",
+            "value": 12,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "A1",
+            "name": "A1",
+            "type": "ammeter",
+            "a": "p",
+            "b": "a",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "name": "R1",
+            "type": "resistor",
+            "a": "a",
+            "b": "b",
+            "value": 4,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "R2",
+            "name": "R2",
+            "type": "resistor",
+            "a": "b",
+            "b": "n",
+            "value": 8,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "VM1",
+            "name": "VM1",
+            "type": "voltmeter",
+            "a": "b",
+            "b": "n",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true
+          },
+          {
+            "id": "S1",
+            "name": "S1",
+            "type": "switch",
+            "a": "g",
+            "b": "n",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false
+          }
+        ],
+        "source": "image"
+      },
+      "expectedCurrent": 0,
+      "states": null
+    },
+    {
+      "id": "wheatstone-bridge",
+      "file": "public/examples/vision-v4/wheatstone-bridge.png",
+      "source": "Original textbook-style fixture",
+      "expected": {
+        "title": "人工标注电路",
+        "nodes": [
+          {
+            "id": "a",
+            "x": 100,
+            "y": 100
+          },
+          {
+            "id": "b",
+            "x": 350,
+            "y": 100
+          },
+          {
+            "id": "g",
+            "x": 600,
+            "y": 100
+          },
+          {
+            "id": "p",
+            "x": 100,
+            "y": 200
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "name": "V1",
+            "type": "source",
+            "a": "p",
+            "b": "g",
+            "value": 10,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "name": "R1",
+            "type": "resistor",
+            "a": "p",
+            "b": "a",
+            "value": 10,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "R2",
+            "name": "R2",
+            "type": "resistor",
+            "a": "a",
+            "b": "g",
+            "value": 10,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "R3",
+            "name": "R3",
+            "type": "resistor",
+            "a": "p",
+            "b": "b",
+            "value": 10,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "R4",
+            "name": "R4",
+            "type": "resistor",
+            "a": "b",
+            "b": "g",
+            "value": 10,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "R5",
+            "name": "R5",
+            "type": "resistor",
+            "a": "a",
+            "b": "b",
+            "value": 10,
+            "valueSource": "given",
+            "closed": true
+          }
+        ],
+        "source": "image"
+      },
+      "expectedCurrent": 1,
+      "states": null
+    },
+    {
+      "id": "rheostat-closed",
+      "file": "public/examples/vision-v4/rheostat-closed.png",
+      "source": "Original textbook-style fixture",
+      "expected": {
+        "title": "人工标注电路",
+        "nodes": [
+          {
+            "id": "a",
+            "x": 100,
+            "y": 100
+          },
+          {
+            "id": "b",
+            "x": 350,
+            "y": 100
+          },
+          {
+            "id": "g",
+            "x": 600,
+            "y": 100
+          },
+          {
+            "id": "p",
+            "x": 100,
+            "y": 200
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "name": "V1",
+            "type": "source",
+            "a": "p",
+            "b": "g",
+            "value": 12,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "name": "R1",
+            "type": "resistor",
+            "a": "p",
+            "b": "a",
+            "value": 4,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "RP1",
+            "name": "RP1",
+            "type": "rheostat",
+            "a": "a",
+            "b": "b",
+            "value": 8,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "S1",
+            "name": "S1",
+            "type": "switch",
+            "a": "b",
+            "b": "g",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true
+          }
+        ],
+        "source": "image"
+      },
+      "expectedCurrent": 1,
+      "states": null
+    },
+    {
+      "id": "lamp-open",
+      "file": "public/examples/vision-v4/lamp-open.png",
+      "source": "Original textbook-style fixture",
+      "expected": {
+        "title": "人工标注电路",
+        "nodes": [
+          {
+            "id": "a",
+            "x": 100,
+            "y": 100
+          },
+          {
+            "id": "g",
+            "x": 350,
+            "y": 100
+          },
+          {
+            "id": "p",
+            "x": 600,
+            "y": 100
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "name": "V1",
+            "type": "source",
+            "a": "p",
+            "b": "g",
+            "value": 3,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "L1",
+            "name": "L1",
+            "type": "lamp",
+            "a": "p",
+            "b": "a",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true
+          },
+          {
+            "id": "S1",
+            "name": "S1",
+            "type": "switch",
+            "a": "a",
+            "b": "g",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false
+          }
+        ],
+        "source": "image"
+      },
+      "expectedCurrent": null,
+      "states": null
+    },
+    {
+      "id": "crossing-no-junction",
+      "file": "public/examples/vision-v4/crossing-no-junction.png",
+      "source": "Original textbook-style fixture",
+      "expected": {
+        "title": "人工标注电路",
+        "nodes": [
+          {
+            "id": "a",
+            "x": 100,
+            "y": 100
+          },
+          {
+            "id": "g",
+            "x": 350,
+            "y": 100
+          },
+          {
+            "id": "p",
+            "x": 600,
+            "y": 100
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "name": "V1",
+            "type": "source",
+            "a": "p",
+            "b": "g",
+            "value": 12,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "name": "R1",
+            "type": "resistor",
+            "a": "p",
+            "b": "a",
+            "value": 4,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "R2",
+            "name": "R2",
+            "type": "resistor",
+            "a": "a",
+            "b": "g",
+            "value": 8,
+            "valueSource": "given",
+            "closed": true
+          },
+          {
+            "id": "R3",
+            "name": "R3",
+            "type": "resistor",
+            "a": "p",
+            "b": "g",
+            "value": 6,
+            "valueSource": "given",
+            "closed": true
+          }
+        ],
+        "source": "image"
+      },
+      "expectedCurrent": 3,
+      "states": null
+    }
+  ]
+}

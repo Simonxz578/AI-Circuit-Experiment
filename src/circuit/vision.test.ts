@@ -1,0 +1,6 @@
+import {it,expect} from 'vitest';import {findDiagramRegion} from './vision';
+const pixels=(w=800,h=1000)=>{const p=new Uint8Array(w*h*4);p.fill(255);return p;};
+function line(p:Uint8Array,x1:number,y1:number,x2:number,y2:number,w=800){for(let y=y1;y<=y2;y++)for(let x=x1;x<=x2;x++){const i=(y*w+x)*4;p[i]=p[i+1]=p[i+2]=0;}}
+it('finds schematic strokes and excludes later question lines below the diagram',()=>{const p=pixels();line(p,100,200,700,204);line(p,100,600,700,604);line(p,100,200,104,604);line(p,696,200,700,604);for(let x=80;x<720;x+=25)line(p,x,800,x+12,820);const region=findDiagramRegion(p,800,1000)!;expect(region).toBeTruthy();expect(region.y).toBeLessThan(150);expect(region.y+region.height).toBeLessThan(700);expect(region.x).toBeLessThan(100);});
+it('does not invent a crop from blank paper or short text strokes',()=>{const p=pixels();expect(findDiagramRegion(p,800,1000)).toBeNull();for(let x=60;x<720;x+=30)line(p,x,150,x+10,180);expect(findDiagramRegion(p,800,1000)).toBeNull();});
+it('falls back to the original image for too-small and full-frame dark pictures',()=>{expect(findDiagramRegion(new Uint8Array(100*100*4),100,100)).toBeNull();const p=new Uint8Array(800*1000*4);for(let i=3;i<p.length;i+=4)p[i]=255;expect(findDiagramRegion(p,800,1000)).toBeNull();});

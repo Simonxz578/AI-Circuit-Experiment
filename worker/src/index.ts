@@ -1,21 +1,14 @@
 import {DurableObject} from 'cloudflare:workers';
-import {CircuitSchema} from '../../src/circuit/schema';
+import {CircuitSchema,StateObservationSchema} from '../../src/circuit/schema';
 import {runInference} from './inference';
 import {streamInference} from './transport';
-interface Env{DEEPSEEK_API_KEY?:string;ALLOWED_ORIGINS:string;AI_ENABLED:string;DAILY_REQUEST_LIMIT:string;BUDGET:DurableObjectNamespace<Budget>}
+import {validContactRaster,validContactCandidates} from '../../src/circuit/contactVision';
+interface Env{DEEPSEEK_API_KEY?:string;ALLOWED_ORIGINS:string;AI_ENABLED:string}
+/** Legacy binding retained for a non-destructive migration. It no longer counts or rejects requests. */
 export class Budget extends DurableObject<Env>{
- async fetch(request:Request){
-  const {ip,limit}=await request.json() as {ip:string;limit:number};const now=Date.now(),day=new Date(now).toISOString().slice(0,10),minute=Math.floor(now/60000);
-  const allowed=await this.ctx.storage.transaction(async tx=>{
-   type State={day:string;total:number;ips:Record<string,{daily:number;minute:number;burst:number}>};
-   let state=await tx.get<State>('budget');if(!state||state.day!==day)state={day,total:0,ips:{}};
-   const person=state.ips[ip]??{daily:0,minute,burst:0};if(person.minute!==minute){person.minute=minute;person.burst=0;}
-   if(state.total>=limit||person.daily>=30||person.burst>=5)return false;
-   person.daily++;person.burst++;state.total++;state.ips[ip]=person;await tx.put('budget',state);return true;
-  });return Response.json({allowed},{status:allowed?200:429});
- }
+ async fetch(){return Response.json({allowed:true,limitsDisabled:true});}
 }
-const MAX_BODY=3_000_000,MAX_IMAGE=2_000_000;
+const MAX_BODY=4_000_000,MAX_IMAGE=2_000_000;
 export async function readBody(request:Request){
  if(Number(request.headers.get('content-length')??0)>MAX_BODY)throw new Error('BODY_TOO_LARGE');
  const reader=request.body?.getReader();if(!reader)throw new Error('INVALID_INPUT');let size=0;const chunks:Uint8Array[]=[];
@@ -33,7 +26,7 @@ export default {async fetch(request:Request,env:Env):Promise<Response>{
  if(allowed)headers['Access-Control-Allow-Origin']=origin;
  const json=(body:unknown,status=200)=>new Response(JSON.stringify(body),{status,headers});const path=new URL(request.url).pathname;
  if(request.method==='OPTIONS')return allowed?new Response(null,{status:204,headers:{...headers,'Access-Control-Allow-Methods':'POST,GET,OPTIONS','Access-Control-Allow-Headers':'Content-Type','Access-Control-Max-Age':'600'}}):json({error:'此来源未获允许。'},403);
- if(path==='/api/health'&&request.method==='GET')return json({status:'ok',ai:!!env.DEEPSEEK_API_KEY&&env.AI_ENABLED==='true',model:'deepseek-flash',scope:'linear-dc',configured:!!env.DEEPSEEK_API_KEY,version:'reliability-v2'});
+ if(path==='/api/health'&&request.method==='GET')return json({status:'ok',ai:!!env.DEEPSEEK_API_KEY&&env.AI_ENABLED==='true',model:'deepseek-flash',scope:'linear-dc',configured:!!env.DEEPSEEK_API_KEY,version:'vision-v4',appRateLimit:false});
  if(!['/api/parse','/api/chat'].includes(path))return json({error:'接口不存在。'},404);
  if(request.method!=='POST')return json({error:'请使用 POST 请求。'},405);
  if(!allowed)return json({error:'此来源未获允许。'},403);
@@ -42,21 +35,18 @@ export default {async fetch(request:Request,env:Env):Promise<Response>{
  let body:Record<string,unknown>;
  try{body=await readBody(request);}catch(e){return json({error:(e as Error).message==='BODY_TOO_LARGE'?'图片太大，请选择 2 MB 以内的图片。':'请求格式不正确。'},(e as Error).message==='BODY_TOO_LARGE'?413:400);}
  if(!body||typeof body!=='object'||Array.isArray(body))return json({error:'请求应为包含文字或图片的对象。',code:'INVALID_INPUT',requestId},400);
- const text=typeof body.text==='string'?body.text.trim():'',image=body.image;
+ const text=typeof body.text==='string'?body.text.trim():'',image=body.image,imageDetail=body.imageDetail,raster=body.contactRaster;
  if(text.length>4000||(!text&&!image))return json({error:'请提供 4000 字以内的题目或清晰电路图片。'},400);
  if(image!==undefined&&image!==null&&!validImage(image))return json({error:'请上传 2 MB 以内的 PNG、JPEG 或 WebP 图片。'},400);
+ if(imageDetail!==undefined&&(!image||!validImage(imageDetail)))return json({error:'电路细节图格式无效，请重新选择图片。'},400);
+ const diagramRegion=StateObservationSchema.shape.region.safeParse(body.diagramRegion);
+ if(body.diagramImage!==undefined&&(!image||!validImage(body.diagramImage)||!diagramRegion.success||!diagramRegion.data))return json({error:'电路区域图无效，请重新选择图片。'},400);
+ if(raster!==undefined&&(!image||!validContactRaster(raster)))return json({error:'触点图像数据无效，请重新选择图片。'},400);
+ if(body.contactCandidates!==undefined&&(!raster||!validContactCandidates(body.contactCandidates)))return json({error:'触点定位数据无效，请重新选择图片。'},400);
  const chat=path==='/api/chat';let doc;
  if(chat){const parsed=CircuitSchema.safeParse(body.document);if(!parsed.success)return json({error:'当前电路数据不完整，请重新选择实验。'},400);doc=parsed.data;}
- const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(new Date().toISOString().slice(0,10)+'|'+(request.headers.get('CF-Connecting-IP')??'local')));
- const ip=Array.from(new Uint8Array(digest),n=>n.toString(16).padStart(2,'0')).join('');
- const configured=Number(env.DAILY_REQUEST_LIMIT),limit=Number.isFinite(configured)?Math.max(1,Math.min(1000,configured)):150;
- const consume=async()=>{
-  const response=await env.BUDGET.get(env.BUDGET.idFromName('global')).fetch(new Request('https://budget/check',{method:'POST',body:JSON.stringify({ip,limit})}));
-  return response.status===200;
- };
  try{
-  if(!await consume())return json({error:'请求次数已达上限。每分钟最多5次、每人每天30次（含自动恢复）。请稍后再试，仍可本地调参。',code:'RATE_LIMIT',requestId},429);
-  const options={key:env.DEEPSEEK_API_KEY,text,image:typeof image==='string'?image:undefined,document:doc,requestId,consume};
+  const options={key:env.DEEPSEEK_API_KEY,text,image:typeof image==='string'?image:undefined,imageDetail:typeof imageDetail==='string'?imageDetail:undefined,diagramImage:typeof body.diagramImage==='string'?body.diagramImage:undefined,diagramRegion:diagramRegion.success?diagramRegion.data:undefined,contactRaster:validContactRaster(raster)?raster:undefined,contactCandidates:validContactCandidates(body.contactCandidates)?body.contactCandidates:undefined,document:doc,requestId,consume:async()=>true};
   if(request.headers.get('Accept')?.includes('application/x-ndjson'))return streamInference((onProgress,signal)=>runInference({...options,onProgress,signal}),headers,requestId);
   const outcome=await runInference({...options,signal:request.signal});return json(outcome.body,outcome.status);
  }catch{

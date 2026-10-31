@@ -1,5 +1,5 @@
 import {z} from 'zod';
-import {CircuitSchema,registry,type Component,type CircuitDocument} from './schema';
+import {CircuitSchema,StateObservationSchema,registry,type Component,type CircuitDocument} from './schema';
 
 const aliases:Record<string,Component['type']>={
  dc_source:'source',voltage_source:'source',battery:'source',dc_voltage:'source',
@@ -13,7 +13,7 @@ const rawSchema=z.object({title:z.string().min(1).max(120),problemText:z.string(
  nodes:z.array(rawNode).min(2).max(40),components:z.array(z.object({
   id:z.string().min(1).max(24),type:z.string().max(40),name:z.string().max(80).optional(),a:z.string().min(1).max(24),b:z.string().min(1).max(24),
   value:z.union([z.number().finite(),z.string().max(40),z.null()]).optional(),valueSource:z.enum(['given','user','unknown','suggested']).optional(),
-  closed:z.boolean().optional(),position:point.nullable().optional(),confidence:z.number().min(0).max(1).optional(),evidence:z.string().max(500).optional()
+  closed:z.boolean().optional(),position:point.nullable().optional(),confidence:z.number().min(0).max(1).optional(),evidence:z.string().max(500).optional(),stateObservation:StateObservationSchema.optional(),labelVisible:z.boolean().optional(),candidateIndex:z.number().int().min(0).max(39).optional()
  })).min(1).max(40),warnings:z.array(z.string().max(500)).max(16).optional(),uncertainties:z.array(z.string().max(500)).max(16).optional(),confidence:z.number().min(0).max(1).optional()});
 
 function stableId(id:string){const sub='₀₁₂₃₄₅₆₇₈₉';return id.normalize('NFKC').replace(/[₀-₉]/g,c=>String(sub.indexOf(c))).replace(/\s+/g,'');}
@@ -39,9 +39,17 @@ export function normalizeRecognition(input:unknown,source:'text'|'image'):Circui
  const components=raw.components.map(c=>{
   const type=aliases[c.type.toLowerCase()];if(!type)throw new Error('识别结果包含未知元件类型。');const id=stableId(c.id);
   const value=['source','resistor','rheostat','lamp','capacitor','inductor','ac_source'].includes(type)?valueNumber(c.value,type):null;
-  if((type==='switch'||type==='fuse')&&c.closed===undefined)uncertainties.push(`${id} 的通断状态未确定，先按断开显示，请对照原图确认。`);
+  const observation=c.stateObservation,observedClosed=observation?.basis==='diagram'&&observation.confidence>=.85&&observation.contact!=='unclear'?observation.contact==='touching':undefined;
+  const closed=c.closed??observedClosed??!['switch','fuse'].includes(type);
+  if((type==='switch'||type==='fuse')&&c.closed===undefined&&observedClosed===undefined&&c.candidateIndex===undefined)uncertainties.push(`${id} 的通断状态未确定，先按断开显示，请对照原图确认。`);
   const position=c.position?{x:Math.max(60,Math.min(940,needsScale&&xValues.length?scale(c.position.x,xValues,100,900):c.position.x)),y:Math.max(60,Math.min(540,needsScale&&yValues.length?scale(c.position.y,yValues,100,500):c.position.y))}:undefined;
-  return {id,type,name:c.name??registry[type].label,a:stableId(c.a),b:stableId(c.b),value,valueSource:value===null?'unknown' as const:c.valueSource??'given' as const,closed:c.closed??!['switch','fuse'].includes(type),confidence:c.confidence??raw.confidence??.9,evidence:c.evidence??'',...(position?{position}:{})};
+  return {id,type,name:c.name??registry[type].label,a:stableId(c.a),b:stableId(c.b),value,valueSource:value===null?'unknown' as const:c.valueSource??'given' as const,closed,confidence:c.confidence??raw.confidence??.9,evidence:c.evidence??'',...(position?{position}:{}),...(c.stateObservation?{stateObservation:c.stateObservation}:{}),...(c.labelVisible===undefined?{}:{labelVisible:c.labelVisible}),...(c.candidateIndex===undefined?{}:{candidateIndex:c.candidateIndex})};
  });
  return CircuitSchema.parse({title:raw.title,problemText:raw.problemText??'',nodes,components,warnings:warnings.slice(0,16),uncertainties:[...new Set(uncertainties)].slice(0,16),confidence:raw.confidence??.9,source});
+}
+
+const inventorySchema=z.object({components:z.array(z.object({id:z.string().min(1).max(24),type:z.string().max(40),value:z.union([z.number().finite(),z.string().max(40),z.null()]).optional(),labelVisible:z.boolean().optional(),candidateIndex:z.number().int().min(0).max(39).optional(),closed:z.boolean().optional(),stateObservation:StateObservationSchema.optional()})).min(1).max(40),confidence:z.number().min(0).max(1).default(.95),uncertainties:z.array(z.string().max(500)).max(16).default([])});
+export type VisualInventory={components:{id:string;type:Component['type'];value:number|null;labelVisible?:boolean;candidateIndex?:number;closed?:boolean;stateObservation?:Component['stateObservation']}[];confidence:number;uncertainties:string[]};
+export function normalizeVisualInventory(input:unknown):VisualInventory{
+ const raw=inventorySchema.parse(input);const ids=new Set<string>();return {...raw,components:raw.components.map(c=>{const type=aliases[c.type.toLowerCase()];if(!type)throw new Error('Unknown visual inventory type');const id=stableId(c.id);if(ids.has(id))throw new Error('Duplicate visual inventory ID');ids.add(id);return {...c,id,type,value:['source','resistor','rheostat','lamp','capacitor','inductor','ac_source'].includes(type)?valueNumber(c.value,type):null};})};
 }

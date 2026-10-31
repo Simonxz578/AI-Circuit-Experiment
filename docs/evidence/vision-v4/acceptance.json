@@ -1,0 +1,5096 @@
+{
+  "started": "2026-10-31T01:50:16.037Z",
+  "finished": "2026-10-31T01:52:46.371Z",
+  "model": "deepseek-flash",
+  "strategy": "Reasoned topology + independent inventory + pixel contacts",
+  "providerCalls": 39,
+  "caseCount": 18,
+  "passed": 15,
+  "failed": 3,
+  "results": [
+    {
+      "id": "user-original-1",
+      "source": "User-provided original screenshot; input image remains private",
+      "imageSha256": "88346f02facefbd571b8c712683da43a7292db5c93e29a7b7e9db961969853e0",
+      "status": 200,
+      "durationMs": 27118,
+      "providerCalls": 2,
+      "detailRegion": {
+        "x": 10,
+        "y": 76,
+        "width": 944,
+        "height": 684
+      },
+      "verification": {
+        "mode": "visual-inventory",
+        "status": "matched",
+        "topologyMatched": false,
+        "inventoryMatched": true,
+        "checkedSwitches": 2,
+        "pixelCheckedSwitches": 2
+      },
+      "layoutMs": 17.61212499999965,
+      "wireObstructions": 0,
+      "current": null,
+      "problems": [],
+      "candidates": {
+        "primary": {
+          "title": "欧姆定律与动态电路",
+          "problemText": "",
+          "nodes": [
+            {
+              "id": "p",
+              "x": 180,
+              "y": 130
+            },
+            {
+              "id": "a",
+              "x": 480,
+              "y": 130
+            },
+            {
+              "id": "c",
+              "x": 780,
+              "y": 130
+            },
+            {
+              "id": "n",
+              "x": 180,
+              "y": 250
+            }
+          ],
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "name": "直流电源",
+              "a": "p",
+              "b": "n",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": true,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": false
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "p",
+              "b": "a",
+              "value": 30,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "a",
+              "b": "c",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": true,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "S2",
+              "type": "switch",
+              "name": "开关",
+              "a": "a",
+              "b": "c",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true,
+              "candidateIndex": 0
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "name": "开关",
+              "a": "n",
+              "b": "c",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true,
+              "candidateIndex": 1
+            }
+          ],
+          "warnings": [],
+          "uncertainties": [],
+          "confidence": 0.95,
+          "source": "image"
+        },
+        "audit": {
+          "components": [
+            {
+              "id": "R1",
+              "type": "resistor",
+              "value": 30,
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "value": null,
+              "labelVisible": true
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "value": null,
+              "labelVisible": true,
+              "candidateIndex": 1
+            },
+            {
+              "id": "S2",
+              "type": "switch",
+              "value": null,
+              "labelVisible": true,
+              "candidateIndex": 0
+            },
+            {
+              "id": "V1",
+              "type": "source",
+              "value": null,
+              "labelVisible": false
+            }
+          ],
+          "confidence": 0.95,
+          "uncertainties": []
+        },
+        "reviewer": null
+      },
+      "passed": true,
+      "document": {
+        "title": "欧姆定律与动态电路",
+        "problemText": "",
+        "nodes": [
+          {
+            "id": "p",
+            "x": 180,
+            "y": 130
+          },
+          {
+            "id": "a",
+            "x": 480,
+            "y": 130
+          },
+          {
+            "id": "c",
+            "x": 780,
+            "y": 130
+          },
+          {
+            "id": "n",
+            "x": 180,
+            "y": 250
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "type": "source",
+            "name": "直流电源",
+            "a": "p",
+            "b": "n",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.95,
+            "evidence": "",
+            "labelVisible": false
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "p",
+            "b": "a",
+            "value": 30,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.95,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "a",
+            "b": "c",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.95,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "S2",
+            "type": "switch",
+            "name": "开关",
+            "a": "a",
+            "b": "c",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false,
+            "confidence": 0.95,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "gap",
+              "basis": "diagram",
+              "confidence": 0.99
+            },
+            "stateSource": "diagram",
+            "initialClosed": false,
+            "labelVisible": true,
+            "candidateIndex": 0
+          },
+          {
+            "id": "S1",
+            "type": "switch",
+            "name": "开关",
+            "a": "n",
+            "b": "c",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false,
+            "confidence": 0.95,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "gap",
+              "basis": "diagram",
+              "confidence": 0.99
+            },
+            "stateSource": "diagram",
+            "initialClosed": false,
+            "labelVisible": true,
+            "candidateIndex": 1
+          }
+        ],
+        "warnings": [],
+        "uncertainties": [],
+        "confidence": 0.95,
+        "source": "image",
+        "verification": {
+          "mode": "visual-inventory",
+          "status": "matched",
+          "topologyMatched": false,
+          "inventoryMatched": true,
+          "checkedSwitches": 2,
+          "pixelCheckedSwitches": 2
+        }
+      }
+    },
+    {
+      "id": "user-original-2",
+      "source": "User-provided original screenshot; input image remains private",
+      "imageSha256": "88346f02facefbd571b8c712683da43a7292db5c93e29a7b7e9db961969853e0",
+      "status": 200,
+      "durationMs": 32899,
+      "providerCalls": 3,
+      "detailRegion": {
+        "x": 10,
+        "y": 76,
+        "width": 944,
+        "height": 684
+      },
+      "verification": {
+        "mode": "visual-inventory",
+        "status": "matched",
+        "topologyMatched": false,
+        "inventoryMatched": true,
+        "checkedSwitches": 2,
+        "pixelCheckedSwitches": 2
+      },
+      "layoutMs": 2.3047500000029686,
+      "wireObstructions": 0,
+      "current": null,
+      "problems": [],
+      "candidates": {
+        "primary": {
+          "title": "欧姆定律与动态电路",
+          "problemText": "",
+          "nodes": [
+            {
+              "id": "p",
+              "x": 180,
+              "y": 130
+            },
+            {
+              "id": "m",
+              "x": 480,
+              "y": 130
+            },
+            {
+              "id": "g",
+              "x": 780,
+              "y": 130
+            },
+            {
+              "id": "n",
+              "x": 180,
+              "y": 250
+            }
+          ],
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "name": "直流电源",
+              "a": "p",
+              "b": "n",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": true,
+              "confidence": 0.97,
+              "evidence": "",
+              "labelVisible": false
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "p",
+              "b": "m",
+              "value": 30,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.97,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "m",
+              "b": "g",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": true,
+              "confidence": 0.97,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "name": "开关",
+              "a": "n",
+              "b": "g",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.97,
+              "evidence": "",
+              "labelVisible": true,
+              "candidateIndex": 1
+            },
+            {
+              "id": "S2",
+              "type": "switch",
+              "name": "开关",
+              "a": "m",
+              "b": "g",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.97,
+              "evidence": "",
+              "labelVisible": true,
+              "candidateIndex": 0
+            }
+          ],
+          "warnings": [],
+          "uncertainties": [],
+          "confidence": 0.97,
+          "source": "image"
+        },
+        "audit": {
+          "components": [
+            {
+              "id": "R1",
+              "type": "resistor",
+              "value": 30,
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "value": null,
+              "labelVisible": true
+            },
+            {
+              "id": "S2",
+              "type": "switch",
+              "value": null,
+              "labelVisible": true,
+              "candidateIndex": 0
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "value": null,
+              "labelVisible": true,
+              "candidateIndex": 1
+            },
+            {
+              "id": "V1",
+              "type": "source",
+              "value": null,
+              "labelVisible": false
+            }
+          ],
+          "confidence": 0.9,
+          "uncertainties": [
+            "电池与S1支路的通路判断仅依据原图接线，不做通断推理。"
+          ]
+        },
+        "reviewer": {
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "value": null,
+              "labelVisible": false
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "value": 30,
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "value": null,
+              "labelVisible": true
+            },
+            {
+              "id": "S2",
+              "type": "switch",
+              "value": null,
+              "labelVisible": true,
+              "candidateIndex": 0
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "value": null,
+              "labelVisible": true,
+              "candidateIndex": 1
+            }
+          ],
+          "confidence": 0.95,
+          "uncertainties": []
+        }
+      },
+      "passed": true,
+      "document": {
+        "title": "欧姆定律与动态电路",
+        "problemText": "",
+        "nodes": [
+          {
+            "id": "p",
+            "x": 180,
+            "y": 130
+          },
+          {
+            "id": "m",
+            "x": 480,
+            "y": 130
+          },
+          {
+            "id": "g",
+            "x": 780,
+            "y": 130
+          },
+          {
+            "id": "n",
+            "x": 180,
+            "y": 250
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "type": "source",
+            "name": "直流电源",
+            "a": "p",
+            "b": "n",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.97,
+            "evidence": "",
+            "labelVisible": false
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "p",
+            "b": "m",
+            "value": 30,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.97,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "m",
+            "b": "g",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.97,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "S1",
+            "type": "switch",
+            "name": "开关",
+            "a": "n",
+            "b": "g",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false,
+            "confidence": 0.97,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "gap",
+              "basis": "diagram",
+              "confidence": 0.99
+            },
+            "stateSource": "diagram",
+            "initialClosed": false,
+            "labelVisible": true,
+            "candidateIndex": 1
+          },
+          {
+            "id": "S2",
+            "type": "switch",
+            "name": "开关",
+            "a": "m",
+            "b": "g",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false,
+            "confidence": 0.97,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "gap",
+              "basis": "diagram",
+              "confidence": 0.99
+            },
+            "stateSource": "diagram",
+            "initialClosed": false,
+            "labelVisible": true,
+            "candidateIndex": 0
+          }
+        ],
+        "warnings": [],
+        "uncertainties": [],
+        "confidence": 0.95,
+        "source": "image",
+        "verification": {
+          "mode": "visual-inventory",
+          "status": "matched",
+          "topologyMatched": false,
+          "inventoryMatched": true,
+          "checkedSwitches": 2,
+          "pixelCheckedSwitches": 2
+        }
+      }
+    },
+    {
+      "id": "textbook-series",
+      "source": "https://www.siyavula.com/read/za/physical-sciences/grade-11/electric-circuits/11-electric-circuits-05#a94939533520153d1cfd5b4a6a795e68",
+      "imageSha256": "9920ecf1efe47ea23deeac754ecc7eb55fa20658dd0a74bb8912c39f1fe28156",
+      "status": 200,
+      "durationMs": 8846,
+      "providerCalls": 2,
+      "detailRegion": {
+        "x": 10,
+        "y": 0,
+        "width": 264,
+        "height": 263
+      },
+      "verification": {
+        "mode": "visual-inventory",
+        "status": "matched",
+        "topologyMatched": false,
+        "inventoryMatched": true,
+        "checkedSwitches": 0,
+        "pixelCheckedSwitches": 0
+      },
+      "layoutMs": 18.85779200000252,
+      "wireObstructions": 0,
+      "current": 0.5,
+      "problems": [],
+      "candidates": {
+        "primary": {
+          "title": "电阻串联电路",
+          "problemText": "",
+          "nodes": [
+            {
+              "id": "p",
+              "x": 180,
+              "y": 130
+            },
+            {
+              "id": "q",
+              "x": 480,
+              "y": 130
+            },
+            {
+              "id": "r",
+              "x": 780,
+              "y": 130
+            },
+            {
+              "id": "s",
+              "x": 180,
+              "y": 250
+            }
+          ],
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "name": "直流电源",
+              "a": "p",
+              "b": "s",
+              "value": 9,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.98,
+              "evidence": "",
+              "labelVisible": false
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "p",
+              "b": "q",
+              "value": 3,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.98,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "q",
+              "b": "r",
+              "value": 10,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.98,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R3",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "s",
+              "b": "r",
+              "value": 5,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.98,
+              "evidence": "",
+              "labelVisible": true
+            }
+          ],
+          "warnings": [],
+          "uncertainties": [],
+          "confidence": 0.98,
+          "source": "image"
+        },
+        "audit": {
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "value": 9,
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "value": 3,
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "value": 10,
+              "labelVisible": true
+            },
+            {
+              "id": "R3",
+              "type": "resistor",
+              "value": 5,
+              "labelVisible": true
+            }
+          ],
+          "confidence": 0.99,
+          "uncertainties": []
+        },
+        "reviewer": null
+      },
+      "passed": true,
+      "document": {
+        "title": "电阻串联电路",
+        "problemText": "",
+        "nodes": [
+          {
+            "id": "p",
+            "x": 180,
+            "y": 130
+          },
+          {
+            "id": "q",
+            "x": 480,
+            "y": 130
+          },
+          {
+            "id": "r",
+            "x": 780,
+            "y": 130
+          },
+          {
+            "id": "s",
+            "x": 180,
+            "y": 250
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "type": "source",
+            "name": "直流电源",
+            "a": "p",
+            "b": "s",
+            "value": 9,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.98,
+            "evidence": "",
+            "labelVisible": false
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "p",
+            "b": "q",
+            "value": 3,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.98,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "q",
+            "b": "r",
+            "value": 10,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.98,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R3",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "s",
+            "b": "r",
+            "value": 5,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.98,
+            "evidence": "",
+            "labelVisible": true
+          }
+        ],
+        "warnings": [],
+        "uncertainties": [],
+        "confidence": 0.98,
+        "source": "image",
+        "verification": {
+          "mode": "visual-inventory",
+          "status": "matched",
+          "topologyMatched": false,
+          "inventoryMatched": true,
+          "checkedSwitches": 0,
+          "pixelCheckedSwitches": 0
+        }
+      }
+    },
+    {
+      "id": "user-original-3",
+      "source": "User-provided original screenshot; input image remains private",
+      "imageSha256": "88346f02facefbd571b8c712683da43a7292db5c93e29a7b7e9db961969853e0",
+      "status": 200,
+      "durationMs": 28543,
+      "providerCalls": 3,
+      "detailRegion": {
+        "x": 10,
+        "y": 76,
+        "width": 944,
+        "height": 684
+      },
+      "verification": {
+        "mode": "visual-inventory",
+        "status": "matched",
+        "topologyMatched": false,
+        "inventoryMatched": true,
+        "checkedSwitches": 2,
+        "pixelCheckedSwitches": 2
+      },
+      "layoutMs": 4.762666999995417,
+      "wireObstructions": 0,
+      "current": null,
+      "problems": [],
+      "candidates": {
+        "primary": {
+          "title": "欧姆定律与动态电路",
+          "problemText": "",
+          "nodes": [
+            {
+              "id": "A",
+              "x": 180,
+              "y": 130
+            },
+            {
+              "id": "B",
+              "x": 480,
+              "y": 130
+            },
+            {
+              "id": "C",
+              "x": 780,
+              "y": 130
+            },
+            {
+              "id": "D",
+              "x": 180,
+              "y": 250
+            }
+          ],
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "name": "直流电源",
+              "a": "A",
+              "b": "D",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": true,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": false
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "A",
+              "b": "B",
+              "value": 30,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "B",
+              "b": "C",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": true,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "S2",
+              "type": "switch",
+              "name": "开关",
+              "a": "B",
+              "b": "C",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true,
+              "candidateIndex": 0
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "name": "开关",
+              "a": "D",
+              "b": "C",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true,
+              "candidateIndex": 1
+            }
+          ],
+          "warnings": [],
+          "uncertainties": [],
+          "confidence": 0.95,
+          "source": "image"
+        },
+        "audit": {
+          "components": [
+            {
+              "id": "R1",
+              "type": "resistor",
+              "value": 30,
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "value": null,
+              "labelVisible": true
+            },
+            {
+              "id": "S2",
+              "type": "switch",
+              "value": null,
+              "labelVisible": true,
+              "candidateIndex": 0
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "value": null,
+              "labelVisible": true,
+              "candidateIndex": 1
+            },
+            {
+              "id": "V1",
+              "type": "source",
+              "value": null,
+              "labelVisible": false
+            }
+          ],
+          "confidence": 0.82,
+          "uncertainties": [
+            "电源未印标号，按无标号电源规则编号为V1",
+            "S1与S2的候选圆点按图像位置对应：candidateIndex 0为S2触点，candidateIndex 1为S1触点"
+          ]
+        },
+        "reviewer": {
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "value": null,
+              "labelVisible": false
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "value": 30,
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "value": null,
+              "labelVisible": true
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "value": null,
+              "labelVisible": true,
+              "candidateIndex": 1
+            },
+            {
+              "id": "S2",
+              "type": "switch",
+              "value": null,
+              "labelVisible": true,
+              "candidateIndex": 0
+            }
+          ],
+          "confidence": 0.95,
+          "uncertainties": []
+        }
+      },
+      "passed": true,
+      "document": {
+        "title": "欧姆定律与动态电路",
+        "problemText": "",
+        "nodes": [
+          {
+            "id": "A",
+            "x": 180,
+            "y": 130
+          },
+          {
+            "id": "B",
+            "x": 480,
+            "y": 130
+          },
+          {
+            "id": "C",
+            "x": 780,
+            "y": 130
+          },
+          {
+            "id": "D",
+            "x": 180,
+            "y": 250
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "type": "source",
+            "name": "直流电源",
+            "a": "A",
+            "b": "D",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.95,
+            "evidence": "",
+            "labelVisible": false
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "A",
+            "b": "B",
+            "value": 30,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.95,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "B",
+            "b": "C",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.95,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "S2",
+            "type": "switch",
+            "name": "开关",
+            "a": "B",
+            "b": "C",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false,
+            "confidence": 0.95,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "gap",
+              "basis": "diagram",
+              "confidence": 0.99
+            },
+            "stateSource": "diagram",
+            "initialClosed": false,
+            "labelVisible": true,
+            "candidateIndex": 0
+          },
+          {
+            "id": "S1",
+            "type": "switch",
+            "name": "开关",
+            "a": "D",
+            "b": "C",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false,
+            "confidence": 0.95,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "gap",
+              "basis": "diagram",
+              "confidence": 0.99
+            },
+            "stateSource": "diagram",
+            "initialClosed": false,
+            "labelVisible": true,
+            "candidateIndex": 1
+          }
+        ],
+        "warnings": [],
+        "uncertainties": [],
+        "confidence": 0.95,
+        "source": "image",
+        "verification": {
+          "mode": "visual-inventory",
+          "status": "matched",
+          "topologyMatched": false,
+          "inventoryMatched": true,
+          "checkedSwitches": 2,
+          "pixelCheckedSwitches": 2
+        }
+      }
+    },
+    {
+      "id": "textbook-meters",
+      "source": "https://www.siyavula.com/read/za/physical-sciences/grade-11/electric-circuits/11-electric-circuits-05#d4b4b63f320531546cc2660962ab85d0",
+      "imageSha256": "97085f5515e24a4adfcae04311a4e4b72d2f5189913ecf9328bad5f4b67ce228",
+      "status": 200,
+      "durationMs": 27148,
+      "providerCalls": 3,
+      "detailRegion": null,
+      "verification": {
+        "mode": "visual-inventory",
+        "status": "matched",
+        "topologyMatched": false,
+        "inventoryMatched": true,
+        "checkedSwitches": 0,
+        "pixelCheckedSwitches": 0
+      },
+      "layoutMs": 31.415666000000783,
+      "wireObstructions": 0,
+      "current": null,
+      "problems": [],
+      "candidates": {
+        "primary": {
+          "title": "含电压表与电阻的直流电路",
+          "problemText": "",
+          "nodes": [
+            {
+              "id": "nLt",
+              "x": 180,
+              "y": 130
+            },
+            {
+              "id": "nLb",
+              "x": 480,
+              "y": 130
+            },
+            {
+              "id": "nRt",
+              "x": 780,
+              "y": 130
+            },
+            {
+              "id": "nRb",
+              "x": 180,
+              "y": 250
+            }
+          ],
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "name": "直流电源",
+              "a": "nLb",
+              "b": "nLt",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": true,
+              "confidence": 0.97,
+              "evidence": "",
+              "labelVisible": false
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "nLt",
+              "b": "nRt",
+              "value": 100,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.97,
+              "evidence": "",
+              "labelVisible": false
+            },
+            {
+              "id": "VM1",
+              "type": "voltmeter",
+              "name": "理想电压表",
+              "a": "nLt",
+              "b": "nLb",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": true,
+              "confidence": 0.97,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "nRt",
+              "b": "nRb",
+              "value": 50,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.97,
+              "evidence": "",
+              "labelVisible": false
+            },
+            {
+              "id": "R3",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "nRt",
+              "b": "nRb",
+              "value": 50,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.97,
+              "evidence": "",
+              "labelVisible": false
+            },
+            {
+              "id": "VM2",
+              "type": "voltmeter",
+              "name": "理想电压表",
+              "a": "nRt",
+              "b": "nRb",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": true,
+              "confidence": 0.97,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R4",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "nLb",
+              "b": "nRb",
+              "value": 25,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.97,
+              "evidence": "",
+              "labelVisible": false
+            }
+          ],
+          "warnings": [],
+          "uncertainties": [],
+          "confidence": 0.97,
+          "source": "image"
+        },
+        "audit": {
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "value": null,
+              "labelVisible": false
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "value": 100,
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "value": 50,
+              "labelVisible": true
+            },
+            {
+              "id": "R3",
+              "type": "resistor",
+              "value": 50,
+              "labelVisible": true
+            },
+            {
+              "id": "R4",
+              "type": "resistor",
+              "value": 25,
+              "labelVisible": true
+            },
+            {
+              "id": "VM1",
+              "type": "voltmeter",
+              "value": null,
+              "labelVisible": true
+            },
+            {
+              "id": "VM2",
+              "type": "voltmeter",
+              "value": null,
+              "labelVisible": true
+            }
+          ],
+          "confidence": 0.95,
+          "uncertainties": [
+            "暂无可见开关，无法确定开关标号及候选序号"
+          ]
+        },
+        "reviewer": {
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "value": null,
+              "labelVisible": false
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "value": 100,
+              "labelVisible": false
+            },
+            {
+              "id": "VM1",
+              "type": "voltmeter",
+              "value": null,
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "value": 50,
+              "labelVisible": false
+            },
+            {
+              "id": "R3",
+              "type": "resistor",
+              "value": 50,
+              "labelVisible": false
+            },
+            {
+              "id": "R4",
+              "type": "resistor",
+              "value": 25,
+              "labelVisible": false
+            },
+            {
+              "id": "VM2",
+              "type": "voltmeter",
+              "value": null,
+              "labelVisible": true
+            }
+          ],
+          "confidence": 0.98,
+          "uncertainties": []
+        }
+      },
+      "passed": true,
+      "document": {
+        "title": "含电压表与电阻的直流电路",
+        "problemText": "",
+        "nodes": [
+          {
+            "id": "nLt",
+            "x": 180,
+            "y": 130
+          },
+          {
+            "id": "nLb",
+            "x": 480,
+            "y": 130
+          },
+          {
+            "id": "nRt",
+            "x": 780,
+            "y": 130
+          },
+          {
+            "id": "nRb",
+            "x": 180,
+            "y": 250
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "type": "source",
+            "name": "直流电源",
+            "a": "nLb",
+            "b": "nLt",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.97,
+            "evidence": "",
+            "labelVisible": false
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "nLt",
+            "b": "nRt",
+            "value": 100,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.97,
+            "evidence": "",
+            "labelVisible": false
+          },
+          {
+            "id": "VM1",
+            "type": "voltmeter",
+            "name": "理想电压表",
+            "a": "nLt",
+            "b": "nLb",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.97,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "nRt",
+            "b": "nRb",
+            "value": 50,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.97,
+            "evidence": "",
+            "labelVisible": false
+          },
+          {
+            "id": "R3",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "nRt",
+            "b": "nRb",
+            "value": 50,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.97,
+            "evidence": "",
+            "labelVisible": false
+          },
+          {
+            "id": "VM2",
+            "type": "voltmeter",
+            "name": "理想电压表",
+            "a": "nRt",
+            "b": "nRb",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.97,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R4",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "nLb",
+            "b": "nRb",
+            "value": 25,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.97,
+            "evidence": "",
+            "labelVisible": false
+          }
+        ],
+        "warnings": [],
+        "uncertainties": [],
+        "confidence": 0.97,
+        "source": "image",
+        "verification": {
+          "mode": "visual-inventory",
+          "status": "matched",
+          "topologyMatched": false,
+          "inventoryMatched": true,
+          "checkedSwitches": 0,
+          "pixelCheckedSwitches": 0
+        }
+      }
+    },
+    {
+      "id": "textbook-parallel",
+      "source": "https://www.siyavula.com/read/za/physical-sciences/grade-10/electric-circuits/17-electric-circuits-05#8742275c78e6e9da87e3c89ca5ec69d6",
+      "imageSha256": "12812c614de80a2e87d6b795fa54c240e9eda90ebcb307060cceb591683313d4",
+      "status": 200,
+      "durationMs": 16076,
+      "providerCalls": 2,
+      "detailRegion": null,
+      "verification": {
+        "mode": "visual-inventory",
+        "status": "matched",
+        "topologyMatched": false,
+        "inventoryMatched": true,
+        "checkedSwitches": 0,
+        "pixelCheckedSwitches": 0
+      },
+      "layoutMs": 7.952417000007699,
+      "wireObstructions": 0,
+      "current": null,
+      "problems": [],
+      "candidates": {
+        "primary": {
+          "title": "电池与两个并联电阻的电路",
+          "problemText": "",
+          "nodes": [
+            {
+              "id": "p",
+              "x": 180,
+              "y": 130
+            },
+            {
+              "id": "g",
+              "x": 480,
+              "y": 130
+            }
+          ],
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "name": "直流电源",
+              "a": "p",
+              "b": "g",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": true,
+              "confidence": 0.97,
+              "evidence": "",
+              "labelVisible": false
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "p",
+              "b": "g",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": true,
+              "confidence": 0.97,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "p",
+              "b": "g",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": true,
+              "confidence": 0.97,
+              "evidence": "",
+              "labelVisible": true
+            }
+          ],
+          "warnings": [],
+          "uncertainties": [],
+          "confidence": 0.97,
+          "source": "image"
+        },
+        "audit": {
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "value": null,
+              "labelVisible": false
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "value": null,
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "value": null,
+              "labelVisible": true
+            }
+          ],
+          "confidence": 0.98,
+          "uncertainties": []
+        },
+        "reviewer": null
+      },
+      "passed": true,
+      "document": {
+        "title": "电池与两个并联电阻的电路",
+        "problemText": "",
+        "nodes": [
+          {
+            "id": "p",
+            "x": 180,
+            "y": 130
+          },
+          {
+            "id": "g",
+            "x": 480,
+            "y": 130
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "type": "source",
+            "name": "直流电源",
+            "a": "p",
+            "b": "g",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.97,
+            "evidence": "",
+            "labelVisible": false
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "p",
+            "b": "g",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.97,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "p",
+            "b": "g",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.97,
+            "evidence": "",
+            "labelVisible": true
+          }
+        ],
+        "warnings": [],
+        "uncertainties": [],
+        "confidence": 0.97,
+        "source": "image",
+        "verification": {
+          "mode": "visual-inventory",
+          "status": "matched",
+          "topologyMatched": false,
+          "inventoryMatched": true,
+          "checkedSwitches": 0,
+          "pixelCheckedSwitches": 0
+        }
+      }
+    },
+    {
+      "id": "main-closed-bypass-open",
+      "source": "Original textbook-style fixture",
+      "imageSha256": "773d9ede4a932301ec06cab168908eec9a854084cdc2165ba5fb045a9134bd81",
+      "status": 200,
+      "durationMs": 3970,
+      "providerCalls": 2,
+      "detailRegion": {
+        "x": 44,
+        "y": 22,
+        "width": 1055,
+        "height": 686
+      },
+      "verification": {
+        "mode": "visual-inventory",
+        "status": "matched",
+        "topologyMatched": false,
+        "inventoryMatched": true,
+        "checkedSwitches": 2,
+        "pixelCheckedSwitches": 2
+      },
+      "layoutMs": 10.114000000001397,
+      "wireObstructions": 0,
+      "current": 0.30000000000000004,
+      "problems": [],
+      "candidates": {
+        "primary": {
+          "title": "欧姆定律与开关实验",
+          "problemText": "",
+          "nodes": [
+            {
+              "id": "p",
+              "x": 180,
+              "y": 130
+            },
+            {
+              "id": "n1",
+              "x": 480,
+              "y": 130
+            },
+            {
+              "id": "n2",
+              "x": 780,
+              "y": 130
+            },
+            {
+              "id": "n3",
+              "x": 180,
+              "y": 250
+            },
+            {
+              "id": "g",
+              "x": 480,
+              "y": 250
+            }
+          ],
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "name": "直流电源",
+              "a": "p",
+              "b": "g",
+              "value": 15,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "p",
+              "b": "n1",
+              "value": 30,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "n1",
+              "b": "n2",
+              "value": 20,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "S2",
+              "type": "switch",
+              "name": "开关",
+              "a": "n1",
+              "b": "n2",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true,
+              "candidateIndex": 0
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "name": "开关",
+              "a": "g",
+              "b": "n2",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true,
+              "candidateIndex": 1
+            }
+          ],
+          "warnings": [],
+          "uncertainties": [],
+          "confidence": 0.95,
+          "source": "image"
+        },
+        "audit": {
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "value": 15,
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "value": 30,
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "value": 20,
+              "labelVisible": true
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "value": null,
+              "labelVisible": true,
+              "candidateIndex": 1
+            },
+            {
+              "id": "S2",
+              "type": "switch",
+              "value": null,
+              "labelVisible": true,
+              "candidateIndex": 0
+            }
+          ],
+          "confidence": 0.96,
+          "uncertainties": []
+        },
+        "reviewer": null
+      },
+      "passed": true,
+      "document": {
+        "title": "欧姆定律与开关实验",
+        "problemText": "",
+        "nodes": [
+          {
+            "id": "p",
+            "x": 180,
+            "y": 130
+          },
+          {
+            "id": "n1",
+            "x": 480,
+            "y": 130
+          },
+          {
+            "id": "n2",
+            "x": 780,
+            "y": 130
+          },
+          {
+            "id": "n3",
+            "x": 180,
+            "y": 250
+          },
+          {
+            "id": "g",
+            "x": 480,
+            "y": 250
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "type": "source",
+            "name": "直流电源",
+            "a": "p",
+            "b": "g",
+            "value": 15,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.95,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "p",
+            "b": "n1",
+            "value": 30,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.95,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "n1",
+            "b": "n2",
+            "value": 20,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.95,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "S2",
+            "type": "switch",
+            "name": "开关",
+            "a": "n1",
+            "b": "n2",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false,
+            "confidence": 0.95,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "gap",
+              "basis": "diagram",
+              "confidence": 0.99
+            },
+            "stateSource": "diagram",
+            "initialClosed": false,
+            "labelVisible": true,
+            "candidateIndex": 0
+          },
+          {
+            "id": "S1",
+            "type": "switch",
+            "name": "开关",
+            "a": "g",
+            "b": "n2",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.95,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "touching",
+              "basis": "diagram",
+              "confidence": 0.99
+            },
+            "stateSource": "diagram",
+            "initialClosed": true,
+            "labelVisible": true,
+            "candidateIndex": 1
+          }
+        ],
+        "warnings": [],
+        "uncertainties": [],
+        "confidence": 0.95,
+        "source": "image",
+        "verification": {
+          "mode": "visual-inventory",
+          "status": "matched",
+          "topologyMatched": false,
+          "inventoryMatched": true,
+          "checkedSwitches": 2,
+          "pixelCheckedSwitches": 2
+        }
+      }
+    },
+    {
+      "id": "main-open-bypass-closed",
+      "source": "Original textbook-style fixture",
+      "imageSha256": "2ab73318a6fd1ac12fa829708f890108a80d5f717005001fc7d4b8be6ad84a7b",
+      "status": 200,
+      "durationMs": 3467,
+      "providerCalls": 2,
+      "detailRegion": {
+        "x": 44,
+        "y": 22,
+        "width": 1055,
+        "height": 686
+      },
+      "verification": {
+        "mode": "visual-inventory",
+        "status": "matched",
+        "topologyMatched": false,
+        "inventoryMatched": true,
+        "checkedSwitches": 2,
+        "pixelCheckedSwitches": 2
+      },
+      "layoutMs": 15.991083000000799,
+      "wireObstructions": 0,
+      "current": 0,
+      "problems": [],
+      "candidates": {
+        "primary": {
+          "title": "欧姆定律与开关实验电路",
+          "problemText": "",
+          "nodes": [
+            {
+              "id": "p",
+              "x": 180,
+              "y": 130
+            },
+            {
+              "id": "g",
+              "x": 480,
+              "y": 130
+            },
+            {
+              "id": "n1",
+              "x": 780,
+              "y": 130
+            },
+            {
+              "id": "n2",
+              "x": 180,
+              "y": 250
+            },
+            {
+              "id": "n3",
+              "x": 480,
+              "y": 250
+            },
+            {
+              "id": "n4",
+              "x": 780,
+              "y": 250
+            }
+          ],
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "name": "直流电源",
+              "a": "p",
+              "b": "g",
+              "value": 15,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.9,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "p",
+              "b": "n1",
+              "value": 30,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.9,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "n1",
+              "b": "n2",
+              "value": 20,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.9,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "S2",
+              "type": "switch",
+              "name": "开关",
+              "a": "n3",
+              "b": "n2",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.9,
+              "evidence": "",
+              "labelVisible": true,
+              "candidateIndex": 0
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "name": "开关",
+              "a": "n4",
+              "b": "n2",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.9,
+              "evidence": "",
+              "labelVisible": true,
+              "candidateIndex": 1
+            },
+            {
+              "id": "W1",
+              "type": "wire",
+              "name": "导线",
+              "a": "n1",
+              "b": "n3",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": true,
+              "confidence": 0.9,
+              "evidence": "",
+              "labelVisible": false
+            },
+            {
+              "id": "W2",
+              "type": "wire",
+              "name": "导线",
+              "a": "g",
+              "b": "n4",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": true,
+              "confidence": 0.9,
+              "evidence": "",
+              "labelVisible": false
+            }
+          ],
+          "warnings": [],
+          "uncertainties": [],
+          "confidence": 0.9,
+          "source": "image"
+        },
+        "audit": {
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "value": 15,
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "value": 30,
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "value": 20,
+              "labelVisible": true
+            },
+            {
+              "id": "S2",
+              "type": "switch",
+              "value": null,
+              "labelVisible": true,
+              "candidateIndex": 0
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "value": null,
+              "labelVisible": true,
+              "candidateIndex": 1
+            }
+          ],
+          "confidence": 0.96,
+          "uncertainties": []
+        },
+        "reviewer": null
+      },
+      "passed": true,
+      "document": {
+        "title": "欧姆定律与开关实验电路",
+        "problemText": "",
+        "nodes": [
+          {
+            "id": "p",
+            "x": 180,
+            "y": 130
+          },
+          {
+            "id": "g",
+            "x": 480,
+            "y": 130
+          },
+          {
+            "id": "n1",
+            "x": 780,
+            "y": 130
+          },
+          {
+            "id": "n2",
+            "x": 180,
+            "y": 250
+          },
+          {
+            "id": "n3",
+            "x": 480,
+            "y": 250
+          },
+          {
+            "id": "n4",
+            "x": 780,
+            "y": 250
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "type": "source",
+            "name": "直流电源",
+            "a": "p",
+            "b": "g",
+            "value": 15,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.9,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "p",
+            "b": "n1",
+            "value": 30,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.9,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "n1",
+            "b": "n2",
+            "value": 20,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.9,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "S2",
+            "type": "switch",
+            "name": "开关",
+            "a": "n3",
+            "b": "n2",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.9,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "touching",
+              "basis": "diagram",
+              "confidence": 0.99
+            },
+            "stateSource": "diagram",
+            "initialClosed": true,
+            "labelVisible": true,
+            "candidateIndex": 0
+          },
+          {
+            "id": "S1",
+            "type": "switch",
+            "name": "开关",
+            "a": "n4",
+            "b": "n2",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false,
+            "confidence": 0.9,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "gap",
+              "basis": "diagram",
+              "confidence": 0.99
+            },
+            "stateSource": "diagram",
+            "initialClosed": false,
+            "labelVisible": true,
+            "candidateIndex": 1
+          },
+          {
+            "id": "W1",
+            "type": "wire",
+            "name": "导线",
+            "a": "n1",
+            "b": "n3",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.9,
+            "evidence": "",
+            "labelVisible": false
+          },
+          {
+            "id": "W2",
+            "type": "wire",
+            "name": "导线",
+            "a": "g",
+            "b": "n4",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.9,
+            "evidence": "",
+            "labelVisible": false
+          }
+        ],
+        "warnings": [],
+        "uncertainties": [],
+        "confidence": 0.9,
+        "source": "image",
+        "verification": {
+          "mode": "visual-inventory",
+          "status": "matched",
+          "topologyMatched": false,
+          "inventoryMatched": true,
+          "checkedSwitches": 2,
+          "pixelCheckedSwitches": 2
+        }
+      }
+    },
+    {
+      "id": "both-closed",
+      "source": "Original textbook-style fixture",
+      "imageSha256": "9b998933197131a38d899f4740fbcd6ec421c03d31ed743fad33f1af75ee418c",
+      "status": 200,
+      "durationMs": 3766,
+      "providerCalls": 2,
+      "detailRegion": {
+        "x": 44,
+        "y": 22,
+        "width": 1055,
+        "height": 686
+      },
+      "verification": {
+        "mode": "visual-inventory",
+        "status": "matched",
+        "topologyMatched": false,
+        "inventoryMatched": true,
+        "checkedSwitches": 2,
+        "pixelCheckedSwitches": 2
+      },
+      "layoutMs": 10.467791000002762,
+      "wireObstructions": 0,
+      "current": 0.5000000000000003,
+      "problems": [],
+      "candidates": {
+        "primary": {
+          "title": "欧姆定律与开关实验电路",
+          "problemText": "",
+          "nodes": [
+            {
+              "id": "p",
+              "x": 180,
+              "y": 130
+            },
+            {
+              "id": "g",
+              "x": 480,
+              "y": 130
+            },
+            {
+              "id": "m",
+              "x": 780,
+              "y": 130
+            },
+            {
+              "id": "n1",
+              "x": 180,
+              "y": 250
+            },
+            {
+              "id": "n2",
+              "x": 480,
+              "y": 250
+            }
+          ],
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "name": "直流电源",
+              "a": "p",
+              "b": "g",
+              "value": 15,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "p",
+              "b": "m",
+              "value": 30,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "m",
+              "b": "n1",
+              "value": 20,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "S2",
+              "type": "switch",
+              "name": "开关",
+              "a": "m",
+              "b": "n1",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true,
+              "candidateIndex": 0
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "name": "开关",
+              "a": "g",
+              "b": "n1",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true,
+              "candidateIndex": 1
+            }
+          ],
+          "warnings": [],
+          "uncertainties": [],
+          "confidence": 0.95,
+          "source": "image"
+        },
+        "audit": {
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "value": 15,
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "value": 30,
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "value": 20,
+              "labelVisible": true
+            },
+            {
+              "id": "S2",
+              "type": "switch",
+              "value": null,
+              "labelVisible": true,
+              "candidateIndex": 0
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "value": null,
+              "labelVisible": true,
+              "candidateIndex": 1
+            }
+          ],
+          "confidence": 0.97,
+          "uncertainties": []
+        },
+        "reviewer": null
+      },
+      "passed": true,
+      "document": {
+        "title": "欧姆定律与开关实验电路",
+        "problemText": "",
+        "nodes": [
+          {
+            "id": "p",
+            "x": 180,
+            "y": 130
+          },
+          {
+            "id": "g",
+            "x": 480,
+            "y": 130
+          },
+          {
+            "id": "m",
+            "x": 780,
+            "y": 130
+          },
+          {
+            "id": "n1",
+            "x": 180,
+            "y": 250
+          },
+          {
+            "id": "n2",
+            "x": 480,
+            "y": 250
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "type": "source",
+            "name": "直流电源",
+            "a": "p",
+            "b": "g",
+            "value": 15,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.95,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "p",
+            "b": "m",
+            "value": 30,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.95,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "m",
+            "b": "n1",
+            "value": 20,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.95,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "S2",
+            "type": "switch",
+            "name": "开关",
+            "a": "m",
+            "b": "n1",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.95,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "touching",
+              "basis": "diagram",
+              "confidence": 0.99
+            },
+            "stateSource": "diagram",
+            "initialClosed": true,
+            "labelVisible": true,
+            "candidateIndex": 0
+          },
+          {
+            "id": "S1",
+            "type": "switch",
+            "name": "开关",
+            "a": "g",
+            "b": "n1",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.95,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "touching",
+              "basis": "diagram",
+              "confidence": 0.99
+            },
+            "stateSource": "diagram",
+            "initialClosed": true,
+            "labelVisible": true,
+            "candidateIndex": 1
+          }
+        ],
+        "warnings": [],
+        "uncertainties": [],
+        "confidence": 0.95,
+        "source": "image",
+        "verification": {
+          "mode": "visual-inventory",
+          "status": "matched",
+          "topologyMatched": false,
+          "inventoryMatched": true,
+          "checkedSwitches": 2,
+          "pixelCheckedSwitches": 2
+        }
+      }
+    },
+    {
+      "id": "question-initial-open",
+      "source": "Original textbook-style fixture",
+      "imageSha256": "3005c7ff2fb6062fbb066bff0fdc79cdd77264edaa1f87bda9be0937c61e545a",
+      "status": 200,
+      "durationMs": 18273,
+      "providerCalls": 2,
+      "detailRegion": {
+        "x": 44,
+        "y": 22,
+        "width": 1055,
+        "height": 686
+      },
+      "verification": {
+        "mode": "visual-inventory",
+        "status": "matched",
+        "topologyMatched": false,
+        "inventoryMatched": true,
+        "checkedSwitches": 2,
+        "pixelCheckedSwitches": 2
+      },
+      "layoutMs": 4.01683399999456,
+      "wireObstructions": 0,
+      "current": null,
+      "problems": [],
+      "candidates": {
+        "primary": {
+          "title": "欧姆定律与开关实验电路",
+          "problemText": "",
+          "nodes": [
+            {
+              "id": "p",
+              "x": 180,
+              "y": 130
+            },
+            {
+              "id": "m",
+              "x": 480,
+              "y": 130
+            },
+            {
+              "id": "n",
+              "x": 780,
+              "y": 130
+            },
+            {
+              "id": "q",
+              "x": 180,
+              "y": 250
+            }
+          ],
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "name": "直流电源",
+              "a": "p",
+              "b": "q",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": true,
+              "confidence": 0.96,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "p",
+              "b": "m",
+              "value": 30,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.96,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "m",
+              "b": "n",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": true,
+              "confidence": 0.96,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "S2",
+              "type": "switch",
+              "name": "开关",
+              "a": "m",
+              "b": "n",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.96,
+              "evidence": "",
+              "labelVisible": true,
+              "candidateIndex": 0
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "name": "开关",
+              "a": "q",
+              "b": "n",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.96,
+              "evidence": "",
+              "labelVisible": true,
+              "candidateIndex": 1
+            }
+          ],
+          "warnings": [],
+          "uncertainties": [],
+          "confidence": 0.96,
+          "source": "image"
+        },
+        "audit": {
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "value": null,
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "value": 30,
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "value": null,
+              "labelVisible": true
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "value": null,
+              "labelVisible": true,
+              "candidateIndex": 1
+            },
+            {
+              "id": "S2",
+              "type": "switch",
+              "value": null,
+              "labelVisible": true,
+              "candidateIndex": 0
+            }
+          ],
+          "confidence": 0.96,
+          "uncertainties": []
+        },
+        "reviewer": null
+      },
+      "passed": true,
+      "document": {
+        "title": "欧姆定律与开关实验电路",
+        "problemText": "",
+        "nodes": [
+          {
+            "id": "p",
+            "x": 180,
+            "y": 130
+          },
+          {
+            "id": "m",
+            "x": 480,
+            "y": 130
+          },
+          {
+            "id": "n",
+            "x": 780,
+            "y": 130
+          },
+          {
+            "id": "q",
+            "x": 180,
+            "y": 250
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "type": "source",
+            "name": "直流电源",
+            "a": "p",
+            "b": "q",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.96,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "p",
+            "b": "m",
+            "value": 30,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.96,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "m",
+            "b": "n",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.96,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "S2",
+            "type": "switch",
+            "name": "开关",
+            "a": "m",
+            "b": "n",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false,
+            "confidence": 0.96,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "gap",
+              "basis": "diagram",
+              "confidence": 0.99
+            },
+            "stateSource": "diagram",
+            "initialClosed": false,
+            "labelVisible": true,
+            "candidateIndex": 0
+          },
+          {
+            "id": "S1",
+            "type": "switch",
+            "name": "开关",
+            "a": "q",
+            "b": "n",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false,
+            "confidence": 0.96,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "gap",
+              "basis": "diagram",
+              "confidence": 0.99
+            },
+            "stateSource": "diagram",
+            "initialClosed": false,
+            "labelVisible": true,
+            "candidateIndex": 1
+          }
+        ],
+        "warnings": [],
+        "uncertainties": [],
+        "confidence": 0.96,
+        "source": "image",
+        "verification": {
+          "mode": "visual-inventory",
+          "status": "matched",
+          "topologyMatched": false,
+          "inventoryMatched": true,
+          "checkedSwitches": 2,
+          "pixelCheckedSwitches": 2
+        }
+      }
+    },
+    {
+      "id": "vertical-open",
+      "source": "Original textbook-style fixture",
+      "imageSha256": "82e19ce0e0caaab39e071c1d6c69e206dc78be073cb90801497674e2ed422dae",
+      "status": 200,
+      "durationMs": 3586,
+      "providerCalls": 2,
+      "detailRegion": {
+        "x": 47,
+        "y": 22,
+        "width": 1018,
+        "height": 686
+      },
+      "verification": {
+        "mode": "visual-inventory",
+        "status": "matched",
+        "topologyMatched": false,
+        "inventoryMatched": true,
+        "checkedSwitches": 1,
+        "pixelCheckedSwitches": 1
+      },
+      "layoutMs": 6.538333000004059,
+      "wireObstructions": 0,
+      "current": 0,
+      "problems": [
+        "Topology differs from manual annotation"
+      ],
+      "candidates": {
+        "primary": {
+          "title": "初中串联电路实验初始状态",
+          "problemText": "",
+          "nodes": [
+            {
+              "id": "p",
+              "x": 180,
+              "y": 130
+            },
+            {
+              "id": "m",
+              "x": 480,
+              "y": 130
+            },
+            {
+              "id": "n1",
+              "x": 780,
+              "y": 130
+            },
+            {
+              "id": "n2",
+              "x": 180,
+              "y": 250
+            }
+          ],
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "name": "直流电源",
+              "a": "p",
+              "b": "n2",
+              "value": 6,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "n1",
+              "b": "m",
+              "value": 10,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "name": "开关",
+              "a": "m",
+              "b": "n2",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true,
+              "candidateIndex": 0
+            }
+          ],
+          "warnings": [],
+          "uncertainties": [],
+          "confidence": 0.95,
+          "source": "image"
+        },
+        "audit": {
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "value": 6,
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "value": 10,
+              "labelVisible": true
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "value": null,
+              "labelVisible": true,
+              "candidateIndex": 0
+            }
+          ],
+          "confidence": 0.97,
+          "uncertainties": []
+        },
+        "reviewer": null
+      },
+      "passed": false,
+      "document": {
+        "title": "初中串联电路实验初始状态",
+        "problemText": "",
+        "nodes": [
+          {
+            "id": "p",
+            "x": 180,
+            "y": 130
+          },
+          {
+            "id": "m",
+            "x": 480,
+            "y": 130
+          },
+          {
+            "id": "n1",
+            "x": 780,
+            "y": 130
+          },
+          {
+            "id": "n2",
+            "x": 180,
+            "y": 250
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "type": "source",
+            "name": "直流电源",
+            "a": "p",
+            "b": "n2",
+            "value": 6,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.95,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "n1",
+            "b": "m",
+            "value": 10,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.95,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "S1",
+            "type": "switch",
+            "name": "开关",
+            "a": "m",
+            "b": "n2",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false,
+            "confidence": 0.95,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "gap",
+              "basis": "diagram",
+              "confidence": 0.99
+            },
+            "stateSource": "diagram",
+            "initialClosed": false,
+            "labelVisible": true,
+            "candidateIndex": 0
+          }
+        ],
+        "warnings": [],
+        "uncertainties": [],
+        "confidence": 0.95,
+        "source": "image",
+        "verification": {
+          "mode": "visual-inventory",
+          "status": "matched",
+          "topologyMatched": false,
+          "inventoryMatched": true,
+          "checkedSwitches": 1,
+          "pixelCheckedSwitches": 1
+        }
+      }
+    },
+    {
+      "id": "vertical-closed",
+      "source": "Original textbook-style fixture",
+      "imageSha256": "2ab0cafaab7de3fc7982afd1cab877f05e88bee4648fe2b41889d27133a771fe",
+      "status": 200,
+      "durationMs": 3422,
+      "providerCalls": 2,
+      "detailRegion": {
+        "x": 47,
+        "y": 22,
+        "width": 1018,
+        "height": 686
+      },
+      "verification": {
+        "mode": "visual-inventory",
+        "status": "matched",
+        "topologyMatched": false,
+        "inventoryMatched": true,
+        "checkedSwitches": 1,
+        "pixelCheckedSwitches": 1
+      },
+      "layoutMs": 3.9909590000024764,
+      "wireObstructions": 0,
+      "current": 0,
+      "problems": [
+        "Topology differs from manual annotation",
+        "Solver result differs: 0 != 0.6"
+      ],
+      "candidates": {
+        "primary": {
+          "title": "初中串联电路实验初始状态",
+          "problemText": "",
+          "nodes": [
+            {
+              "id": "a",
+              "x": 180,
+              "y": 130
+            },
+            {
+              "id": "b",
+              "x": 480,
+              "y": 130
+            },
+            {
+              "id": "c",
+              "x": 780,
+              "y": 130
+            },
+            {
+              "id": "d",
+              "x": 180,
+              "y": 250
+            }
+          ],
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "name": "直流电源",
+              "a": "a",
+              "b": "b",
+              "value": 6,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.98,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "c",
+              "b": "d",
+              "value": 10,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.98,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "name": "开关",
+              "a": "d",
+              "b": "b",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.98,
+              "evidence": "",
+              "labelVisible": true,
+              "candidateIndex": 0
+            }
+          ],
+          "warnings": [],
+          "uncertainties": [],
+          "confidence": 0.98,
+          "source": "image"
+        },
+        "audit": {
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "value": 6,
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "value": 10,
+              "labelVisible": true
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "value": null,
+              "labelVisible": true,
+              "candidateIndex": 0
+            }
+          ],
+          "confidence": 0.95,
+          "uncertainties": []
+        },
+        "reviewer": null
+      },
+      "passed": false,
+      "document": {
+        "title": "初中串联电路实验初始状态",
+        "problemText": "",
+        "nodes": [
+          {
+            "id": "a",
+            "x": 180,
+            "y": 130
+          },
+          {
+            "id": "b",
+            "x": 480,
+            "y": 130
+          },
+          {
+            "id": "c",
+            "x": 780,
+            "y": 130
+          },
+          {
+            "id": "d",
+            "x": 180,
+            "y": 250
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "type": "source",
+            "name": "直流电源",
+            "a": "a",
+            "b": "b",
+            "value": 6,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.98,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "c",
+            "b": "d",
+            "value": 10,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.98,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "S1",
+            "type": "switch",
+            "name": "开关",
+            "a": "d",
+            "b": "b",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.98,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "touching",
+              "basis": "diagram",
+              "confidence": 0.99
+            },
+            "stateSource": "diagram",
+            "initialClosed": true,
+            "labelVisible": true,
+            "candidateIndex": 0
+          }
+        ],
+        "warnings": [],
+        "uncertainties": [],
+        "confidence": 0.95,
+        "source": "image",
+        "verification": {
+          "mode": "visual-inventory",
+          "status": "matched",
+          "topologyMatched": false,
+          "inventoryMatched": true,
+          "checkedSwitches": 1,
+          "pixelCheckedSwitches": 1
+        }
+      }
+    },
+    {
+      "id": "parallel-branch-control",
+      "source": "Original textbook-style fixture",
+      "imageSha256": "2e0c252be89afea02e07778c23bd31efff81684da4384172f5c97dfdea62dc90",
+      "status": 200,
+      "durationMs": 3597,
+      "providerCalls": 2,
+      "detailRegion": {
+        "x": 38,
+        "y": 22,
+        "width": 1062,
+        "height": 686
+      },
+      "verification": {
+        "mode": "visual-inventory",
+        "status": "matched",
+        "topologyMatched": false,
+        "inventoryMatched": true,
+        "checkedSwitches": 2,
+        "pixelCheckedSwitches": 2
+      },
+      "layoutMs": 9.966042000000016,
+      "wireObstructions": 0,
+      "current": 0,
+      "problems": [
+        "Topology differs from manual annotation",
+        "Solver result differs: 0 != 1.5"
+      ],
+      "candidates": {
+        "primary": {
+          "title": "并联支路与总开关",
+          "problemText": "",
+          "nodes": [
+            {
+              "id": "p",
+              "x": 180,
+              "y": 130
+            },
+            {
+              "id": "m",
+              "x": 480,
+              "y": 130
+            },
+            {
+              "id": "g",
+              "x": 780,
+              "y": 130
+            },
+            {
+              "id": "n1",
+              "x": 180,
+              "y": 250
+            },
+            {
+              "id": "n2",
+              "x": 480,
+              "y": 250
+            },
+            {
+              "id": "n3",
+              "x": 780,
+              "y": 250
+            },
+            {
+              "id": "n4",
+              "x": 180,
+              "y": 370
+            }
+          ],
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "name": "直流电源",
+              "a": "g",
+              "b": "m",
+              "value": 9,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.9,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "p",
+              "b": "n1",
+              "value": 6,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.9,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "g",
+              "b": "n2",
+              "value": 3,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.9,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "S2",
+              "type": "switch",
+              "name": "开关",
+              "a": "n2",
+              "b": "n3",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.9,
+              "evidence": "",
+              "labelVisible": true,
+              "candidateIndex": 0
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "name": "开关",
+              "a": "n4",
+              "b": "m",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.9,
+              "evidence": "",
+              "labelVisible": true,
+              "candidateIndex": 1
+            },
+            {
+              "id": "W1",
+              "type": "wire",
+              "name": "导线",
+              "a": "n1",
+              "b": "n3",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": true,
+              "confidence": 0.9,
+              "evidence": "",
+              "labelVisible": false
+            },
+            {
+              "id": "W2",
+              "type": "wire",
+              "name": "导线",
+              "a": "n3",
+              "b": "n4",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": true,
+              "confidence": 0.9,
+              "evidence": "",
+              "labelVisible": false
+            }
+          ],
+          "warnings": [],
+          "uncertainties": [],
+          "confidence": 0.9,
+          "source": "image"
+        },
+        "audit": {
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "value": 9,
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "value": 6,
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "value": 3,
+              "labelVisible": true
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "value": null,
+              "labelVisible": true,
+              "candidateIndex": 1
+            },
+            {
+              "id": "S2",
+              "type": "switch",
+              "value": null,
+              "labelVisible": true,
+              "candidateIndex": 0
+            }
+          ],
+          "confidence": 0.97,
+          "uncertainties": []
+        },
+        "reviewer": null
+      },
+      "passed": false,
+      "document": {
+        "title": "并联支路与总开关",
+        "problemText": "",
+        "nodes": [
+          {
+            "id": "p",
+            "x": 180,
+            "y": 130
+          },
+          {
+            "id": "m",
+            "x": 480,
+            "y": 130
+          },
+          {
+            "id": "g",
+            "x": 780,
+            "y": 130
+          },
+          {
+            "id": "n1",
+            "x": 180,
+            "y": 250
+          },
+          {
+            "id": "n2",
+            "x": 480,
+            "y": 250
+          },
+          {
+            "id": "n3",
+            "x": 780,
+            "y": 250
+          },
+          {
+            "id": "n4",
+            "x": 180,
+            "y": 370
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "type": "source",
+            "name": "直流电源",
+            "a": "g",
+            "b": "m",
+            "value": 9,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.9,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "p",
+            "b": "n1",
+            "value": 6,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.9,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "g",
+            "b": "n2",
+            "value": 3,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.9,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "S2",
+            "type": "switch",
+            "name": "开关",
+            "a": "n2",
+            "b": "n3",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false,
+            "confidence": 0.9,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "gap",
+              "basis": "diagram",
+              "confidence": 0.99
+            },
+            "stateSource": "diagram",
+            "initialClosed": false,
+            "labelVisible": true,
+            "candidateIndex": 0
+          },
+          {
+            "id": "S1",
+            "type": "switch",
+            "name": "开关",
+            "a": "n4",
+            "b": "m",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.9,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "touching",
+              "basis": "diagram",
+              "confidence": 0.99
+            },
+            "stateSource": "diagram",
+            "initialClosed": true,
+            "labelVisible": true,
+            "candidateIndex": 1
+          },
+          {
+            "id": "W1",
+            "type": "wire",
+            "name": "导线",
+            "a": "n1",
+            "b": "n3",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.9,
+            "evidence": "",
+            "labelVisible": false
+          },
+          {
+            "id": "W2",
+            "type": "wire",
+            "name": "导线",
+            "a": "n3",
+            "b": "n4",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.9,
+            "evidence": "",
+            "labelVisible": false
+          }
+        ],
+        "warnings": [],
+        "uncertainties": [],
+        "confidence": 0.9,
+        "source": "image",
+        "verification": {
+          "mode": "visual-inventory",
+          "status": "matched",
+          "topologyMatched": false,
+          "inventoryMatched": true,
+          "checkedSwitches": 2,
+          "pixelCheckedSwitches": 2
+        }
+      }
+    },
+    {
+      "id": "wheatstone-bridge",
+      "source": "Original textbook-style fixture",
+      "imageSha256": "1c754eb5a0445f3d0dd2cba099a3ecc45e936701b30663068a3be0ea701549c9",
+      "status": 200,
+      "durationMs": 20119,
+      "providerCalls": 2,
+      "detailRegion": {
+        "x": 41,
+        "y": 3,
+        "width": 1030,
+        "height": 779
+      },
+      "verification": {
+        "mode": "visual-inventory",
+        "status": "matched",
+        "topologyMatched": false,
+        "inventoryMatched": true,
+        "checkedSwitches": 0,
+        "pixelCheckedSwitches": 0
+      },
+      "layoutMs": 25.375791999991634,
+      "wireObstructions": 0,
+      "current": 1.0000000000000004,
+      "problems": [],
+      "candidates": {
+        "primary": {
+          "title": "高中桥式电阻网络",
+          "problemText": "",
+          "nodes": [
+            {
+              "id": "p",
+              "x": 180,
+              "y": 130
+            },
+            {
+              "id": "t",
+              "x": 480,
+              "y": 130
+            },
+            {
+              "id": "b",
+              "x": 780,
+              "y": 130
+            },
+            {
+              "id": "g",
+              "x": 180,
+              "y": 250
+            }
+          ],
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "name": "直流电源",
+              "a": "p",
+              "b": "g",
+              "value": 10,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.99,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "p",
+              "b": "t",
+              "value": 10,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.99,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "t",
+              "b": "g",
+              "value": 10,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.99,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R3",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "p",
+              "b": "b",
+              "value": 10,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.99,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R4",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "b",
+              "b": "g",
+              "value": 10,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.99,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R5",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "t",
+              "b": "b",
+              "value": 10,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.99,
+              "evidence": "",
+              "labelVisible": true
+            }
+          ],
+          "warnings": [],
+          "uncertainties": [],
+          "confidence": 0.99,
+          "source": "image"
+        },
+        "audit": {
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "value": 10,
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "value": 10,
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "value": 10,
+              "labelVisible": true
+            },
+            {
+              "id": "R3",
+              "type": "resistor",
+              "value": 10,
+              "labelVisible": true
+            },
+            {
+              "id": "R4",
+              "type": "resistor",
+              "value": 10,
+              "labelVisible": true
+            },
+            {
+              "id": "R5",
+              "type": "resistor",
+              "value": 10,
+              "labelVisible": true
+            }
+          ],
+          "confidence": 0.99,
+          "uncertainties": []
+        },
+        "reviewer": null
+      },
+      "passed": true,
+      "document": {
+        "title": "高中桥式电阻网络",
+        "problemText": "",
+        "nodes": [
+          {
+            "id": "p",
+            "x": 180,
+            "y": 130
+          },
+          {
+            "id": "t",
+            "x": 480,
+            "y": 130
+          },
+          {
+            "id": "b",
+            "x": 780,
+            "y": 130
+          },
+          {
+            "id": "g",
+            "x": 180,
+            "y": 250
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "type": "source",
+            "name": "直流电源",
+            "a": "p",
+            "b": "g",
+            "value": 10,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.99,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "p",
+            "b": "t",
+            "value": 10,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.99,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "t",
+            "b": "g",
+            "value": 10,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.99,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R3",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "p",
+            "b": "b",
+            "value": 10,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.99,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R4",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "b",
+            "b": "g",
+            "value": 10,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.99,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R5",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "t",
+            "b": "b",
+            "value": 10,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.99,
+            "evidence": "",
+            "labelVisible": true
+          }
+        ],
+        "warnings": [],
+        "uncertainties": [],
+        "confidence": 0.99,
+        "source": "image",
+        "verification": {
+          "mode": "visual-inventory",
+          "status": "matched",
+          "topologyMatched": false,
+          "inventoryMatched": true,
+          "checkedSwitches": 0,
+          "pixelCheckedSwitches": 0
+        }
+      }
+    },
+    {
+      "id": "ammeter-voltmeter",
+      "source": "Original textbook-style fixture",
+      "imageSha256": "e5b3e3c34d1894dc98c7cc5ddf2f7e8823cf007fd718d5e802571a9594f2c6bc",
+      "status": 200,
+      "durationMs": 22531,
+      "providerCalls": 2,
+      "detailRegion": {
+        "x": 42,
+        "y": 17,
+        "width": 1072,
+        "height": 710
+      },
+      "verification": {
+        "mode": "visual-inventory",
+        "status": "matched",
+        "topologyMatched": false,
+        "inventoryMatched": true,
+        "checkedSwitches": 1,
+        "pixelCheckedSwitches": 1
+      },
+      "layoutMs": 13.077541999999085,
+      "wireObstructions": 0,
+      "current": 0,
+      "problems": [],
+      "candidates": {
+        "primary": {
+          "title": "电流表与电压表电路",
+          "problemText": "",
+          "nodes": [
+            {
+              "id": "n1",
+              "x": 180,
+              "y": 130
+            },
+            {
+              "id": "n2",
+              "x": 480,
+              "y": 130
+            },
+            {
+              "id": "n3",
+              "x": 780,
+              "y": 130
+            },
+            {
+              "id": "n4",
+              "x": 180,
+              "y": 250
+            },
+            {
+              "id": "n5",
+              "x": 480,
+              "y": 250
+            }
+          ],
+          "components": [
+            {
+              "id": "A1",
+              "type": "ammeter",
+              "name": "理想电流表",
+              "a": "n1",
+              "b": "n2",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": true,
+              "confidence": 0.98,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "n2",
+              "b": "n3",
+              "value": 4,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.98,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "VM1",
+              "type": "voltmeter",
+              "name": "理想电压表",
+              "a": "n3",
+              "b": "n4",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": true,
+              "confidence": 0.98,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "n3",
+              "b": "n4",
+              "value": 8,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.98,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "V1",
+              "type": "source",
+              "name": "直流电源",
+              "a": "n1",
+              "b": "n5",
+              "value": 12,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.98,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "name": "开关",
+              "a": "n5",
+              "b": "n4",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.98,
+              "evidence": "",
+              "labelVisible": true,
+              "candidateIndex": 0
+            }
+          ],
+          "warnings": [],
+          "uncertainties": [],
+          "confidence": 0.98,
+          "source": "image"
+        },
+        "audit": {
+          "components": [
+            {
+              "id": "A1",
+              "type": "ammeter",
+              "value": null,
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "value": 4,
+              "labelVisible": true
+            },
+            {
+              "id": "VM1",
+              "type": "voltmeter",
+              "value": null,
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "value": 8,
+              "labelVisible": true
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "value": null,
+              "labelVisible": true,
+              "candidateIndex": 0
+            },
+            {
+              "id": "V1",
+              "type": "source",
+              "value": 12,
+              "labelVisible": true
+            }
+          ],
+          "confidence": 0.97,
+          "uncertainties": []
+        },
+        "reviewer": null
+      },
+      "passed": true,
+      "document": {
+        "title": "电流表与电压表电路",
+        "problemText": "",
+        "nodes": [
+          {
+            "id": "n1",
+            "x": 180,
+            "y": 130
+          },
+          {
+            "id": "n2",
+            "x": 480,
+            "y": 130
+          },
+          {
+            "id": "n3",
+            "x": 780,
+            "y": 130
+          },
+          {
+            "id": "n4",
+            "x": 180,
+            "y": 250
+          },
+          {
+            "id": "n5",
+            "x": 480,
+            "y": 250
+          }
+        ],
+        "components": [
+          {
+            "id": "A1",
+            "type": "ammeter",
+            "name": "理想电流表",
+            "a": "n1",
+            "b": "n2",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.98,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "n2",
+            "b": "n3",
+            "value": 4,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.98,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "VM1",
+            "type": "voltmeter",
+            "name": "理想电压表",
+            "a": "n3",
+            "b": "n4",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.98,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "n3",
+            "b": "n4",
+            "value": 8,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.98,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "V1",
+            "type": "source",
+            "name": "直流电源",
+            "a": "n1",
+            "b": "n5",
+            "value": 12,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.98,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "S1",
+            "type": "switch",
+            "name": "开关",
+            "a": "n5",
+            "b": "n4",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false,
+            "confidence": 0.98,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "gap",
+              "basis": "diagram",
+              "confidence": 0.99
+            },
+            "stateSource": "diagram",
+            "initialClosed": false,
+            "labelVisible": true,
+            "candidateIndex": 0
+          }
+        ],
+        "warnings": [],
+        "uncertainties": [],
+        "confidence": 0.97,
+        "source": "image",
+        "verification": {
+          "mode": "visual-inventory",
+          "status": "matched",
+          "topologyMatched": false,
+          "inventoryMatched": true,
+          "checkedSwitches": 1,
+          "pixelCheckedSwitches": 1
+        }
+      }
+    },
+    {
+      "id": "rheostat-closed",
+      "source": "Original textbook-style fixture",
+      "imageSha256": "081201b3cb23660908565659c9f4faee6f78995fac9f372b65633c049717f1dc",
+      "status": 200,
+      "durationMs": 10527,
+      "providerCalls": 2,
+      "detailRegion": {
+        "x": 44,
+        "y": 22,
+        "width": 1051,
+        "height": 686
+      },
+      "verification": {
+        "mode": "visual-inventory",
+        "status": "matched",
+        "topologyMatched": false,
+        "inventoryMatched": true,
+        "checkedSwitches": 1,
+        "pixelCheckedSwitches": 1
+      },
+      "layoutMs": 8.797000000005937,
+      "wireObstructions": 0,
+      "current": 1,
+      "problems": [],
+      "candidates": {
+        "primary": {
+          "title": "滑动变阻器实验",
+          "problemText": "",
+          "nodes": [
+            {
+              "id": "p",
+              "x": 180,
+              "y": 130
+            },
+            {
+              "id": "m",
+              "x": 480,
+              "y": 130
+            },
+            {
+              "id": "r",
+              "x": 780,
+              "y": 130
+            },
+            {
+              "id": "q",
+              "x": 180,
+              "y": 250
+            }
+          ],
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "name": "直流电源",
+              "a": "p",
+              "b": "q",
+              "value": 12,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.98,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "p",
+              "b": "m",
+              "value": 4,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.98,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "RP1",
+              "type": "rheostat",
+              "name": "滑动变阻器",
+              "a": "m",
+              "b": "r",
+              "value": 8,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.98,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "name": "开关",
+              "a": "q",
+              "b": "r",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.98,
+              "evidence": "",
+              "labelVisible": true,
+              "candidateIndex": 0
+            }
+          ],
+          "warnings": [],
+          "uncertainties": [],
+          "confidence": 0.98,
+          "source": "image"
+        },
+        "audit": {
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "value": 12,
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "value": 4,
+              "labelVisible": true
+            },
+            {
+              "id": "RP1",
+              "type": "rheostat",
+              "value": 8,
+              "labelVisible": true
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "value": null,
+              "labelVisible": true,
+              "candidateIndex": 0
+            }
+          ],
+          "confidence": 0.97,
+          "uncertainties": []
+        },
+        "reviewer": null
+      },
+      "passed": true,
+      "document": {
+        "title": "滑动变阻器实验",
+        "problemText": "",
+        "nodes": [
+          {
+            "id": "p",
+            "x": 180,
+            "y": 130
+          },
+          {
+            "id": "m",
+            "x": 480,
+            "y": 130
+          },
+          {
+            "id": "r",
+            "x": 780,
+            "y": 130
+          },
+          {
+            "id": "q",
+            "x": 180,
+            "y": 250
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "type": "source",
+            "name": "直流电源",
+            "a": "p",
+            "b": "q",
+            "value": 12,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.98,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "p",
+            "b": "m",
+            "value": 4,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.98,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "RP1",
+            "type": "rheostat",
+            "name": "滑动变阻器",
+            "a": "m",
+            "b": "r",
+            "value": 8,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.98,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "S1",
+            "type": "switch",
+            "name": "开关",
+            "a": "q",
+            "b": "r",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.98,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "touching",
+              "basis": "diagram",
+              "confidence": 0.99
+            },
+            "stateSource": "diagram",
+            "initialClosed": true,
+            "labelVisible": true,
+            "candidateIndex": 0
+          }
+        ],
+        "warnings": [],
+        "uncertainties": [],
+        "confidence": 0.97,
+        "source": "image",
+        "verification": {
+          "mode": "visual-inventory",
+          "status": "matched",
+          "topologyMatched": false,
+          "inventoryMatched": true,
+          "checkedSwitches": 1,
+          "pixelCheckedSwitches": 1
+        }
+      }
+    },
+    {
+      "id": "lamp-open",
+      "source": "Original textbook-style fixture",
+      "imageSha256": "b75630afe867b604400e12e295ee45cb95253ffd3780165d5f23e758063221fe",
+      "status": 200,
+      "durationMs": 13872,
+      "providerCalls": 2,
+      "detailRegion": {
+        "x": 44,
+        "y": 44,
+        "width": 1051,
+        "height": 663
+      },
+      "verification": {
+        "mode": "visual-inventory",
+        "status": "review",
+        "topologyMatched": false,
+        "inventoryMatched": true,
+        "checkedSwitches": 1,
+        "pixelCheckedSwitches": 1
+      },
+      "layoutMs": 8.414291000008234,
+      "wireObstructions": 0,
+      "current": null,
+      "problems": [],
+      "candidates": {
+        "primary": {
+          "title": "初中灯泡与开关",
+          "problemText": "",
+          "nodes": [
+            {
+              "id": "p",
+              "x": 180,
+              "y": 130
+            },
+            {
+              "id": "n",
+              "x": 480,
+              "y": 130
+            },
+            {
+              "id": "m",
+              "x": 780,
+              "y": 130
+            }
+          ],
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "name": "直流电源",
+              "a": "p",
+              "b": "n",
+              "value": 3,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.98,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "L1",
+              "type": "lamp",
+              "name": "灯泡（需非线性模型）",
+              "a": "p",
+              "b": "m",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": true,
+              "confidence": 0.98,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "name": "开关",
+              "a": "n",
+              "b": "m",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.98,
+              "evidence": "",
+              "labelVisible": true,
+              "candidateIndex": 0
+            }
+          ],
+          "warnings": [],
+          "uncertainties": [
+            "L1 灯泡（需非线性模型）：保留图形，当前只支持线性直流电路。"
+          ],
+          "confidence": 0.98,
+          "source": "image"
+        },
+        "audit": {
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "value": 3,
+              "labelVisible": true
+            },
+            {
+              "id": "L1",
+              "type": "lamp",
+              "value": null,
+              "labelVisible": true
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "value": null,
+              "labelVisible": true,
+              "candidateIndex": 0
+            }
+          ],
+          "confidence": 0.97,
+          "uncertainties": []
+        },
+        "reviewer": null
+      },
+      "passed": true,
+      "document": {
+        "title": "初中灯泡与开关",
+        "problemText": "",
+        "nodes": [
+          {
+            "id": "p",
+            "x": 180,
+            "y": 130
+          },
+          {
+            "id": "n",
+            "x": 480,
+            "y": 130
+          },
+          {
+            "id": "m",
+            "x": 780,
+            "y": 130
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "type": "source",
+            "name": "直流电源",
+            "a": "p",
+            "b": "n",
+            "value": 3,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.98,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "L1",
+            "type": "lamp",
+            "name": "灯泡（需非线性模型）",
+            "a": "p",
+            "b": "m",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": true,
+            "confidence": 0.98,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "S1",
+            "type": "switch",
+            "name": "开关",
+            "a": "n",
+            "b": "m",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false,
+            "confidence": 0.98,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "gap",
+              "basis": "diagram",
+              "confidence": 0.99
+            },
+            "stateSource": "diagram",
+            "initialClosed": false,
+            "labelVisible": true,
+            "candidateIndex": 0
+          }
+        ],
+        "warnings": [],
+        "uncertainties": [
+          "L1 灯泡（需非线性模型）：保留图形，当前只支持线性直流电路。"
+        ],
+        "confidence": 0.97,
+        "source": "image",
+        "verification": {
+          "mode": "visual-inventory",
+          "status": "review",
+          "topologyMatched": false,
+          "inventoryMatched": true,
+          "checkedSwitches": 1,
+          "pixelCheckedSwitches": 1
+        }
+      }
+    },
+    {
+      "id": "crossing-no-junction",
+      "source": "Original textbook-style fixture",
+      "imageSha256": "0a7b09286e5ce8976df32b5f86558e715b238e6eb3d1d107575007d777395f3d",
+      "status": 200,
+      "durationMs": 25363,
+      "providerCalls": 2,
+      "detailRegion": {
+        "x": 36,
+        "y": 0,
+        "width": 1089,
+        "height": 798
+      },
+      "verification": {
+        "mode": "visual-inventory",
+        "status": "matched",
+        "topologyMatched": false,
+        "inventoryMatched": true,
+        "checkedSwitches": 0,
+        "pixelCheckedSwitches": 0
+      },
+      "layoutMs": 11.359499999991385,
+      "wireObstructions": 0,
+      "current": 2.9999999999999996,
+      "problems": [],
+      "candidates": {
+        "primary": {
+          "title": "交叉导线电路",
+          "problemText": "",
+          "nodes": [
+            {
+              "id": "L",
+              "x": 180,
+              "y": 130
+            },
+            {
+              "id": "B",
+              "x": 480,
+              "y": 130
+            },
+            {
+              "id": "C",
+              "x": 780,
+              "y": 130
+            }
+          ],
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "name": "直流电源",
+              "a": "L",
+              "b": "B",
+              "value": 12,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.97,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "L",
+              "b": "C",
+              "value": 4,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.97,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "B",
+              "b": "C",
+              "value": 8,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.97,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R3",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "L",
+              "b": "B",
+              "value": 6,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.97,
+              "evidence": "",
+              "labelVisible": true
+            }
+          ],
+          "warnings": [],
+          "uncertainties": [],
+          "confidence": 0.97,
+          "source": "image"
+        },
+        "audit": {
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "value": 12,
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "value": 4,
+              "labelVisible": true
+            },
+            {
+              "id": "R3",
+              "type": "resistor",
+              "value": 6,
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "value": 8,
+              "labelVisible": true
+            }
+          ],
+          "confidence": 0.97,
+          "uncertainties": []
+        },
+        "reviewer": null
+      },
+      "passed": true,
+      "document": {
+        "title": "交叉导线电路",
+        "problemText": "",
+        "nodes": [
+          {
+            "id": "L",
+            "x": 180,
+            "y": 130
+          },
+          {
+            "id": "B",
+            "x": 480,
+            "y": 130
+          },
+          {
+            "id": "C",
+            "x": 780,
+            "y": 130
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "type": "source",
+            "name": "直流电源",
+            "a": "L",
+            "b": "B",
+            "value": 12,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.97,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "L",
+            "b": "C",
+            "value": 4,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.97,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "B",
+            "b": "C",
+            "value": 8,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.97,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R3",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "L",
+            "b": "B",
+            "value": 6,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.97,
+            "evidence": "",
+            "labelVisible": true
+          }
+        ],
+        "warnings": [],
+        "uncertainties": [],
+        "confidence": 0.97,
+        "source": "image",
+        "verification": {
+          "mode": "visual-inventory",
+          "status": "matched",
+          "topologyMatched": false,
+          "inventoryMatched": true,
+          "checkedSwitches": 0,
+          "pixelCheckedSwitches": 0
+        }
+      }
+    }
+  ]
+}

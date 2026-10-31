@@ -1,0 +1,1006 @@
+{
+  "started": "2026-10-31T01:10:16.433Z",
+  "finished": "2026-10-31T01:11:28.286Z",
+  "model": "deepseek-flash",
+  "thinking": "low",
+  "providerCalls": 6,
+  "caseCount": 4,
+  "passed": 0,
+  "failed": 4,
+  "results": [
+    {
+      "id": "textbook-meters",
+      "passed": false,
+      "problems": [
+        "Error"
+      ]
+    },
+    {
+      "id": "main-closed-bypass-open",
+      "source": "Original textbook-style fixture",
+      "imageSha256": "773d9ede4a932301ec06cab168908eec9a854084cdc2165ba5fb045a9134bd81",
+      "status": 200,
+      "durationMs": 30927,
+      "providerCalls": 2,
+      "detailRegion": {
+        "x": 44,
+        "y": 22,
+        "width": 1055,
+        "height": 686
+      },
+      "verification": {
+        "mode": "independent-vision",
+        "status": "review",
+        "topologyMatched": true,
+        "checkedSwitches": 1
+      },
+      "layoutMs": 27.583666999998968,
+      "wireObstructions": 0,
+      "current": 0,
+      "problems": [
+        "S1 initial state differs: false != true",
+        "Not independently accepted: review"
+      ],
+      "candidates": {
+        "primary": {
+          "title": "欧姆定律与开关实验",
+          "problemText": "",
+          "nodes": [
+            {
+              "id": "p",
+              "x": 180,
+              "y": 130
+            },
+            {
+              "id": "m",
+              "x": 480,
+              "y": 130
+            },
+            {
+              "id": "n",
+              "x": 780,
+              "y": 130
+            },
+            {
+              "id": "q",
+              "x": 180,
+              "y": 250
+            }
+          ],
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "name": "直流电源",
+              "a": "p",
+              "b": "q",
+              "value": 15,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.97,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "p",
+              "b": "m",
+              "value": 30,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.97,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "m",
+              "b": "n",
+              "value": 20,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.97,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "S2",
+              "type": "switch",
+              "name": "开关",
+              "a": "m",
+              "b": "n",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.97,
+              "evidence": "",
+              "stateObservation": {
+                "contact": "gap",
+                "basis": "diagram",
+                "confidence": 0.95
+              },
+              "labelVisible": true
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "name": "开关",
+              "a": "q",
+              "b": "n",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.97,
+              "evidence": "",
+              "stateObservation": {
+                "contact": "gap",
+                "basis": "diagram",
+                "confidence": 0.95
+              },
+              "labelVisible": true
+            }
+          ],
+          "warnings": [],
+          "uncertainties": [],
+          "confidence": 0.97,
+          "source": "image"
+        },
+        "audit": {
+          "title": "欧姆定律与开关实验",
+          "problemText": "",
+          "nodes": [
+            {
+              "id": "p",
+              "x": 180,
+              "y": 130
+            },
+            {
+              "id": "m",
+              "x": 480,
+              "y": 130
+            },
+            {
+              "id": "r",
+              "x": 780,
+              "y": 130
+            },
+            {
+              "id": "n",
+              "x": 180,
+              "y": 250
+            }
+          ],
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "name": "直流电源",
+              "a": "p",
+              "b": "n",
+              "value": 15,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.9,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "p",
+              "b": "m",
+              "value": 30,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.9,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "m",
+              "b": "r",
+              "value": 20,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.9,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "S2",
+              "type": "switch",
+              "name": "开关",
+              "a": "m",
+              "b": "r",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.9,
+              "evidence": "",
+              "stateObservation": {
+                "contact": "gap",
+                "basis": "diagram",
+                "confidence": 0.95
+              },
+              "labelVisible": true
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "name": "开关",
+              "a": "r",
+              "b": "n",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": true,
+              "confidence": 0.9,
+              "evidence": "",
+              "stateObservation": {
+                "contact": "touching",
+                "basis": "diagram",
+                "confidence": 0.85
+              },
+              "labelVisible": true
+            }
+          ],
+          "warnings": [],
+          "uncertainties": [],
+          "confidence": 0.9,
+          "source": "image"
+        }
+      },
+      "passed": false,
+      "document": {
+        "title": "欧姆定律与开关实验",
+        "problemText": "",
+        "nodes": [
+          {
+            "id": "p",
+            "x": 180,
+            "y": 130
+          },
+          {
+            "id": "m",
+            "x": 480,
+            "y": 130
+          },
+          {
+            "id": "n",
+            "x": 780,
+            "y": 130
+          },
+          {
+            "id": "q",
+            "x": 180,
+            "y": 250
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "type": "source",
+            "name": "直流电源",
+            "a": "p",
+            "b": "q",
+            "value": 15,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.97,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "p",
+            "b": "m",
+            "value": 30,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.97,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "m",
+            "b": "n",
+            "value": 20,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.97,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "S2",
+            "type": "switch",
+            "name": "开关",
+            "a": "m",
+            "b": "n",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false,
+            "confidence": 0.97,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "gap",
+              "basis": "diagram",
+              "confidence": 0.95
+            },
+            "stateSource": "diagram",
+            "initialClosed": false,
+            "labelVisible": true
+          },
+          {
+            "id": "S1",
+            "type": "switch",
+            "name": "开关",
+            "a": "q",
+            "b": "n",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false,
+            "confidence": 0.97,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "gap",
+              "basis": "diagram",
+              "confidence": 0.95
+            },
+            "stateSource": "uncertain",
+            "labelVisible": true
+          }
+        ],
+        "warnings": [],
+        "uncertainties": [
+          "【S1初态】触点识别未一致确认，暂按断开显示；请对照原图点击此开关确认，不能使用题干操作后的状态。"
+        ],
+        "confidence": 0.9,
+        "source": "image",
+        "verification": {
+          "mode": "independent-vision",
+          "status": "review",
+          "topologyMatched": true,
+          "checkedSwitches": 1
+        }
+      }
+    },
+    {
+      "id": "main-open-bypass-closed",
+      "source": "Original textbook-style fixture",
+      "imageSha256": "2ab73318a6fd1ac12fa829708f890108a80d5f717005001fc7d4b8be6ad84a7b",
+      "status": 200,
+      "durationMs": 33854,
+      "providerCalls": 2,
+      "detailRegion": {
+        "x": 44,
+        "y": 22,
+        "width": 1055,
+        "height": 686
+      },
+      "verification": {
+        "mode": "independent-vision",
+        "status": "review",
+        "topologyMatched": true,
+        "checkedSwitches": 1
+      },
+      "layoutMs": 9.94716700000572,
+      "wireObstructions": 0,
+      "current": 0,
+      "problems": [
+        "S2 initial state differs: false != true",
+        "Not independently accepted: review"
+      ],
+      "candidates": {
+        "primary": {
+          "title": "欧姆定律与开关实验电路",
+          "problemText": "",
+          "nodes": [
+            {
+              "id": "p",
+              "x": 180,
+              "y": 130
+            },
+            {
+              "id": "m",
+              "x": 480,
+              "y": 130
+            },
+            {
+              "id": "n",
+              "x": 780,
+              "y": 130
+            },
+            {
+              "id": "g",
+              "x": 180,
+              "y": 250
+            }
+          ],
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "name": "直流电源",
+              "a": "p",
+              "b": "g",
+              "value": 15,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.9,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "p",
+              "b": "m",
+              "value": 30,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.9,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "m",
+              "b": "n",
+              "value": 20,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.9,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "S2",
+              "type": "switch",
+              "name": "开关",
+              "a": "m",
+              "b": "n",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.9,
+              "evidence": "",
+              "stateObservation": {
+                "contact": "touching",
+                "basis": "diagram",
+                "confidence": 0.8
+              },
+              "labelVisible": true
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "name": "开关",
+              "a": "g",
+              "b": "n",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.9,
+              "evidence": "",
+              "stateObservation": {
+                "contact": "gap",
+                "basis": "diagram",
+                "confidence": 0.95
+              },
+              "labelVisible": true
+            }
+          ],
+          "warnings": [],
+          "uncertainties": [
+            "S2 的通断状态未确定，先按断开显示，请对照原图确认。",
+            "S1 的通断状态未确定，先按断开显示，请对照原图确认。"
+          ],
+          "confidence": 0.9,
+          "source": "image"
+        },
+        "audit": {
+          "title": "欧姆定律与开关实验原始电路图",
+          "problemText": "",
+          "nodes": [
+            {
+              "id": "p",
+              "x": 180,
+              "y": 130
+            },
+            {
+              "id": "m",
+              "x": 480,
+              "y": 130
+            },
+            {
+              "id": "g",
+              "x": 780,
+              "y": 130
+            },
+            {
+              "id": "n",
+              "x": 180,
+              "y": 250
+            }
+          ],
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "name": "直流电源",
+              "a": "p",
+              "b": "n",
+              "value": 15,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "p",
+              "b": "m",
+              "value": 30,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "m",
+              "b": "g",
+              "value": 20,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "S2",
+              "type": "switch",
+              "name": "开关",
+              "a": "m",
+              "b": "g",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": true,
+              "confidence": 0.95,
+              "evidence": "",
+              "stateObservation": {
+                "contact": "touching",
+                "basis": "diagram",
+                "confidence": 0.9
+              },
+              "labelVisible": true
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "name": "开关",
+              "a": "n",
+              "b": "g",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": false,
+              "confidence": 0.95,
+              "evidence": "",
+              "stateObservation": {
+                "contact": "gap",
+                "basis": "diagram",
+                "confidence": 0.95
+              },
+              "labelVisible": true
+            }
+          ],
+          "warnings": [],
+          "uncertainties": [],
+          "confidence": 0.95,
+          "source": "image"
+        }
+      },
+      "passed": false,
+      "document": {
+        "title": "欧姆定律与开关实验电路",
+        "problemText": "",
+        "nodes": [
+          {
+            "id": "p",
+            "x": 180,
+            "y": 130
+          },
+          {
+            "id": "m",
+            "x": 480,
+            "y": 130
+          },
+          {
+            "id": "n",
+            "x": 780,
+            "y": 130
+          },
+          {
+            "id": "g",
+            "x": 180,
+            "y": 250
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "type": "source",
+            "name": "直流电源",
+            "a": "p",
+            "b": "g",
+            "value": 15,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.9,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "p",
+            "b": "m",
+            "value": 30,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.9,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "m",
+            "b": "n",
+            "value": 20,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.9,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "S2",
+            "type": "switch",
+            "name": "开关",
+            "a": "m",
+            "b": "n",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false,
+            "confidence": 0.9,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "touching",
+              "basis": "diagram",
+              "confidence": 0.8
+            },
+            "stateSource": "uncertain",
+            "labelVisible": true
+          },
+          {
+            "id": "S1",
+            "type": "switch",
+            "name": "开关",
+            "a": "g",
+            "b": "n",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false,
+            "confidence": 0.9,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "gap",
+              "basis": "diagram",
+              "confidence": 0.95
+            },
+            "stateSource": "diagram",
+            "initialClosed": false,
+            "labelVisible": true
+          }
+        ],
+        "warnings": [],
+        "uncertainties": [
+          "S2 的通断状态未确定，先按断开显示，请对照原图确认。",
+          "S1 的通断状态未确定，先按断开显示，请对照原图确认。",
+          "【S2初态】触点识别未一致确认，暂按断开显示；请对照原图点击此开关确认，不能使用题干操作后的状态。"
+        ],
+        "confidence": 0.9,
+        "source": "image",
+        "verification": {
+          "mode": "independent-vision",
+          "status": "review",
+          "topologyMatched": true,
+          "checkedSwitches": 1
+        }
+      }
+    },
+    {
+      "id": "both-closed",
+      "source": "Original textbook-style fixture",
+      "imageSha256": "9b998933197131a38d899f4740fbcd6ec421c03d31ed743fad33f1af75ee418c",
+      "status": 200,
+      "durationMs": 39854,
+      "providerCalls": 2,
+      "detailRegion": {
+        "x": 44,
+        "y": 22,
+        "width": 1055,
+        "height": 686
+      },
+      "verification": {
+        "mode": "independent-vision",
+        "status": "unavailable",
+        "topologyMatched": false,
+        "checkedSwitches": 0
+      },
+      "layoutMs": 3.0422080000134883,
+      "wireObstructions": 0,
+      "current": 0,
+      "problems": [
+        "S2 initial state differs: false != true",
+        "S1 initial state differs: false != true",
+        "Not independently accepted: unavailable"
+      ],
+      "candidates": {
+        "primary": {
+          "title": "欧姆定律与开关实验",
+          "problemText": "",
+          "nodes": [
+            {
+              "id": "pos",
+              "x": 180,
+              "y": 130
+            },
+            {
+              "id": "neg",
+              "x": 480,
+              "y": 130
+            },
+            {
+              "id": "mid",
+              "x": 780,
+              "y": 130
+            },
+            {
+              "id": "right",
+              "x": 180,
+              "y": 250
+            }
+          ],
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "name": "直流电源",
+              "a": "pos",
+              "b": "neg",
+              "value": 15,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.9,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "pos",
+              "b": "mid",
+              "value": 30,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.9,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "mid",
+              "b": "right",
+              "value": 20,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.9,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "S2",
+              "type": "switch",
+              "name": "开关",
+              "a": "mid",
+              "b": "right",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": true,
+              "confidence": 0.9,
+              "evidence": "",
+              "stateObservation": {
+                "contact": "touching",
+                "basis": "diagram",
+                "confidence": 0.9
+              },
+              "labelVisible": true
+            },
+            {
+              "id": "S1",
+              "type": "switch",
+              "name": "开关",
+              "a": "neg",
+              "b": "right",
+              "value": null,
+              "valueSource": "unknown",
+              "closed": true,
+              "confidence": 0.9,
+              "evidence": "",
+              "stateObservation": {
+                "contact": "touching",
+                "basis": "diagram",
+                "confidence": 0.8
+              },
+              "labelVisible": true
+            }
+          ],
+          "warnings": [],
+          "uncertainties": [],
+          "confidence": 0.9,
+          "source": "image"
+        },
+        "audit": null
+      },
+      "passed": false,
+      "document": {
+        "title": "欧姆定律与开关实验",
+        "problemText": "",
+        "nodes": [
+          {
+            "id": "pos",
+            "x": 180,
+            "y": 130
+          },
+          {
+            "id": "neg",
+            "x": 480,
+            "y": 130
+          },
+          {
+            "id": "mid",
+            "x": 780,
+            "y": 130
+          },
+          {
+            "id": "right",
+            "x": 180,
+            "y": 250
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "type": "source",
+            "name": "直流电源",
+            "a": "pos",
+            "b": "neg",
+            "value": 15,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.9,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "pos",
+            "b": "mid",
+            "value": 30,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.9,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "mid",
+            "b": "right",
+            "value": 20,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.9,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "S2",
+            "type": "switch",
+            "name": "开关",
+            "a": "mid",
+            "b": "right",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false,
+            "confidence": 0.9,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "touching",
+              "basis": "diagram",
+              "confidence": 0.9
+            },
+            "stateSource": "uncertain",
+            "labelVisible": true
+          },
+          {
+            "id": "S1",
+            "type": "switch",
+            "name": "开关",
+            "a": "neg",
+            "b": "right",
+            "value": null,
+            "valueSource": "unknown",
+            "closed": false,
+            "confidence": 0.9,
+            "evidence": "",
+            "stateObservation": {
+              "contact": "touching",
+              "basis": "diagram",
+              "confidence": 0.8
+            },
+            "stateSource": "uncertain",
+            "labelVisible": true
+          }
+        ],
+        "warnings": [],
+        "uncertainties": [
+          "独立图像核验未完成，请核对元件、连接及开关初态后继续。",
+          "【S2初态】触点识别未一致确认，暂按断开显示；请对照原图点击此开关确认，不能使用题干操作后的状态。",
+          "【S1初态】触点识别未一致确认，暂按断开显示；请对照原图点击此开关确认，不能使用题干操作后的状态。"
+        ],
+        "confidence": 0.9,
+        "source": "image",
+        "verification": {
+          "mode": "independent-vision",
+          "status": "unavailable",
+          "topologyMatched": false,
+          "checkedSwitches": 0
+        }
+      }
+    }
+  ]
+}

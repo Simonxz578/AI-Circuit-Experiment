@@ -1,18 +1,21 @@
 import {z} from 'zod';
 export const componentTypes=['source','resistor','rheostat','switch','wire','ammeter','voltmeter','lamp','fuse','capacitor','inductor','diode','ac_source','unsupported'] as const;
+export const StateObservationSchema=z.object({contact:z.enum(['gap','touching','unclear']),basis:z.enum(['diagram','text','unclear']),confidence:z.number().min(0).max(1),region:z.object({x:z.number().min(0).max(1000),y:z.number().min(0).max(1000),width:z.number().positive().max(1000),height:z.number().positive().max(1000)}).optional()});
 export const ComponentSchema=z.object({
  id:z.string().regex(/^[A-Za-z][A-Za-z0-9_-]{0,23}$/),type:z.enum(componentTypes),name:z.string().max(80),
  a:z.string().min(1).max(24),b:z.string().min(1).max(24),value:z.number().finite().nullable(),
  valueSource:z.enum(['given','user','unknown','suggested']).default('unknown'),
  closed:z.boolean().default(true),position:z.object({x:z.number().min(60).max(10000),y:z.number().min(60).max(10000)}).optional(),positionSource:z.enum(['recognition','manual']).optional(),
- confidence:z.number().min(0).max(1).default(1),evidence:z.string().max(500).default('')
+ confidence:z.number().min(0).max(1).default(1),evidence:z.string().max(500).default(''),
+ stateObservation:StateObservationSchema.optional(),stateSource:z.enum(['diagram','text','uncertain','user']).optional(),initialClosed:z.boolean().optional(),labelVisible:z.boolean().optional(),candidateIndex:z.number().int().min(0).max(39).optional()
 });
 export const CircuitSchema=z.object({
  title:z.string().min(1).max(120),problemText:z.string().max(4000).default(''),
  nodes:z.array(z.object({id:z.string().min(1).max(24),x:z.number().min(60).max(940),y:z.number().min(60).max(540)})).min(2).max(40),
  components:z.array(ComponentSchema).min(1).max(40),warnings:z.array(z.string().max(500)).max(16).default([]),
  uncertainties:z.array(z.string().max(500)).max(16).default([]),confidence:z.number().min(0).max(1).default(1),
- source:z.enum(['example','text','image','edited']).default('text')
+ source:z.enum(['example','text','image','edited']).default('text'),
+ verification:z.object({mode:z.enum(['independent-vision','visual-inventory']),status:z.enum(['matched','review','unavailable']),topologyMatched:z.boolean(),inventoryMatched:z.boolean().optional(),topologyGuard:z.enum(['passed','open-path','not-applicable']).optional(),checkedSwitches:z.number().int().min(0).max(40),pixelCheckedSwitches:z.number().int().min(0).max(40).optional()}).optional()
 }).superRefine((doc,ctx)=>{
  const nodes=new Set(doc.nodes.map(n=>n.id)),ids=new Set<string>();
  if(nodes.size!==doc.nodes.length)ctx.addIssue({code:'custom',message:'连接节点 ID 重复。'});

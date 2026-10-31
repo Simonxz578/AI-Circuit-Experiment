@@ -103,16 +103,17 @@ function routeNets(doc:CircuitDocument,positions:Record<string,Placement>,root:(
   const cells:number[]=[];for(let at=final;at!==-1;at=previous[at])cells.push(Math.floor(at/3));return cells.reverse();
  };
  const ordered=[...nets.entries()].sort((a,b)=>b[1].length-a[1].length||sortId(a[0],b[0]));
+ // Reserve every fixed terminal corridor before routing any net, including ports belonging to later nets.
+ for(let i=0;i<ordered.length;i++){const [net,ports]=ordered[i];for(const port of ports){const first=index(port.terminal),last=index(port.escape),delta=first<last?1:-1,cells:number[]=[];for(let cell=first;;cell+=delta){cells.push(cell);if(cell===last)break;}reserve(cells,net,i+1);}}
  for(const [net,ports] of ordered){
   netNumber++;const number=netNumber,tree=new Set<number>();
   const orderedPorts=[...ports].sort((a,b)=>a.escape.y-b.escape.y||a.escape.x-b.escape.x||sortId(a.owner,b.owner));
   // Include the terminal stubs when finding junctions; a branch meeting a stub is an electrical T too.
-  for(const port of orderedPorts){const first=index(port.terminal),last=index(port.escape),delta=first<last?1:-1,cells:number[]=[];for(let cell=first;;cell+=delta){cells.push(cell);if(cell===last)break;}reserve(cells,net,number);}
   for(const port of orderedPorts){
    wires.push({net,points:[port.terminal,port.escape],owner:port.owner});const start=index(port.escape);
    if(!tree.size){tree.add(start);continue;}
    let goal=start,best=Infinity;const s=point(start);
-   for(const cell of tree){const p=point(cell),distance=Math.abs(p.x-s.x)+Math.abs(p.y-s.y);if(distance<best){best=distance;goal=cell;}}
+   for(const cell of tree){if(occupied[cell]&&occupied[cell]!==number)continue;const p=point(cell),distance=Math.abs(p.x-s.x)+Math.abs(p.y-s.y);if(distance<best){best=distance;goal=cell;}}
    const cells=search(start,goal,number);reserve(cells,net,number);for(const cell of cells)tree.add(cell);wires.push({net,points:simplify(cells.map(point))});
   }
  }

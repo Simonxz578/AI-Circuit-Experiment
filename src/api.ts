@@ -1,5 +1,6 @@
 import {CircuitSchema,type CircuitDocument} from './circuit/schema';
 import {RecognitionCache,recognitionKey} from './circuit/recognitionCache';
+import {prepareVisionInput} from './imageDetail';
 const recognitionCache=new RecognitionCache();
 const base=import.meta.env.VITE_API_URL??'';
 export type ApiProgress={stage:string;attempt:number};
@@ -47,7 +48,8 @@ export async function requestApi(path:string,body:unknown,signal?:AbortSignal,on
 export async function parseCircuit(text:string,image:string|undefined,signal:AbortSignal,onProgress?:(p:ApiProgress)=>void,options?:{force?:boolean}){
  const key=await recognitionKey(text,image);if(signal.aborted)throw new DOMException('Cancelled','AbortError');
  if(!options?.force){const cached=recognitionCache.get(key);if(cached){onProgress?.({stage:'复用本次已核验的识别结果，正在规整电路',attempt:0});return cached;}}
- const r=await requestApi('parse',{text,image},signal,onProgress),parsed=CircuitSchema.safeParse(r.document);
+ const vision=image?await prepareVisionInput(image):{};if(signal.aborted)throw new DOMException('Cancelled','AbortError');
+ const r=await requestApi('parse',{text,image,...vision},signal,onProgress),parsed=CircuitSchema.safeParse(r.document);
  if(!parsed.success)throw new ApiError('识别结果未通过本地连接核验，当前实验已保留，请重试。','INVALID_GRAPH',422);
  const result={document:parsed.data,durationMs:r.durationMs as number,model:r.model as string,cached:false};recognitionCache.put(key,result);return result;
 }

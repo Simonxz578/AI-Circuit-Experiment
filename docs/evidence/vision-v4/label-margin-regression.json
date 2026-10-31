@@ -1,0 +1,250 @@
+{
+  "started": "2026-10-31T02:02:18.635Z",
+  "finished": "2026-10-31T02:02:31.798Z",
+  "model": "deepseek-flash",
+  "strategy": "Full-page inventory + isolated-diagram topology + pixel contacts",
+  "providerCalls": 2,
+  "caseCount": 1,
+  "passed": 1,
+  "failed": 0,
+  "results": [
+    {
+      "id": "textbook-series",
+      "source": "https://www.siyavula.com/read/za/physical-sciences/grade-11/electric-circuits/11-electric-circuits-05#a94939533520153d1cfd5b4a6a795e68",
+      "imageSha256": "9920ecf1efe47ea23deeac754ecc7eb55fa20658dd0a74bb8912c39f1fe28156",
+      "status": 200,
+      "durationMs": 12747,
+      "providerCalls": 2,
+      "detailRegion": {
+        "x": 10,
+        "y": 0,
+        "width": 264,
+        "height": 299
+      },
+      "verification": {
+        "mode": "visual-inventory",
+        "status": "matched",
+        "topologyMatched": false,
+        "inventoryMatched": true,
+        "topologyGuard": "passed",
+        "checkedSwitches": 0,
+        "pixelCheckedSwitches": 0
+      },
+      "layoutMs": 21.157374999998865,
+      "wireObstructions": 0,
+      "current": 0.5,
+      "problems": [],
+      "candidates": {
+        "primary": {
+          "title": "串联电阻电路",
+          "problemText": "",
+          "nodes": [
+            {
+              "id": "p",
+              "x": 180,
+              "y": 130
+            },
+            {
+              "id": "n1",
+              "x": 480,
+              "y": 130
+            },
+            {
+              "id": "n2",
+              "x": 780,
+              "y": 130
+            },
+            {
+              "id": "g",
+              "x": 180,
+              "y": 250
+            }
+          ],
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "name": "直流电源",
+              "a": "p",
+              "b": "g",
+              "value": 9,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "p",
+              "b": "n1",
+              "value": 3,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "n1",
+              "b": "n2",
+              "value": 10,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true
+            },
+            {
+              "id": "R3",
+              "type": "resistor",
+              "name": "电阻",
+              "a": "n2",
+              "b": "g",
+              "value": 5,
+              "valueSource": "given",
+              "closed": true,
+              "confidence": 0.95,
+              "evidence": "",
+              "labelVisible": true
+            }
+          ],
+          "warnings": [],
+          "uncertainties": [],
+          "confidence": 0.95,
+          "source": "image"
+        },
+        "audit": {
+          "components": [
+            {
+              "id": "V1",
+              "type": "source",
+              "value": 9,
+              "labelVisible": true
+            },
+            {
+              "id": "R1",
+              "type": "resistor",
+              "value": 3,
+              "labelVisible": true
+            },
+            {
+              "id": "R2",
+              "type": "resistor",
+              "value": 10,
+              "labelVisible": true
+            },
+            {
+              "id": "R3",
+              "type": "resistor",
+              "value": 5,
+              "labelVisible": true
+            }
+          ],
+          "confidence": 0.98,
+          "uncertainties": []
+        },
+        "reviewer": null
+      },
+      "passed": true,
+      "document": {
+        "title": "串联电阻电路",
+        "problemText": "",
+        "nodes": [
+          {
+            "id": "p",
+            "x": 180,
+            "y": 130
+          },
+          {
+            "id": "n1",
+            "x": 480,
+            "y": 130
+          },
+          {
+            "id": "n2",
+            "x": 780,
+            "y": 130
+          },
+          {
+            "id": "g",
+            "x": 180,
+            "y": 250
+          }
+        ],
+        "components": [
+          {
+            "id": "V1",
+            "type": "source",
+            "name": "直流电源",
+            "a": "p",
+            "b": "g",
+            "value": 9,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.95,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "p",
+            "b": "n1",
+            "value": 3,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.95,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "n1",
+            "b": "n2",
+            "value": 10,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.95,
+            "evidence": "",
+            "labelVisible": true
+          },
+          {
+            "id": "R3",
+            "type": "resistor",
+            "name": "电阻",
+            "a": "n2",
+            "b": "g",
+            "value": 5,
+            "valueSource": "given",
+            "closed": true,
+            "confidence": 0.95,
+            "evidence": "",
+            "labelVisible": true
+          }
+        ],
+        "warnings": [],
+        "uncertainties": [],
+        "confidence": 0.95,
+        "source": "image",
+        "verification": {
+          "mode": "visual-inventory",
+          "status": "matched",
+          "topologyMatched": false,
+          "inventoryMatched": true,
+          "topologyGuard": "passed",
+          "checkedSwitches": 0,
+          "pixelCheckedSwitches": 0
+        }
+      }
+    }
+  ]
+}
