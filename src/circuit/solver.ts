@@ -59,13 +59,17 @@ function diodeSolve(doc:CircuitDocument):Solution{
  const diodes=doc.components.filter(c=>['led','diode'].includes(c.type));
  if(diodes.length>8)return fail('简化二极管模型最多支持8个器件。');
  if(diodes.some(c=>!(c.parameters?.forwardVoltage!>0)))return fail('LED/二极管需填写正向压降(V)才能启用简化恒定压降模型；不猜测导通参数。');
+ let accepted:Solution|undefined;
  for(let mask=0;mask<2**diodes.length;mask++){
   const states=new Map(diodes.map((c,i)=>[c.id,!!(mask&(1<<i))]));
   const trial={...doc,components:doc.components.map(c=>states.has(c.id)?{...c,type:states.get(c.id)?'source' as const:'voltmeter' as const,value:states.get(c.id)?c.parameters!.forwardVoltage:null,valueSource:'user' as const,parameters:{}}:c)};
   const s=linearDC(trial);if(!s.ok)continue;
   if(diodes.some(c=>{const r=s.readings[c.id];return states.get(c.id)?r.current===null||r.current < -1e-9:r.voltage===null||r.voltage>c.parameters!.forwardVoltage+1e-9;}))continue;
   const sources=doc.components.filter(c=>c.type==='source'),single=sources.length===1?sources[0]:null,totalCurrent=single?Math.abs(s.readings[single.id].current!):null;
-  return {...s,totalCurrent,equivalentResistance:single&&single.value?totalCurrent===0?Infinity:Math.abs(single.value)/totalCurrent!:null,sourcePower:sources.reduce((sum,c)=>sum-(s.readings[c.id].power??0),0),notes:[...s.notes,'LED/二极管使用用户明确给定的恒定正向压降近似；a为阳极、b为阴极，不代表真实指数伏安特性。']};
+  const candidate:Solution={...s,totalCurrent,equivalentResistance:single&&single.value?totalCurrent===0?Infinity:Math.abs(single.value)/totalCurrent!:null,sourcePower:sources.reduce((sum,c)=>sum-(s.readings[c.id].power??0),0),notes:[...s.notes,'LED/二极管使用用户明确给定的恒定正向压降近似；a为阳极、b为阴极，不代表真实指数伏安特性。']};
+  if(accepted&&diodes.some(c=>Math.abs((accepted!.readings[c.id].current??0)-(candidate.readings[c.id].current??0))>1e-8))return fail('理想二极管支路电流不唯一，请为各支路加入明确的限流电阻。');
+  accepted=candidate;
  }
+ if(accepted)return accepted;
  return fail('简化二极管状态未得到唯一可用解，可能包含浮置区域或理想器件冲突；未生成读数。');
 }
