@@ -8,7 +8,8 @@ export function plotScale(values:number[]):{min:number;max:number;step:number;ti
  min=Math.floor(min/step)*step;max=Math.ceil(max/step)*step;return {min,max,step,ticks:Array.from({length:Math.min(12,Math.round((max-min)/step)+1)},(_,i)=>Number((min+i*step).toPrecision(12)))};
 }
 export function sweep(doc:CircuitDocument,parameter:string,observe:string,min:number,max:number,steps=30,quantity:'current'|'voltage'|'power'='current'):PlotPoint[]{
- if(!Number.isFinite(min)||!Number.isFinite(max)||max<=min||steps<2||steps>100)return [];
+ if(!Number.isFinite(min)||!Number.isFinite(max)||max<=min||!Number.isInteger(steps)||steps<2||steps>100)return [];
+ const target=doc.components.find(c=>c.id===parameter);if(!target||!['source','resistor','rheostat'].includes(target.type)||(target.type!=='source'&&min<=0))return [];
  const points:PlotPoint[]=[];
  for(let i=0;i<=steps;i++){const x=min+(max-min)*i/steps;try{const s=solve(editValue(doc,parameter,x)),y=s.readings[observe]?.[quantity];if(s.ok&&y!==null&&y!==undefined&&Number.isFinite(y))points.push({x,y:Math.abs(y)});}catch{/* Invalid parameter samples do not create fabricated points. */}}
  return points;

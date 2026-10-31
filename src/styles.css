@@ -36,3 +36,7 @@
 @media(prefers-reduced-motion:reduce){.robot-working .robot-arm-left{transform:rotate(20deg)}.robot-working .robot-arm-right{transform:rotate(-20deg)}.robot-working .robot-charge-energy{opacity:.7}.is-building .routed-wire{stroke-dashoffset:0}}
 
 .canvas-footer-actions{flex-wrap:wrap;gap:8px 14px}.circuit-component [role=switch]{cursor:pointer}.circuit-component [role=switch]:hover .component-hit{fill:#ffffff12;stroke:#ffffff80}.circuit-component [role=switch]:focus-visible{outline:2px solid white;outline-offset:6px}
+
+.component-properties,.measurement-panel{margin:12px 0;padding:14px;border:1px solid #ffffff45;border-radius:12px;color:#fff;font-size:16px;line-height:1.6}.component-properties summary,.measurement-panel summary{cursor:pointer;font-weight:600}.component-properties label,.measurement-panel label{display:block;margin:12px 0}.component-properties input,.measurement-panel input,.measurement-panel select{display:block;width:100%;min-width:0;margin:6px 0;padding:9px;color:#fff;background:#074399;border:1px solid #ffffff50;border-radius:7px;font:inherit}.measurement-panel article{border-top:1px solid #ffffff40;padding:12px 0}.measurement-panel button,.component-properties button{margin:4px 8px 4px 0;padding:8px 12px}.measurement-panel p,.component-properties p{overflow-wrap:anywhere}
+
+.component-properties select{width:100%;font:inherit;background:#074399;color:white;border:1px solid #ffffff50;padding:9px;border-radius:7px}

@@ -2,7 +2,7 @@ import {CircuitSchema,type CircuitDocument} from '../../src/circuit/schema';
 import {normalizeRecognition,normalizeVisualInventory,type VisualInventory} from '../../src/circuit/recognition';
 import {solve} from '../../src/circuit/solver';
 import {applyOperations,OperationsSchema} from '../../src/circuit/operations';
-import {parsePrompt,coachPrompt,inventoryAuditPrompt} from './prompts';
+import {parsePrompt,coachPrompt,inventoryAuditPrompt,editorExtensions} from './prompts';
 import {reconcileVisualInventory} from './visualAudit';
 import type {ContactRaster,ContactCandidate,ContactRegion} from '../../src/circuit/contactVision';
 
@@ -29,17 +29,17 @@ async function runSingleInference(options:Options&{inventoryAudit?:boolean;maxAt
   if(signal?.aborted)return failure('CANCELLED','已取消本次识别。',499,requestId);
   if(attempt===2){if(Date.now()-start>110000)break;if(!await options.consume())break;}
   onProgress?.({stage:attempt===1?(chat?'正在结合当前电路处理问题':'正在识别元件与节点连接'):'首轮结果未完整通过核验，正在自动恢复一次',attempt});
-  const content:unknown[]=[{type:'text',text:chat?JSON.stringify({request:text,currentCircuit:{title:document.title,nodes:document.nodes.map(n=>n.id),components:document.components.map(({id,type,a,b,value,closed})=>({id,type,a,b,value,closed}))},solver:solve(document)}):text||'提取这张图的实际电路拓扑。开关断开和未知参数都正常保留，不需要计算题目答案。'}];
+  const content:unknown[]=[{type:'text',text:chat?JSON.stringify({request:text,currentCircuit:{measurements:document.measurements,title:document.title,nodes:document.nodes.map(n=>n.id),components:document.components.map(({id,type,a,b,value,closed,parameters,terminals})=>({id,type,a,b,value,closed,parameters,terminals}))},solver:solve(document)}):text||'提取这张图的实际电路拓扑。开关断开和未知参数都正常保留，不需要计算题目答案。'}];
   const cropped=!chat&&!options.inventoryAudit&&!!options.diagramImage&&!!options.diagramRegion;
   if(image)content.push({type:'image_url',image_url:{url:cropped?options.diagramImage!:image,detail:'high'}});
-  if(options.knownInventory&&!options.inventoryAudit)content.push({type:'text',text:'完整原题中独立读取的元件标号与明确给定参数（null保持未知；这不是计算结果，不包含题干后续开关操作）。请按图核对元件并保留这些值，只追踪实际端子与回线：'+JSON.stringify(options.knownInventory.components.map(({id,type,value,labelVisible})=>({id,type,value,labelVisible})))});
+  if(options.knownInventory&&!options.inventoryAudit)content.push({type:'text',text:'完整原题中独立读取的元件标号与明确给定参数（null保持未知；这不是计算结果，不包含题干后续开关操作）。请按图核对元件并保留这些值，只追踪实际端子与回线：'+JSON.stringify(options.knownInventory.components.map(({id,type,value,labelVisible,parameters,rawValue,rawUnit})=>({id,type,value,labelVisible,parameters,rawValue,rawUnit})))});
   if(options.imageDetail){content.push({type:'text',text:'下一张是同一原图的电路局部放大细节。请实际查看开关触点是否接触：水平刀片接到另一端为闭合，斜刀片离开另一端为断开。完整接线与给定值仍读取第一张；不要执行正文中的后续操作。'});content.push({type:'image_url',image_url:{url:options.imageDetail,detail:'high'}});}
   if(options.contactCandidates?.length){const region=options.diagramRegion;const candidates=options.contactCandidates.map((c,index)=>({candidateIndex:index,pivot:cropped?{x:Math.round((c.pivot.x-region!.x)/region!.width*1000),y:Math.round((c.pivot.y-region!.y)/region!.height*1000)}:{x:Math.round(c.pivot.x),y:Math.round(c.pivot.y)}})).filter(c=>c.pivot.x>=0&&c.pivot.x<=1000&&c.pivot.y>=0&&c.pivot.y<=1000);content.push({type:'text',text:'像素程序发现的圆形位置候选，相对于本条第一张图归一化0..1000（可能包括文字圆洞，不表示通断或元件ID）：'+JSON.stringify(candidates)+'。观察真正的开关标号，选对应candidateIndex，不要按列表顺序猜。'});}
   if(repair)content.push({type:'text',text:`上一次返回需要修正：${repair}。请简洁返回完整JSON，先追踪真实节点；不要计算实验答案。`});
   const timerAbort=new AbortController(),remaining=120000-(Date.now()-start),attemptTimeout=Math.min(attempt===1?75000:45000,remaining);
   const timer=setTimeout(()=>timerAbort.abort(),attemptTimeout);let phase='connect';
   try{
-   let system=chat?coachPrompt:options.inventoryAudit?inventoryAuditPrompt:parsePrompt;
+   let system=chat?coachPrompt+editorExtensions:options.inventoryAudit?inventoryAuditPrompt:parsePrompt;
    if(!chat&&!options.inventoryAudit&&options.contactCandidates?.length)system+='\n本次特别规则优先于上面的通用开关格式：已有像素候选，switch仅返回id、type、a、b、value:null、labelVisible和candidateIndex。省略closed和stateObservation，不分析通断、不重新估算坐标。初始通断由像素程序判断。仍要保留开关两端不同节点和全部元件，不合并闭合开关。';
    const upstream=await fetch('https://api.deepseek.com/chat/completions',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${key}`},body:JSON.stringify({model:'deepseek-flash',messages:[{role:'system',content:system},{role:'user',content}],response_format:{type:'json_object'},thinking:{type:options.fast?'disabled':'enabled'},reasoning_effort:'low',max_tokens:attempt===1?6000:9000}),signal:signal?AbortSignal.any([signal,timerAbort.signal]):timerAbort.signal});
    if(!upstream.ok){
@@ -102,7 +102,7 @@ export async function runInference(options:Options):Promise<Outcome>{
  if(options.signal?.aborted)return failure('CANCELLED','已取消本次识别。',499,options.requestId);
  const parsed=first.status===200?CircuitSchema.safeParse(first.body.document):null;let graph=parsed?.success?parsed.data:null,inventory=(second?.status===200?second.body.inventory:null) as VisualInventory|null,reviewer:CircuitDocument|VisualInventory|null=null;
  let doc=graph?reconcileVisualInventory(graph,inventory,options.contactRaster,options.contactCandidates):null;
- const scopeOnly=doc&&doc.verification?.inventoryMatched&&doc.components.filter(c=>c.type==='switch').every(c=>c.stateSource==='diagram')&&doc.components.some(c=>['lamp','capacitor','inductor','diode','ac_source','unsupported'].includes(c.type));
+ const scopeOnly=doc&&doc.verification?.inventoryMatched&&doc.components.filter(c=>c.type==='switch').every(c=>c.stateSource==='diagram')&&doc.components.some(c=>['lamp','led','capacitor','inductor','diode','ac_source','unsupported'].includes(c.type));
  if((!doc||doc.verification?.status!=='matched'&&!scopeOnly)&&!['AUTH','BALANCE','CONTENT_FILTER'].includes(String(first.body.code))&&await reserve()){
   options.onProgress?.({stage:'发现识别分歧，正在针对原图复核一次',attempt:calls});
   const needsGraph=!graph||doc?.verification?.topologyGuard==='open-path',request=needsGraph?'请仅对照原图重新追踪元件两端和回线，不求解题目，不新增不存在的导线。'+(graph?'上轮候选即使全部开关闭合也没有电源回路；候选不是答案，请核对并修正其中错误的端子：'+JSON.stringify({nodes:graph.nodes.map(n=>n.id),components:graph.components.map(({id,type,a,b})=>({id,type,a,b}))}):''):'仅重新核对元件、独立数值和开关候选序号，不追踪接线，不判断通断，不求解题目。';

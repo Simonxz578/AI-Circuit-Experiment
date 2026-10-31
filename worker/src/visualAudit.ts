@@ -74,7 +74,7 @@ export function reconcileVisualInventory(primary:CircuitDocument,inventory:Visua
   proofs.set(c.id,proof);if(proof.pivotKey){const previous=used.get(proof.pivotKey);if(previous){duplicate.add(previous);duplicate.add(c.id);}used.set(proof.pivotKey,c.id);}
  }
  let checkedSwitches=0,pixelCheckedSwitches=0;const resolved=new Set<string>();
- const components=primary.components.map(c=>{const other=matching.get(c.id);let next={...c};
+ const components=primary.components.map(c=>{const other=matching.get(c.id);let next={...c,...(other?.rawValue?{rawValue:other.rawValue}:{}),...(other?.rawUnit?{rawUnit:other.rawUnit}:{}),unitUncertain:c.unitUncertain||other?.unitUncertain===true};
   if(other&&['source','resistor','rheostat'].includes(c.type)&&c.value!==other.value){next={...next,value:null,valueSource:'unknown'};uncertainties.push(`【${c.id}参数】两次读取的独立数值不一致，保留待填写，请对照原题确认。`);}
   if(c.type==='switch'){const proof=proofs.get(c.id)!;if(proof.contact!=='unclear'&&!duplicate.has(c.id)){const closed=proof.contact==='touching';checkedSwitches++;if(raster)pixelCheckedSwitches++;resolved.add(c.id);next={...next,closed,initialClosed:closed,stateSource:'diagram',stateObservation:{...c.stateObservation,contact:proof.contact,basis:'diagram',confidence:.99}};}
    else{next={...next,closed:false,initialClosed:undefined,stateSource:'uncertain'};uncertainties.push(`【${c.id}初态】触点未完成一致核验，暂按断开显示；请对照原图点击开关确认。`);}}
@@ -90,5 +90,5 @@ export function reconcileVisualInventory(primary:CircuitDocument,inventory:Visua
   topologyGuard=result.ok&&result.totalCurrent!==null&&Math.abs(result.totalCurrent)<1e-10?'open-path':'passed';
  }
  const verified=CircuitSchema.parse({...candidate,uncertainties:topologyGuard==='open-path'?[...candidate.uncertainties,'即使接通图中开关，当前连接仍未形成电源回路，请对照原图核对回线与端子。'].slice(0,16):candidate.uncertainties,verification:{mode:'visual-inventory',status:!inventory?'unavailable':inventoryMatched&&!needsReview(candidate)&&topologyGuard!=='open-path'?'matched':'review',topologyMatched:false,inventoryMatched,topologyGuard,checkedSwitches,pixelCheckedSwitches}});
- return verified;
+ return CircuitSchema.parse({...verified,measurements:inventory?.measurements?.length?inventory.measurements:verified.measurements});
 }
