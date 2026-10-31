@@ -26,7 +26,7 @@ export default {async fetch(request:Request,env:Env):Promise<Response>{
  if(allowed)headers['Access-Control-Allow-Origin']=origin;
  const json=(body:unknown,status=200)=>new Response(JSON.stringify(body),{status,headers});const path=new URL(request.url).pathname;
  if(request.method==='OPTIONS')return allowed?new Response(null,{status:204,headers:{...headers,'Access-Control-Allow-Methods':'POST,GET,OPTIONS','Access-Control-Allow-Headers':'Content-Type','Access-Control-Max-Age':'600'}}):json({error:'此来源未获允许。'},403);
- if(path==='/api/health'&&request.method==='GET')return json({status:'ok',ai:!!env.DEEPSEEK_API_KEY&&env.AI_ENABLED==='true',model:'deepseek-flash',scope:'linear-dc',configured:!!env.DEEPSEEK_API_KEY,version:'vision-v5',appRateLimit:false});
+ if(path==='/api/health'&&request.method==='GET')return json({status:'ok',ai:!!env.DEEPSEEK_API_KEY&&env.AI_ENABLED==='true',model:'deepseek-flash',scope:'linear-dc',configured:!!env.DEEPSEEK_API_KEY,version:'workspace-v6',appRateLimit:false});
  if(!['/api/parse','/api/chat'].includes(path))return json({error:'接口不存在。'},404);
  if(request.method!=='POST')return json({error:'请使用 POST 请求。'},405);
  if(!allowed)return json({error:'此来源未获允许。'},403);

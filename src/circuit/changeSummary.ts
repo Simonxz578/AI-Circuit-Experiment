@@ -1,0 +1,6 @@
+import {registry,type CircuitDocument} from './schema';
+export function describeChanges(before:CircuitDocument,after:CircuitDocument):string[]{
+ const lines:string[]=[];for(const c of after.components){const old=before.components.find(o=>o.id===c.id);if(!old){const across=before.components.find(o=>o.a===c.a&&o.b===c.b||o.a===c.b&&o.b===c.a);if(c.type==='voltmeter')lines.push(`新增电压表 ${c.id}${across?'，并联在 '+across.id+' 两端':'，测量所选两点电压'}`);else if(c.type==='ammeter')lines.push(`新增电流表 ${c.id}，串入所选支路`);else lines.push(`新增${registry[c.type].label} ${c.id}`);continue;}if(c.type!==old.type)lines.push(`将 ${c.id} 换成${registry[c.type].label}`);if(c.value!==old.value)lines.push(`将 ${c.id} 的数值${c.value===null?'设为待填写':'改为 '+c.value+' '+registry[c.type].unit}`);if(c.type==='switch'&&c.closed!==old.closed)lines.push(`${c.closed?'闭合':'断开'} ${c.id}`);if(c.a!==old.a||c.b!==old.b)lines.push(`调整 ${c.id} 的连接，请在电路图中核对`);if(JSON.stringify(c.parameters)!==JSON.stringify(old.parameters))lines.push(`更新 ${c.id} 的设置`);}
+ for(const c of before.components)if(!after.components.some(o=>o.id===c.id))lines.push(`移除 ${c.id}`);
+ if(JSON.stringify(before.measurements)!==JSON.stringify(after.measurements))lines.push('更新题目给定的示数或计算结果');return lines.length?lines:['应用所选实验配置'];
+}

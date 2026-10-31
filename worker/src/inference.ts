@@ -22,7 +22,7 @@ const messages:Record<string,{status:number;text:string}>={
 };
 
 /** Text/chat recover once. Images separate full-page inventory, cropped topology and pixel checks within three calls. */
-async function runSingleInference(options:Options&{inventoryAudit?:boolean;maxAttempts?:number;fast?:boolean}):Promise<Outcome>{
+async function runSingleInference(options:Options&{inventoryAudit?:boolean;maxAttempts?:number;fast?:boolean;recoverTruncation?:boolean}):Promise<Outcome>{
  const {key,text,image,document,requestId,signal,onProgress}=options,chat=!!document,start=Date.now();
  let code='INVALID_OUTPUT',repair='';
  for(let attempt=1;attempt<=(options.maxAttempts??2);attempt++){
@@ -41,7 +41,8 @@ async function runSingleInference(options:Options&{inventoryAudit?:boolean;maxAt
   try{
    let system=chat?coachPrompt+editorExtensions:options.inventoryAudit?inventoryAuditPrompt:parsePrompt;
    if(!chat&&!options.inventoryAudit&&options.contactCandidates?.length)system+='\n本次特别规则优先于上面的通用开关格式：已有像素候选，switch仅返回id、type、a、b、value:null、labelVisible和candidateIndex。省略closed和stateObservation，不分析通断、不重新估算坐标。初始通断由像素程序判断。仍要保留开关两端不同节点和全部元件，不合并闭合开关。';
-   const upstream=await fetch('https://api.deepseek.com/chat/completions',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${key}`},body:JSON.stringify({model:'deepseek-flash',messages:[{role:'system',content:system},{role:'user',content}],response_format:{type:'json_object'},thinking:{type:options.fast?'disabled':'enabled'},reasoning_effort:'low',max_tokens:attempt===1?6000:9000}),signal:signal?AbortSignal.any([signal,timerAbort.signal]):timerAbort.signal});
+   if(!chat&&!options.inventoryAudit&&options.knownInventory)system+='\n紧凑输出：只返回title、nodes、components中id/type/a/b/value，spdt额外保留terminals/parameters，普通switch保留candidateIndex。不要重复rawValue/rawUnit/evidence/measurements等元数据，不写题干摘要或长解释，它们已由独立元件读取阶段保留。';
+   const upstream=await fetch('https://api.deepseek.com/chat/completions',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${key}`},body:JSON.stringify({model:'deepseek-flash',messages:[{role:'system',content:system},{role:'user',content}],response_format:{type:'json_object'},thinking:{type:options.fast?'disabled':'enabled'},reasoning_effort:'low',max_tokens:options.recoverTruncation?20000:chat?5000:options.inventoryAudit?7000:12000}),signal:signal?AbortSignal.any([signal,timerAbort.signal]):timerAbort.signal});
    if(!upstream.ok){
     const status=upstream.status;
     if(status===401||status===403)return failure('AUTH','AI服务授权失效，请联系维护者；当前实验与图片已保留。',502,requestId);
@@ -106,7 +107,7 @@ export async function runInference(options:Options):Promise<Outcome>{
  if((!doc||doc.verification?.status!=='matched'&&!scopeOnly)&&!['AUTH','BALANCE','CONTENT_FILTER'].includes(String(first.body.code))&&await reserve()){
   options.onProgress?.({stage:'发现识别分歧，正在针对原图复核一次',attempt:calls});
   const needsGraph=!graph||doc?.verification?.topologyGuard==='open-path',request=needsGraph?'请仅对照原图重新追踪元件两端和回线，不求解题目，不新增不存在的导线。'+(graph?'上轮候选即使全部开关闭合也没有电源回路；候选不是答案，请核对并修正其中错误的端子：'+JSON.stringify({nodes:graph.nodes.map(n=>n.id),components:graph.components.map(({id,type,a,b})=>({id,type,a,b}))}):''):'仅重新核对元件、独立数值和开关候选序号，不追踪接线，不判断通断，不求解题目。';
-  const review=await runSingleInference({...options,text:request,knownInventory:observed??undefined,inventoryAudit:!needsGraph,fast:false,maxAttempts:1,consume:reserve,onProgress:undefined});
+  const review=await runSingleInference({...options,text:request,knownInventory:observed??undefined,inventoryAudit:!needsGraph,fast:false,recoverTruncation:!graph&&first.body.code==='OUTPUT_TRUNCATED',maxAttempts:1,consume:reserve,onProgress:undefined});
   if(review.status===200){if(needsGraph){const candidate=CircuitSchema.safeParse(review.body.document);if(candidate.success){graph=candidate.data;reviewer=graph;doc=reconcileVisualInventory(graph,inventory,options.contactRaster,options.contactCandidates);}}
    else{const verified=review.body.inventory as VisualInventory;reviewer=verified;const revised=reconcileVisualInventory(graph!,verified,options.contactRaster,options.contactCandidates);if(revised.verification?.status==='matched'||!inventory){doc=revised;inventory=verified;}}}
  }

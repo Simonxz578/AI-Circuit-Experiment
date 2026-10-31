@@ -1,8 +1,16 @@
 import {editValue,registry,type CircuitDocument} from './schema';
+import {parseQuantity} from './units';
 import {applyOperations} from './operations';
 import {solve} from './solver';
 export type CommandResult={reply:string;preview?:boolean;document?:CircuitDocument};
 export function localCommand(doc:CircuitDocument,text:string):CommandResult|null{
+ if(!/[?？]|为什么|假如|如果|是否|对吗/.test(text)){
+  const matches=[...text.matchAll(/([A-Za-z][A-Za-z0-9_-]*|电源|电压|LED)\s*(?:=|是|为|算出(?:来)?(?:是)?|改成|设为|改为)\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+)\s*(?:[kMmμµu]?Ω|千欧姆?|欧姆?|[mμµu]?[VA]|伏特?|毫安|安培|[uμµnm]?F)?)/g)];
+  if(matches.length){try{let next=doc;for(const match of matches){const c=next.components.find(c=>c.id.toLowerCase()===match[1].toLowerCase())??(['电源','电压'].includes(match[1])&&next.components.filter(c=>c.type==='source').length===1?next.components.find(c=>c.type==='source'):undefined)??(match[1]==='LED'&&next.components.filter(c=>c.type==='led').length===1?next.components.find(c=>c.type==='led'):undefined);if(!c)return {reply:`没有找到 ${match[1]}，请使用电路图上的编号。`};const unit=c.type==='ammeter'?'current':['source','voltmeter','led','diode'].includes(c.type)?'voltage':['capacitor','polar_capacitor'].includes(c.type)?'capacitance':'resistance';const n=parseQuantity(match[2].replace('毫安','mA').replace('安培','A'),unit);
+   if(['ammeter','voltmeter'].includes(c.type)){const existing=next.measurements.find(m=>m.targetId===c.id&&m.source==='user'&&m.quantity===(c.type==='ammeter'?'current':'voltage'));let i=1;while(next.measurements.some(m=>m.id==='M'+i))i++;next=applyOperations(next,[{action:'set_given_reading',measurement:{id:existing?.id??'M'+i,targetId:c.id,quantity:c.type==='ammeter'?'current':'voltage',value:n,conditions:{},source:'user',confidence:1,evidence:'用户算出的结果'}}]);}
+   else next=applyOperations(next,[['led','diode'].includes(c.type)?{action:'set_parameter',id:c.id,key:'forwardVoltage',value:n}:{action:'set_value',id:c.id,value:n}]);
+  }return {document:next,reply:'已填入你算出的数值。电表的计算结果与自动测量分开保存，可在右侧核对。'};}catch(e){return {reply:(e as Error).message};}}
+ }
  const convert=text.trim().match(/^(?:请)?(?:把|将)?\s*([A-Za-z][A-Za-z0-9_-]*)\s*(?:改成|改为|换成)\s*(滑动变阻器|变阻器|电阻)[。！!]?$/i);
  if(convert){try{return {preview:true,document:applyOperations(doc,[{action:'change_type',id:doc.components.find(c=>c.id.toLowerCase()===convert[1].toLowerCase())?.id??convert[1],type:convert[2]==='电阻'?'resistor':'rheostat'}]),reply:'已更换元件类型，保留原接线和阻值。'};}catch(e){return {reply:(e as Error).message};}}
  if(/^(?:请)?(?:添加|加上)(?:一个)?电流表和(?:一个)?电压表[。！!：:]?$/.test(text.trim()))return {reply:'你想测量哪个元件？例如：在 R1 串入电流表，并在 R1 两端加电压表。'};

@@ -1,0 +1,146 @@
+{
+  "checkedAt": "2026-10-31T10:55:38.503Z",
+  "input": "User-provided SPDT capacitor image; original not published",
+  "sha256": "a9dbba0802f3d973db312bc608dc7cba738d523af7b66c818abf1286b814f071",
+  "actualProviderCalls": 2,
+  "durationMs": 17391,
+  "manualTopologyCorrect": true,
+  "initialPosition": 0,
+  "layoutMs": 20.53287499999999,
+  "wireObstructions": 0,
+  "verification": {
+    "mode": "visual-inventory",
+    "status": "review",
+    "topologyMatched": false,
+    "inventoryMatched": true,
+    "topologyGuard": "not-applicable",
+    "checkedSwitches": 0,
+    "pixelCheckedSwitches": 0
+  },
+  "requiresManualPositionConfirmation": true,
+  "document": {
+    "measurements": [],
+    "title": "含电容和单刀双掷开关的直流电路",
+    "problemText": "",
+    "nodes": [
+      {
+        "id": "n1",
+        "x": 180,
+        "y": 130
+      },
+      {
+        "id": "n2",
+        "x": 480,
+        "y": 130
+      },
+      {
+        "id": "n3",
+        "x": 780,
+        "y": 130
+      },
+      {
+        "id": "n4",
+        "x": 180,
+        "y": 250
+      }
+    ],
+    "components": [
+      {
+        "id": "E1",
+        "type": "source",
+        "name": "直流电源",
+        "a": "n1",
+        "b": "n4",
+        "value": null,
+        "valueSource": "unknown",
+        "parameters": {},
+        "unitUncertain": false,
+        "quantityKind": "voltage",
+        "closed": true,
+        "confidence": 0.9,
+        "evidence": ""
+      },
+      {
+        "id": "C",
+        "type": "capacitor",
+        "name": "电容（直流稳态）",
+        "a": "n1",
+        "b": "n2",
+        "value": null,
+        "valueSource": "unknown",
+        "parameters": {},
+        "unitUncertain": false,
+        "quantityKind": "capacitance",
+        "closed": true,
+        "confidence": 0.9,
+        "evidence": ""
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "name": "电阻",
+        "a": "n1",
+        "b": "n3",
+        "value": null,
+        "valueSource": "unknown",
+        "parameters": {},
+        "unitUncertain": false,
+        "quantityKind": "resistance",
+        "closed": true,
+        "confidence": 0.9,
+        "evidence": ""
+      },
+      {
+        "id": "R2",
+        "type": "resistor",
+        "name": "电阻",
+        "a": "n3",
+        "b": "n4",
+        "value": null,
+        "valueSource": "unknown",
+        "parameters": {},
+        "unitUncertain": false,
+        "quantityKind": "resistance",
+        "closed": true,
+        "confidence": 0.9,
+        "evidence": ""
+      },
+      {
+        "id": "K",
+        "type": "spdt",
+        "name": "双掷开关",
+        "a": "n2",
+        "b": "n3",
+        "value": null,
+        "valueSource": "unknown",
+        "initialThrow": 0,
+        "parameters": {
+          "throw": 0
+        },
+        "unitUncertain": false,
+        "terminals": {
+          "two": "n4"
+        },
+        "closed": true,
+        "confidence": 0.9,
+        "evidence": "",
+        "stateSource": "uncertain"
+      }
+    ],
+    "warnings": [],
+    "uncertainties": [
+      "请对照原图确认 K 的三档位置（断开、接1或接2）。"
+    ],
+    "confidence": 0.9,
+    "source": "image",
+    "verification": {
+      "mode": "visual-inventory",
+      "status": "review",
+      "topologyMatched": false,
+      "inventoryMatched": true,
+      "topologyGuard": "not-applicable",
+      "checkedSwitches": 0,
+      "pixelCheckedSwitches": 0
+    }
+  }
+}

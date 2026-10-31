@@ -1,7 +1,7 @@
 import type {CircuitDocument,Component} from './schema';
 
 export type Point={x:number;y:number};
-export type Placement={id:string;x:number;y:number;vertical:boolean;reversed:boolean;terminalA:Point;terminalB:Point;escapeA:Point;escapeB:Point};
+export type Placement={id:string;x:number;y:number;vertical:boolean;reversed:boolean;terminalA:Point;terminalB:Point;escapeA:Point;escapeB:Point;terminalC?:Point;escapeC?:Point};
 export type WireRoute={net:string;points:Point[];owner?:string};
 export type CircuitLayout={width:number;height:number;placements:Record<string,Placement>;wires:WireRoute[];junctions:(Point&{net:string})[];mode:'series-parallel'|'general';routingMs:number};
 type Tree={kind:'edge';a:string;b:string;component:Component}|{kind:'series'|'parallel';a:string;b:string;children:Tree[]};
@@ -54,7 +54,7 @@ function electricalNets(doc:CircuitDocument){
 function placement(c:Component,x:number,y:number,leftNet:string,root:(id:string)=>string):Placement{
  x=snap(x);y=snap(y);const reversed=root(c.a)!==leftNet;
  const left={x:x-65,y},right={x:x+65,y},escapeLeft={x:x-110,y},escapeRight={x:x+110,y};
- return {id:c.id,x,y,vertical:false,reversed,terminalA:reversed?right:left,terminalB:reversed?left:right,escapeA:reversed?escapeRight:escapeLeft,escapeB:reversed?escapeLeft:escapeRight};
+ return {id:c.id,x,y,vertical:false,reversed,terminalA:reversed?right:left,terminalB:reversed?left:right,escapeA:reversed?escapeRight:escapeLeft,escapeB:c.type==='spdt'?{x:x+110,y:y-30}:reversed?escapeLeft:escapeRight,...(c.type==='spdt'?{terminalB:{x:x+65,y:y-30},terminalC:{x:x+65,y:y+30},escapeC:{x:x+110,y:y+30}}:{})};
 }
 const collides=(a:Point,b:Point)=>Math.abs(a.x-b.x)<230&&Math.abs(a.y-b.y)<180;
 
@@ -76,7 +76,7 @@ function routeNets(doc:CircuitDocument,positions:Record<string,Placement>,root:(
  const all=Object.values(positions),index=(p:Point)=>Math.round(p.y/step)*nx+Math.round(p.x/step),point=(id:number):Point=>({x:(id%nx)*step,y:Math.floor(id/nx)*step});
  for(const p of all){for(let y=Math.max(1,Math.ceil((p.y-78)/step));y<=Math.min(ny-2,Math.floor((p.y+78)/step));y++)for(let x=Math.max(1,Math.ceil((p.x-90)/step));x<=Math.min(nx-2,Math.floor((p.x+90)/step));x++)blocked[y*nx+x]=1;}
  const nets=new Map<string,{terminal:Point;escape:Point;owner:string}[]>();
- for(const c of doc.components){const p=positions[c.id];if(!p)continue;for(const [net,terminal,escape] of [[root(c.a),p.terminalA,p.escapeA],[root(c.b),p.terminalB,p.escapeB]] as const)nets.set(net,[...(nets.get(net)??[]),{terminal,escape,owner:c.id}]);}
+ for(const c of doc.components){const p=positions[c.id];if(!p)continue;if(c.type==='spdt'&&c.terminals?.two&&p.terminalC&&p.escapeC)nets.set(root(c.terminals.two),[...(nets.get(root(c.terminals.two))??[]),{terminal:p.terminalC,escape:p.escapeC,owner:c.id}]);for(const [net,terminal,escape] of [[root(c.a),p.terminalA,p.escapeA],[root(c.b),p.terminalB,p.escapeB]] as const)nets.set(net,[...(nets.get(net)??[]),{terminal,escape,owner:c.id}]);}
  const wires:WireRoute[]=[],segmentsByNet=new Map<string,Set<string>>();let netNumber=0;
  const segmentKey=(a:number,b:number)=>a<b?`${a}:${b}`:`${b}:${a}`;
  const reserve=(cells:number[],net:string,number:number)=>{
@@ -125,7 +125,7 @@ function routeNets(doc:CircuitDocument,positions:Record<string,Placement>,root:(
 export function layoutCircuit(doc:CircuitDocument):CircuitLayout{
  const started=performance.now(),root=electricalNets(doc),components=doc.components.filter(c=>c.type!=='wire').sort((a,b)=>sortId(a.id,b.id));
  const source=components.find(c=>c.type==='source'),others=components.filter(c=>c!==source);
- const tree=source?decompose(others.map(component=>({kind:'edge',a:root(component.a),b:root(component.b),component})),root(source.a),root(source.b)):null;
+ const tree=source&&!components.some(c=>c.type==='spdt')?decompose(others.map(component=>({kind:'edge',a:root(component.a),b:root(component.b),component})),root(source.a),root(source.b)):null;
  let load=tree,tail:Extract<Tree,{kind:'edge'}>|undefined;
  if(load?.kind==='series'){const last=load.children.at(-1)!;if(last.kind==='edge'&&['switch','fuse'].includes(last.component.type)&&load.children.length>1){tail=last;const children=load.children.slice(0,-1);load=children.length===1?children[0]:combine('series',load.a,last.a,children);}}
  let width=1000,height=650;const positions:Record<string,Placement>={};
@@ -156,7 +156,7 @@ export function layoutCircuit(doc:CircuitDocument):CircuitLayout{
  return {width,height,placements:positions,...routes,mode:load?'series-parallel':'general',routingMs:performance.now()-started};
 }
 
-export function topologyKey(doc:CircuitDocument){return JSON.stringify(doc.components.map(c=>[c.id,c.type,c.a,c.b,c.positionSource==='manual'?c.position:null]).sort((a,b)=>sortId(String(a[0]),String(b[0]))));}
+export function topologyKey(doc:CircuitDocument){return JSON.stringify(doc.components.map(c=>[c.id,c.type,c.a,c.b,c.terminals,c.positionSource==='manual'?c.position:null]).sort((a,b)=>sortId(String(a[0]),String(b[0]))));}
 export function pathData(points:Point[]){return points.map((p,i)=>`${i?'L':'M'}${p.x} ${p.y}`).join(' ');}
 export function wireEntersOtherSymbol(route:WireRoute,placements:Record<string,Placement>){
  return Object.values(placements).some(p=>p.id!==route.owner&&route.points.some((a,i)=>{if(!i)return false;const b=route.points[i-1];if(a.x===b.x)return Math.abs(a.x-p.x)<90&&Math.max(a.y,b.y)>p.y-78&&Math.min(a.y,b.y)<p.y+78;if(a.y===b.y)return Math.abs(a.y-p.y)<78&&Math.max(a.x,b.x)>p.x-90&&Math.min(a.x,b.x)<p.x+90;return true;}));

@@ -14,6 +14,14 @@ export function linearSolve(a:number[][],b:number[]):number[]{
  return m.map(r=>r[n]);
 }
 export function solve(input:CircuitDocument):Solution{
+ if(input.components.some(c=>c.type==='spdt')){
+  if(input.components.some(c=>c.type==='spdt'&&(c.parameters?.throw===undefined||!c.terminals?.two||c.stateSource==='uncertain')))return fail('请先确认双掷开关的位置：断开、接1或接2。');
+  const spdt=input.components.filter(c=>c.type==='spdt'),expanded=structuredClone(input);let i=1;
+  expanded.components=expanded.components.filter(c=>c.type!=='spdt');
+  for(const c of spdt)for(const [which,node] of [[1,c.b],[2,c.terminals!.two]] as const){while(expanded.components.some(x=>x.id==='SW_aux'+i))i++;expanded.components.push({...c,id:'SW_aux'+i++,type:'switch',terminals:undefined,closed:c.parameters!.throw===which,b:node});}
+  const s=solve(expanded);if(s.ok)for(const c of spdt)s.readings[c.id]={voltage:null,current:null,power:null};return s;
+ }
+
  if(input.components.some(c=>c.unitUncertain))return fail('单位待确认，请在元件属性中更正后计算。');
  if(input.components.some(c=>c.terminals&&Object.keys(c.terminals).length>2))return fail('多端元件已保留端子，当前求解器仅支持两端等效模式。');
  if(input.components.some(c=>['led','diode'].includes(c.type)))return diodeSolve(input);
