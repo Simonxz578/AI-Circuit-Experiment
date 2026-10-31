@@ -1,3 +1,4 @@
+import {answerCircuit,asksToSolve,asksToFill} from '../../src/circuit/answer';
 import {CircuitSchema,type CircuitDocument} from '../../src/circuit/schema';
 import {normalizeRecognition,normalizeVisualInventory,type VisualInventory} from '../../src/circuit/recognition';
 import {solve} from '../../src/circuit/solver';
@@ -8,7 +9,7 @@ import type {ContactRaster,ContactCandidate,ContactRegion} from '../../src/circu
 
 export type Progress={stage:string;attempt:number};
 export type Outcome={status:number;body:Record<string,unknown>};
-type Options={key:string;text:string;image?:string;imageDetail?:string;diagramImage?:string;diagramRegion?:ContactRegion;knownInventory?:VisualInventory;contactRaster?:ContactRaster;contactCandidates?:ContactCandidate[];document?:CircuitDocument;requestId:string;signal?:AbortSignal;consume:()=>Promise<boolean>;onProgress?:(progress:Progress)=>void;onCandidates?:(primary:CircuitDocument|null,audit:VisualInventory|null,reviewer?:CircuitDocument|VisualInventory|null)=>void};
+type Options={key:string;text:string;problemText?:string;image?:string;imageDetail?:string;diagramImage?:string;diagramRegion?:ContactRegion;knownInventory?:VisualInventory;contactRaster?:ContactRaster;contactCandidates?:ContactCandidate[];document?:CircuitDocument;requestId:string;signal?:AbortSignal;consume:()=>Promise<boolean>;onProgress?:(progress:Progress)=>void;onCandidates?:(primary:CircuitDocument|null,audit:VisualInventory|null,reviewer?:CircuitDocument|VisualInventory|null)=>void};
 const failure=(code:string,error:string,status:number,requestId:string,retryable=false):Outcome=>({status,body:{code,error,requestId,retryable}});
 const messages:Record<string,{status:number;text:string}>={
  TIMEOUT:{status:504,text:'识别等待超时。图片已保留，请点击重试；这不表示电路过于复杂。'},
@@ -29,7 +30,7 @@ async function runSingleInference(options:Options&{inventoryAudit?:boolean;maxAt
   if(signal?.aborted)return failure('CANCELLED','已取消本次识别。',499,requestId);
   if(attempt===2){if(Date.now()-start>110000)break;if(!await options.consume())break;}
   onProgress?.({stage:attempt===1?(chat?'正在结合当前电路处理问题':'正在识别元件与节点连接'):'首轮结果未完整通过核验，正在自动恢复一次',attempt});
-  const content:unknown[]=[{type:'text',text:chat?JSON.stringify({request:text,currentCircuit:{measurements:document.measurements,title:document.title,nodes:document.nodes.map(n=>n.id),components:document.components.map(({id,type,a,b,value,closed,parameters,terminals})=>({id,type,a,b,value,closed,parameters,terminals}))},solver:solve(document)}):text||'提取这张图的实际电路拓扑。开关断开和未知参数都正常保留，不需要计算题目答案。'}];
+  const content:unknown[]=[{type:'text',text:chat?JSON.stringify({request:text,originalProblemText:options.problemText??document.problemText,currentCircuit:{measurements:document.measurements,title:document.title,nodes:document.nodes.map(n=>n.id),components:document.components.map(({id,type,a,b,value,closed,parameters,terminals})=>({id,type,a,b,value,closed,parameters,terminals}))},solver:solve(document)}):text||'提取这张图的实际电路拓扑。开关断开和未知参数都正常保留，不需要计算题目答案。'}];
   const cropped=!chat&&!options.inventoryAudit&&!!options.diagramImage&&!!options.diagramRegion;
   if(image)content.push({type:'image_url',image_url:{url:cropped?options.diagramImage!:image,detail:'high'}});
   if(options.knownInventory&&!options.inventoryAudit)content.push({type:'text',text:'完整原题中独立读取的元件标号与明确给定参数（null保持未知；这不是计算结果，不包含题干后续开关操作）。请按图核对元件并保留这些值，只追踪实际端子与回线：'+JSON.stringify(options.knownInventory.components.map(({id,type,value,labelVisible,parameters,rawValue,rawUnit})=>({id,type,value,labelVisible,parameters,rawValue,rawUnit})))});
@@ -92,6 +93,22 @@ async function runSingleInference(options:Options&{inventoryAudit?:boolean;maxAt
 }
 
 export async function runInference(options:Options):Promise<Outcome>{
+ if(options.document&&asksToSolve(options.text)){
+  let doc=options.document,result=answerCircuit(doc);
+  if(options.image&&(!result.document||doc.components.some(c=>c.valueSource==='user'))){
+   const extracted=await runSingleInference({...options,document:undefined,text:'只提取原题的明确元件参数、已知测量及对应开关条件；待求量留空，不计算答案。'+(options.problemText??''),inventoryAudit:true,fast:true,maxAttempts:1});
+   const inventory=extracted.body.inventory as VisualInventory|undefined;
+   if(inventory?.measurements?.length){
+    const conflicts=inventory.components.filter(c=>c.value!==null).some(c=>{const current=doc.components.find(v=>v.id===c.id);return current&&current.value!==null&&Math.abs(current.value-c.value!)>1e-8;});
+    if(conflicts)return {status:200,body:{reply:'当前参数与原题给定值不同。请先恢复原题参数，再让我按原题解答。',document:null,autoApply:false,requestId:options.requestId}};
+    const valid=inventory.measurements.filter(m=>doc.components.some(c=>c.id===m.targetId)&&Object.keys(m.conditions).every(id=>doc.components.some(c=>c.id===id&&c.type==='switch')));
+    doc=CircuitSchema.parse({...doc,measurements:[...doc.measurements,...valid.filter(m=>!doc.measurements.some(v=>v.id===m.id))],components:doc.components.map(c=>{const given=inventory.components.find(v=>v.id===c.id&&v.type===c.type);return c.value===null&&given?.value!=null?{...c,value:given.value,valueSource:'given'}:asksToFill(options.text)&&c.valueSource==='user'&&given?.value===null&&['source','resistor','rheostat'].includes(c.type)?{...c,value:null,valueSource:'unknown'}:c;})});result=answerCircuit(doc);
+   }
+  }
+  const fill=asksToFill(options.text);
+  return {status:200,body:{reply:result.reply+(result.document&&fill?' 已填入右侧，可继续调参。':result.document?' 如需填入，请说“帮我解题并填入答案”。':''),document:fill?result.document:null,autoApply:!!result.document&&fill,requestId:options.requestId}};
+ }
+
  if(!options.image||options.document)return runSingleInference(options);
  const started=Date.now();let calls=1;
  const reserve=async()=>{if(calls>=3||options.signal?.aborted)return false;calls++;return options.consume();};

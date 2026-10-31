@@ -46,12 +46,12 @@ export async function requestApi(path:string,body:unknown,signal?:AbortSignal,on
  }
 }
 export async function parseCircuit(text:string,image:string|undefined,signal:AbortSignal,onProgress?:(p:ApiProgress)=>void,options?:{force?:boolean}){
- const key=await recognitionKey(text,image);if(signal.aborted)throw new DOMException('Cancelled','AbortError');
+ const visionPromise=image?prepareVisionInput(image):Promise.resolve({});const key=await recognitionKey(text,image);if(signal.aborted)throw new DOMException('Cancelled','AbortError');
  if(!options?.force){const cached=recognitionCache.get(key);if(cached){onProgress?.({stage:'复用本次已核验的识别结果，正在规整电路',attempt:0});return cached;}}
- const vision=image?await prepareVisionInput(image):{};if(signal.aborted)throw new DOMException('Cancelled','AbortError');
+ const vision=await visionPromise;if(signal.aborted)throw new DOMException('Cancelled','AbortError');
  const r=await requestApi('parse',{text,image,...vision},signal,onProgress),parsed=CircuitSchema.safeParse(r.document);
  if(!parsed.success)throw new ApiError('识别结果未通过本地连接核验，当前实验已保留，请重试。','INVALID_GRAPH',422);
  const result={document:parsed.data,durationMs:r.durationMs as number,model:r.model as string,cached:false};recognitionCache.put(key,result);return result;
 }
-export async function askCoach(text:string,document:CircuitDocument,signal:AbortSignal){const r=await requestApi('chat',{text,document},signal);return {reply:r.reply as string,document:r.document?CircuitSchema.parse(r.document):null};}
+export async function askCoach(text:string,document:CircuitDocument,signal:AbortSignal,context?:{image?:string;problemText?:string}){const r=await requestApi('chat',{text,document,...(context?.problemText?{problemText:context.problemText}:{}),...(/解题|做题|计算|算出|求解|答案/.test(text)&&context?.image?{image:context.image}:{})},signal);return {reply:r.reply as string,autoApply:r.autoApply===true,document:r.document?CircuitSchema.parse(r.document):null};}
 export async function health(){try{const r=await fetch(`${base}/api/health`,{signal:AbortSignal.timeout(5000)});return r.ok&&((await r.json()) as {ai:boolean}).ai;}catch{return false;}}

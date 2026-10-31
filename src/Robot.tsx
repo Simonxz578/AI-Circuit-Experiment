@@ -1,5 +1,5 @@
 export function Robot({className='',working=false}:{className?:string;working?:boolean}){
- return <svg className={`robot ${working?'robot-working':''} ${className}`} viewBox="0 0 100 110" fill="none" aria-hidden="true" data-charging={working?'true':'false'}>
+ return <svg className={`robot ${working?'robot-working':''} ${className}`} viewBox="4 1 92 106" fill="none" aria-hidden="true" data-charging={working?'true':'false'}>
   <ellipse cx="50" cy="103" rx="29" ry="4" fill="#000" opacity=".16"/>
   <g className="robot-charge-energy"><path d="M12 50Q8 29 28 16M88 50Q92 29 72 16" stroke="white" strokeWidth="1.5" strokeDasharray="3 6"/><path d="m15 30 5-8-1 6h5l-7 9 2-7M79 30l5-8-1 6h5l-7 9 2-7" fill="white"/></g>
   <g className="robot-body">

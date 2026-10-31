@@ -2,7 +2,7 @@ import {findDiagramRegion,contactDetailRegion} from './circuit/vision';
 import {contactRaster,contactCandidates,type ContactRaster,type ContactCandidate} from './circuit/contactVision';
 
 /** The original stays visible; only a temporary detail image is sent for independent visual checking. */
-export async function prepareVisionInput(image:string):Promise<{imageDetail?:string;diagramImage?:string;diagramRegion?:{x:number;y:number;width:number;height:number};contactRaster?:ContactRaster;contactCandidates?:ContactCandidate[]}>{
+async function computeVisionInput(image:string):Promise<{imageDetail?:string;diagramImage?:string;diagramRegion?:{x:number;y:number;width:number;height:number};contactRaster?:ContactRaster;contactCandidates?:ContactCandidate[]}>{
  try{
   const img=new Image();img.src=image;await img.decode();const scale=Math.min(1,1200/Math.max(img.naturalWidth,img.naturalHeight));
   const canvas=document.createElement('canvas');canvas.width=Math.round(img.naturalWidth*scale);canvas.height=Math.round(img.naturalHeight*scale);const ctx=canvas.getContext('2d',{willReadFrequently:true});if(!ctx)return {};
@@ -12,3 +12,7 @@ export async function prepareVisionInput(image:string):Promise<{imageDetail?:str
   return {...result,diagramImage,diagramRegion,imageDetail:image.length+(detail?.length??0)+(diagramImage?.length??0)+raster.bits.length<3_900_000?detail:undefined};
  }catch{return {};}
 }
+
+// Only the last image is kept in page memory. Pixels and verification output are unchanged.
+let preparedImage:string|undefined,prepared:ReturnType<typeof computeVisionInput>|undefined;
+export function prepareVisionInput(image:string){if(image!==preparedImage||!prepared){preparedImage=image;prepared=computeVisionInput(image);}return prepared;}
