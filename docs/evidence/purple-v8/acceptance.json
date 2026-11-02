@@ -1,0 +1,110 @@
+{
+  "scope": "Targeted real-provider examples, then offline replay under final deterministic normalization and consensus. No population accuracy or guaranteed latency claim.",
+  "checkedAt": "2026-11-02T15:57:16.129Z",
+  "finalMode": "Original high-detail imagery; independent inventory plus two reasoned topology traces; bounded targeted recovery.",
+  "recognitionReplay": {
+    "cases": 6,
+    "passed": 6,
+    "newProviderCallsDuringReplay": 0,
+    "automaticAcceptance": 4,
+    "results": [
+      {
+        "id": "user-original",
+        "passed": true,
+        "problems": [],
+        "verification": {
+          "mode": "independent-vision",
+          "status": "matched",
+          "topologyMatched": true,
+          "inventoryMatched": true,
+          "topologyGuard": "passed",
+          "checkedSwitches": 2,
+          "pixelCheckedSwitches": 2
+        }
+      },
+      {
+        "id": "spdt",
+        "passed": true,
+        "problems": [],
+        "verification": {
+          "mode": "independent-vision",
+          "status": "review",
+          "topologyMatched": true,
+          "inventoryMatched": true,
+          "topologyGuard": "not-applicable",
+          "checkedSwitches": 0,
+          "pixelCheckedSwitches": 0
+        }
+      },
+      {
+        "id": "ammeter-voltmeter",
+        "passed": true,
+        "problems": [],
+        "verification": {
+          "mode": "independent-vision",
+          "status": "matched",
+          "topologyMatched": true,
+          "inventoryMatched": true,
+          "topologyGuard": "passed",
+          "checkedSwitches": 1,
+          "pixelCheckedSwitches": 1
+        }
+      },
+      {
+        "id": "crossing-no-junction",
+        "passed": true,
+        "problems": [],
+        "verification": {
+          "mode": "independent-vision",
+          "status": "matched",
+          "topologyMatched": true,
+          "inventoryMatched": true,
+          "topologyGuard": "passed",
+          "checkedSwitches": 0,
+          "pixelCheckedSwitches": 0
+        }
+      },
+      {
+        "id": "led-meter",
+        "passed": true,
+        "problems": [],
+        "verification": {
+          "mode": "independent-vision",
+          "status": "review",
+          "topologyMatched": true,
+          "inventoryMatched": true,
+          "topologyGuard": "not-applicable",
+          "checkedSwitches": 0,
+          "pixelCheckedSwitches": 0
+        }
+      },
+      {
+        "id": "cap-kohm",
+        "passed": true,
+        "problems": [],
+        "verification": {
+          "mode": "independent-vision",
+          "status": "matched",
+          "topologyMatched": true,
+          "inventoryMatched": true,
+          "topologyGuard": "not-applicable",
+          "checkedSwitches": 0,
+          "pixelCheckedSwitches": 0
+        }
+      }
+    ]
+  },
+  "latencyReference": {
+    "sameFourCases": 4,
+    "serialBaselineMeanMs": 22965,
+    "parallelReasonedMeanMs": 24364,
+    "note": "The parallel reasoned trial improves independent verification, but this small test did not establish a speed improvement. Faster direct tracing was rejected after battery polarity errors."
+  },
+  "localChecks": {
+    "unitTests": 244,
+    "desktopMobileInteractions": 10,
+    "frontendBuild": "passed",
+    "workerTypecheck": "passed"
+  },
+  "coach": "Four targeted original-reading, follow-up, checking and no-fill cases passed; raw conversations remain private."
+}

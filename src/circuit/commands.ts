@@ -4,6 +4,8 @@ import {applyOperations} from './operations';
 import {solve} from './solver';
 export type CommandResult={reply:string;preview?:boolean;document?:CircuitDocument};
 export function localCommand(doc:CircuitDocument,text:string):CommandResult|null{
+ // Reported values inside a question or prohibition are evidence to discuss, not edit commands.
+ if(/读题|读图|读取|提取|识别|原图|题干|题目给|核对|检查|验证|对不对|是否正确|算得对|告诉我|解释|说明/.test(text)||/(?:不要|不用|无需|不必|别|暂不|先别|不)[^，,。；;！!]{0,16}(?:改|设|调|填|代入|添加|加上|删除|移除|断开|闭合|打开|关闭|合上)/.test(text))return null;
  if(!/[?？]|为什么|假如|如果|是否|对吗/.test(text)){
   const matches=[...text.matchAll(/([A-Za-z][A-Za-z0-9_-]*|电源|电压|LED)\s*(?:=|是|为|算出(?:来)?(?:是)?|改成|设为|改为)\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+)\s*(?:[kMmμµu]?Ω|千欧姆?|欧姆?|[mμµu]?[VA]|伏特?|毫安|安培|[uμµnm]?F)?)/g)];
   if(matches.length){try{let next=doc;for(const match of matches){const c=next.components.find(c=>c.id.toLowerCase()===match[1].toLowerCase())??(['电源','电压'].includes(match[1])&&next.components.filter(c=>c.type==='source').length===1?next.components.find(c=>c.type==='source'):undefined)??(match[1]==='LED'&&next.components.filter(c=>c.type==='led').length===1?next.components.find(c=>c.type==='led'):undefined);if(!c)return {reply:`没有找到 ${match[1]}，请使用电路图上的编号。`};const unit=c.type==='ammeter'?'current':['source','voltmeter','led','diode'].includes(c.type)?'voltage':['capacitor','polar_capacitor'].includes(c.type)?'capacitance':'resistance';const n=parseQuantity(match[2].replace('毫安','mA').replace('安培','A'),unit);

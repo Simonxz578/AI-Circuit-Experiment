@@ -1,5 +1,6 @@
 import {DurableObject} from 'cloudflare:workers';
 import {CircuitSchema,StateObservationSchema} from '../../src/circuit/schema';
+import {sanitizeCoachHistory} from '../../src/circuit/coachContext';
 import {runInference} from './inference';
 import {streamInference} from './transport';
 import {validContactRaster,validContactCandidates} from '../../src/circuit/contactVision';
@@ -26,7 +27,7 @@ export default {async fetch(request:Request,env:Env):Promise<Response>{
  if(allowed)headers['Access-Control-Allow-Origin']=origin;
  const json=(body:unknown,status=200)=>new Response(JSON.stringify(body),{status,headers});const path=new URL(request.url).pathname;
  if(request.method==='OPTIONS')return allowed?new Response(null,{status:204,headers:{...headers,'Access-Control-Allow-Methods':'POST,GET,OPTIONS','Access-Control-Allow-Headers':'Content-Type','Access-Control-Max-Age':'600'}}):json({error:'此来源未获允许。'},403);
- if(path==='/api/health'&&request.method==='GET')return json({status:'ok',ai:!!env.DEEPSEEK_API_KEY&&env.AI_ENABLED==='true',model:'deepseek-flash',scope:'linear-dc',configured:!!env.DEEPSEEK_API_KEY,version:'workspace-v7',appRateLimit:false});
+ if(path==='/api/health'&&request.method==='GET')return json({status:'ok',ai:!!env.DEEPSEEK_API_KEY&&env.AI_ENABLED==='true',model:'deepseek-flash',scope:'linear-dc',configured:!!env.DEEPSEEK_API_KEY,version:'purple-v8',appRateLimit:false});
  if(!['/api/parse','/api/chat'].includes(path))return json({error:'接口不存在。'},404);
  if(request.method!=='POST')return json({error:'请使用 POST 请求。'},405);
  if(!allowed)return json({error:'此来源未获允许。'},403);
@@ -46,7 +47,7 @@ export default {async fetch(request:Request,env:Env):Promise<Response>{
  const chat=path==='/api/chat';let doc;
  if(chat){const parsed=CircuitSchema.safeParse(body.document);if(!parsed.success)return json({error:'当前电路数据不完整，请重新选择实验。'},400);doc=parsed.data;}
  try{
-  const options={key:env.DEEPSEEK_API_KEY,text,problemText:typeof body.problemText==='string'?body.problemText.slice(0,4000):undefined,image:typeof image==='string'?image:undefined,imageDetail:typeof imageDetail==='string'?imageDetail:undefined,diagramImage:typeof body.diagramImage==='string'?body.diagramImage:undefined,diagramRegion:diagramRegion.success?diagramRegion.data:undefined,contactRaster:validContactRaster(raster)?raster:undefined,contactCandidates:validContactCandidates(body.contactCandidates)?body.contactCandidates:undefined,document:doc,requestId,consume:async()=>true};
+  const options={key:env.DEEPSEEK_API_KEY,text,problemText:typeof body.problemText==='string'?body.problemText.slice(0,4000):undefined,image:typeof image==='string'?image:undefined,imageDetail:typeof imageDetail==='string'?imageDetail:undefined,diagramImage:typeof body.diagramImage==='string'?body.diagramImage:undefined,diagramRegion:diagramRegion.success?diagramRegion.data:undefined,contactRaster:validContactRaster(raster)?raster:undefined,contactCandidates:validContactCandidates(body.contactCandidates)?body.contactCandidates:undefined,document:doc,history:sanitizeCoachHistory(body.history),selectedId:typeof body.selectedId==='string'&&doc?.components.some(c=>c.id===body.selectedId)?body.selectedId:undefined,needsReview:body.needsReview===true,requestId,consume:async()=>true};
   if(request.headers.get('Accept')?.includes('application/x-ndjson'))return streamInference((onProgress,signal)=>runInference({...options,onProgress,signal}),headers,requestId);
   const outcome=await runInference({...options,signal:request.signal});return json(outcome.body,outcome.status);
  }catch{

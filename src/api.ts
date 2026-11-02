@@ -1,6 +1,7 @@
 import {CircuitSchema,type CircuitDocument} from './circuit/schema';
 import {RecognitionCache,recognitionKey} from './circuit/recognitionCache';
 import {prepareVisionInput} from './imageDetail';
+import {coachNeedsImage,sanitizeCoachHistory,type CoachTurn} from './circuit/coachContext';
 const recognitionCache=new RecognitionCache();
 const base=import.meta.env.VITE_API_URL??'';
 export type ApiProgress={stage:string;attempt:number};
@@ -53,5 +54,5 @@ export async function parseCircuit(text:string,image:string|undefined,signal:Abo
  if(!parsed.success)throw new ApiError('识别结果未通过本地连接核验，当前实验已保留，请重试。','INVALID_GRAPH',422);
  const result={document:parsed.data,durationMs:r.durationMs as number,model:r.model as string,cached:false};recognitionCache.put(key,result);return result;
 }
-export async function askCoach(text:string,document:CircuitDocument,signal:AbortSignal,context?:{image?:string;problemText?:string}){const r=await requestApi('chat',{text,document,...(context?.problemText?{problemText:context.problemText}:{}),...(/解题|做题|计算|算出|求解|答案/.test(text)&&context?.image?{image:context.image}:{})},signal);return {reply:r.reply as string,autoApply:r.autoApply===true,document:r.document?CircuitSchema.parse(r.document):null};}
+export async function askCoach(text:string,document:CircuitDocument,signal:AbortSignal,context?:{image?:string;problemText?:string;history?:CoachTurn[];selectedId?:string;needsReview?:boolean}){const history=sanitizeCoachHistory(context?.history);const r=await requestApi('chat',{text,document,history,...(context?.problemText?{problemText:context.problemText}:{}),...(context?.selectedId&&document.components.some(c=>c.id===context.selectedId)?{selectedId:context.selectedId}:{}),...(context?.needsReview?{needsReview:true}:{}),...(coachNeedsImage(text,history)&&context?.image?{image:context.image}:{})},signal);return {reply:r.reply as string,autoApply:r.autoApply===true,document:r.document?CircuitSchema.parse(r.document):null};}
 export async function health(){try{const r=await fetch(`${base}/api/health`,{signal:AbortSignal.timeout(5000)});return r.ok&&((await r.json()) as {ai:boolean}).ai;}catch{return false;}}

@@ -11,7 +11,7 @@ export const ComponentSchema=z.object({
  initialThrow:z.number().int().min(0).max(2).optional(),parameters:z.record(z.string(),z.number().finite()).optional(),rawValue:z.string().max(80).optional(),rawUnit:z.string().max(30).optional(),unitUncertain:z.boolean().optional(),quantityKind:z.enum(quantities).optional(),terminals:z.record(z.string(),z.string()).optional(),
  closed:z.boolean().default(true),position:z.object({x:z.number().min(60).max(10000),y:z.number().min(60).max(10000)}).optional(),positionSource:z.enum(['recognition','manual']).optional(),
  confidence:z.number().min(0).max(1).default(1),evidence:z.string().max(500).default(''),
- stateObservation:StateObservationSchema.optional(),stateSource:z.enum(['diagram','text','uncertain','user']).optional(),initialClosed:z.boolean().optional(),labelVisible:z.boolean().optional(),candidateIndex:z.number().int().min(0).max(39).optional()
+ stateObservation:StateObservationSchema.optional(),stateSource:z.enum(['diagram','text','uncertain','user']).optional(),initialClosed:z.boolean().optional(),labelVisible:z.boolean().optional(),visibleLabel:z.string().max(40).nullable().optional(),candidateIndex:z.number().int().min(0).max(39).optional()
 });
 export const CircuitSchema=z.object({
  measurements:z.array(MeasurementSchema).max(40).default([]),

@@ -1,3 +1,5 @@
+> Purple V8: supplied amethyst presentation, bounded coach conversation/source context, and independently cross-checked circuit recognition. Validation and limitations: [docs/PURPLE_V8.md](docs/PURPLE_V8.md).
+
 > V7：按需解题并填入已核对的答案、点击元件聚焦填写、空数值框和机器人自我介绍，见[说明](docs/WORKSPACE_V7.md)。
 
 > 2026-10-31：新增单屏工作区、流畅输入/滑条、可填写的电表计算结果、识别后聊天填值引导及双掷开关三档。见[本轮说明](docs/WORKSPACE_V6.md)。

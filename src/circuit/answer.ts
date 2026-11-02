@@ -1,6 +1,16 @@
 import {CircuitSchema,type CircuitDocument} from './schema';import {solve,linearSolve} from './solver';
-export const asksToSolve=(text:string)=>!/不要.*(?:解题|做题|计算)|别.*(?:解题|做题)/.test(text)&&/解题|做题|求解|算出.*答案|(?:帮我|帮忙|帮我先|你帮我).*?(?:计算|算)|计算.*(?:未知|答案|阻值|电源)/.test(text);
-export const asksToFill=(text:string)=>/填|代入|做题|解题/.test(text)&&!/(?:不要|别).*?(?:填|代入)/.test(text);
+const intentClauses=(text:string)=>text.split(/[，,。；;！!\n]/).map(s=>s.trim()).filter(Boolean);
+const solveIntent=/解题|解(?:一?下)?(?:这|那)?(?:一)?道?题|做题|求解|算出.*(?:答案|结果|阻值|电压|电流)|(?:帮我|帮忙|请|替我|你帮我).*?(?:计算|算)|计算.*(?:未知|答案|阻值|电源)|算(?:一?下|一下)?(?:这道?题)/;
+const negation='(?:不要|不用|无需|不必|不需要|不希望|不能|别|暂不|先别|不|没必要)';
+const negatedIntent=(clause:string,verb:string)=>new RegExp(negation+'(?:帮我|帮忙|替我|给我|你|您|我|先|再|直接|自动|继续|马上|现在|重新|急着|擅自|\\s)*(?:'+verb+')').test(clause);
+const fillQuestion=(clause:string)=>/需要(?:填|填写|填入).*?(?:哪些|什么)|(?:怎么|如何|怎样|应该|应当).{0,6}(?:填|代入|写入)|(?:填|填写|填入).{0,6}(?:什么|哪些|哪个|得对|对吗|正确吗|对不对)/.test(clause);
+export const asksToSolve=(text:string)=>{
+ const clauses=intentClauses(text),denied=clauses.some(clause=>negatedIntent(clause,'解题|解(?:一?下)?(?:这|那)?(?:一)?道?题|做题|求解|计算|算'));
+ if(denied||/核对|检查|验证|算得对|是否正确|对不对/.test(text)&&!/解题|解(?:一?下)?(?:这|那)?(?:一)?道?题|做题|求解/.test(text))return false;
+ const explicit=clauses.some(clause=>solveIntent.test(clause)&&!fillQuestion(clause)&&!/解.{0,8}题(?:的)?(?:思路|方法)|(?:怎么|如何)(?:来|才能)?解.{0,8}题/.test(clause));
+ return explicit||asksToFill(text)&&/(?:答案|结果|数值|阻值|电压|电流|电源|[A-Za-z]\d)/.test(text);
+};
+export const asksToFill=(text:string)=>intentClauses(text).some(clause=>(/(?:填入|填上|填写|填好|填进去|填到|代入|写入)/.test(clause)||/填\s*(?:[A-Za-z][A-Za-z0-9_-]*|答案|结果|数值|阻值|电压|电流|电源)/.test(clause))&&!fillQuestion(clause)&&!/(?:待填写|待填入|需要填哪些|要填哪些|哪些.*(?:填写|填入))/.test(clause)&&!/^(?:我|由我|让我)(?:自己|来)?(?:填|代入|写入)/.test(clause)&&!negatedIntent(clause,'填|代入|写入'));
 /** Inverse MNA: only explicit independent measurements constrain missing parameters. Never changes initial switches. */
 export function answerCircuit(doc:CircuitDocument):{document?:CircuitDocument;reply:string}{
  if(doc.components.some(c=>c.unitUncertain||c.stateSource==='uncertain'))return {reply:'请先确认图中不清楚的单位或开关初态，我再计算。'};

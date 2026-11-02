@@ -1,4 +1,4 @@
-import {afterEach,describe,it,expect,vi} from 'vitest';import {decodeResponse,requestApi} from './api';
+import {afterEach,describe,it,expect,vi} from 'vitest';import {askCoach,decodeResponse,requestApi} from './api';import {examples} from './circuit/examples';
 afterEach(()=>{vi.restoreAllMocks();vi.useRealTimers();});
 function stream(lines:unknown[]){return new Response(lines.map(x=>JSON.stringify(x)).join('\n')+'\n',{headers:{'Content-Type':'application/x-ndjson'}});}
 describe('streamed recognition',()=>{
@@ -12,4 +12,8 @@ describe('streamed recognition',()=>{
   vi.spyOn(globalThis,'fetch').mockImplementation(async(_url,init)=>new Promise((resolve,reject)=>{const timer=setTimeout(()=>resolve(stream([{type:'result',data:{ok:true}}])),70000);init?.signal?.addEventListener('abort',()=>{clearTimeout(timer);reject(init.signal!.reason);},{once:true});}));
   const result=requestApi('parse',{text:'双开关电路'});await vi.advanceTimersByTimeAsync(70001);await expect(result).resolves.toEqual({ok:true});
  });
+});
+describe('coach request context',()=>{
+ it('sends the original image, prior conversation, selected component and candidate review state for reading questions',async()=>{let sent:any;vi.spyOn(globalThis,'fetch').mockImplementation(async(_url,init)=>{sent=JSON.parse(String(init?.body));return Response.json({reply:'原图R1=30Ω',document:null});});const controller=new AbortController();await askCoach('重新读一下原图条件',examples[0],controller.signal,{image:'data:image/png;base64,original',problemText:'原题条件',history:[{role:'user',text:'这个电阻读错了'}],selectedId:'R1',needsReview:true});expect(sent.image).toBe('data:image/png;base64,original');expect(sent.problemText).toBe('原题条件');expect(sent.history).toEqual([{role:'user',text:'这个电阻读错了'}]);expect(sent.selectedId).toBe('R1');expect(sent.needsReview).toBe(true);});
+ it('omits the original from a normal current-circuit explanation and rejects a stale selected id',async()=>{let sent:any;vi.spyOn(globalThis,'fetch').mockImplementation(async(_url,init)=>{sent=JSON.parse(String(init?.body));return Response.json({reply:'当前按串联连接计算。',document:null});});await askCoach('为什么串联电流相同',examples[0],new AbortController().signal,{image:'data:image/png;base64,original',selectedId:'deleted'});expect(sent.image).toBeUndefined();expect(sent.selectedId).toBeUndefined();expect(sent.history).toEqual([]);});
 });

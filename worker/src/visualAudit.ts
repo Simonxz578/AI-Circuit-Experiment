@@ -7,7 +7,7 @@ import {solve} from '../../src/circuit/solver';
 export function electricalFingerprint(doc:CircuitDocument):string{
  const parent=new Map(doc.nodes.map(n=>[n.id,n.id]));const root=(n:string):string=>parent.get(n)===n?n:root(parent.get(n)!);
  for(const c of doc.components)if(c.type==='wire'){const a=root(c.a),b=root(c.b);if(a!==b)parent.set(a,b);}
- const groups=new Map<string,string[]>();for(const c of doc.components){if(c.type==='wire')continue;for(const terminal of ['a','b'] as const){const net=root(c[terminal]),polarity=['source','diode','ac_source'].includes(c.type)?'.'+terminal:'';groups.set(net,[...(groups.get(net)??[]),c.id+polarity]);}}
+ const groups=new Map<string,string[]>();for(const c of doc.components){if(c.type==='wire')continue;const terminals:Record<string,string>={a:c.a,b:c.b,...(c.terminals??{})};for(const [terminal,node] of Object.entries(terminals)){const net=root(node),polarity=['source','diode','led','polar_capacitor','zener','ac_source','spdt'].includes(c.type)||!!c.terminals?'.'+terminal:'';groups.set(net,[...(groups.get(net)??[]),c.id+polarity]);}}
  return JSON.stringify({components:doc.components.filter(c=>c.type!=='wire').map(c=>[c.id,c.type]).sort(),nodes:[...groups.values()].map(ports=>ports.sort().join('|')).sort()});
 }
 const observed=(c:Component|undefined)=>!!c&&c.type==='switch'&&c.stateObservation?.basis==='diagram'&&c.stateObservation.confidence>=.85&&((c.stateObservation.contact==='gap'&&!c.closed)||(c.stateObservation.contact==='touching'&&c.closed));
@@ -18,7 +18,7 @@ export function alignComponentIds(primary:CircuitDocument,audit:CircuitDocument)
  const target=primary.components.filter(c=>c.type!=='wire'),incoming=audit.components.filter(c=>c.type!=='wire');if(target.length!==incoming.length)return null;
  const wanted=electricalFingerprint(primary);let visited=0;
  for(const exactValues of [true,false]){
-  const candidates=new Map(incoming.map(c=>[c.id,target.filter(p=>p.type===c.type&&((c.labelVisible!==false||p.labelVisible!==false)?p.id===c.id:!exactValues||p.value===c.value)).sort((a,b)=>Number(b.value===c.value)-Number(a.value===c.value)||a.id.localeCompare(b.id))]));
+  const candidates=new Map(incoming.map(c=>[c.id,target.filter(p=>p.type===c.type&&(c.labelVisible!==false?p.id===c.id:!exactValues||p.value===c.value)).sort((a,b)=>Number(b.value===c.value)-Number(a.value===c.value)||a.id.localeCompare(b.id))]));
   const ordered=[...incoming].sort((a,b)=>candidates.get(a.id)!.length-candidates.get(b.id)!.length),mapped=new Map<string,string>(),used=new Set<string>();
   const search=(i:number):CircuitDocument|null=>{if(++visited>4000)return null;if(i===ordered.length){const result={...audit,components:audit.components.map(c=>({...c,id:mapped.get(c.id)??c.id}))};return electricalFingerprint(result)===wanted?result:null;}
    const c=ordered[i];for(const candidate of candidates.get(c.id)!){if(used.has(candidate.id))continue;used.add(candidate.id);mapped.set(c.id,candidate.id);const result=search(i+1);if(result)return result;used.delete(candidate.id);mapped.delete(c.id);}return null;};
@@ -75,7 +75,7 @@ export function reconcileVisualInventory(primary:CircuitDocument,inventory:Visua
  }
  let checkedSwitches=0,pixelCheckedSwitches=0;const resolved=new Set<string>();
  const components=primary.components.map(c=>{const other=matching.get(c.id);let next={...c,...(other?.parameters?{parameters:{...c.parameters,...other.parameters}}:{}),...(other?.rawValue?{rawValue:other.rawValue}:{}),...(other?.rawUnit?{rawUnit:other.rawUnit}:{}),unitUncertain:c.unitUncertain||other?.unitUncertain===true};
-  if(other&&['source','resistor','rheostat'].includes(c.type)&&c.value!==other.value){next={...next,value:null,valueSource:'unknown'};uncertainties.push(`【${c.id}参数】两次读取的独立数值不一致，保留待填写，请对照原题确认。`);}
+  if(other&&['source','resistor','rheostat','lamp','capacitor','polar_capacitor','thermistor','photoresistor','inductor','ac_source'].includes(c.type)&&(c.value===null||other.value===null?c.value!==other.value:Math.abs(c.value-other.value)>1e-8*Math.max(1e-12,Math.abs(c.value),Math.abs(other.value)))){next={...next,value:null,valueSource:'unknown'};uncertainties.push(`【${c.id}参数】两次读取的独立数值不一致，保留待填写，请对照原题确认。`);}
   if(c.type==='spdt'){next={...next,stateSource:'uncertain',initialThrow:c.parameters?.throw};uncertainties.push(`请对照原图确认 ${c.id} 的三档位置（断开、接1或接2）。`);}
   if(c.type==='switch'){const proof=proofs.get(c.id)!;if(proof.contact!=='unclear'&&!duplicate.has(c.id)){const closed=proof.contact==='touching';checkedSwitches++;if(raster)pixelCheckedSwitches++;resolved.add(c.id);next={...next,closed,initialClosed:closed,stateSource:'diagram',stateObservation:{...c.stateObservation,contact:proof.contact,basis:'diagram',confidence:.99}};}
    else{next={...next,closed:false,initialClosed:undefined,stateSource:'uncertain'};uncertainties.push(`【${c.id}初态】触点未完成一致核验，暂按断开显示；请对照原图点击开关确认。`);}}
@@ -91,5 +91,7 @@ export function reconcileVisualInventory(primary:CircuitDocument,inventory:Visua
   topologyGuard=result.ok&&result.totalCurrent!==null&&Math.abs(result.totalCurrent)<1e-10?'open-path':'passed';
  }
  const verified=CircuitSchema.parse({...candidate,uncertainties:topologyGuard==='open-path'?[...candidate.uncertainties,'即使接通图中开关，当前连接仍未形成电源回路，请对照原图核对回线与端子。'].slice(0,16):candidate.uncertainties,verification:{mode:'visual-inventory',status:!inventory?'unavailable':inventoryMatched&&!needsReview(candidate)&&topologyGuard!=='open-path'?'matched':'review',topologyMatched:false,inventoryMatched,topologyGuard,checkedSwitches,pixelCheckedSwitches}});
- return CircuitSchema.parse({...verified,measurements:inventory?.measurements?.length?inventory.measurements:verified.measurements});
+ const inventoryToGraph=new Map([...matching].map(([id,item])=>[item.id,id]));
+ const measurements=inventory?.measurements?.length?inventory.measurements.map(m=>({...m,targetId:inventoryToGraph.get(m.targetId)??m.targetId,conditions:Object.fromEntries(Object.entries(m.conditions).map(([id,state])=>[inventoryToGraph.get(id)??id,state]))})):verified.measurements;
+ return CircuitSchema.parse({...verified,measurements});
 }
